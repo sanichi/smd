@@ -1,1 +1,32 @@
 - set_meta_tags title: t("pages.index.title"), description: t("pages.index.description"), keywords: t("pages.index.keywords")
+
+%main
+  .row
+    .col-sm-5.p-5
+      %h4 Welcome to my Website
+      %p
+        I was born in the Scottish Borders and the colour and light from this area has always
+        been an inspiration to me. My initial work concentrated on images of Scottish life and
+        landscape that surrounded me. I look closely at the contours of the land, and I am
+        fascinated by the patterns of fields, hedges and pathways.
+      %p
+        As my work has developed I find inspiration from the detail of buildings, people's
+        lives and how they interact with their surroundings. Over recent years I have been
+        increasingly inspired by landscapes and townscapes in the Mediterranean. I find the
+        juxtaposition between the light in Scotland and that of Italy fascinating. Through
+        the use of colour I try to evoke a sense of the area whether it's the warmth and
+        light of the Mediterranean or the atmosphere of Scotland.
+      %p
+        Drawing and painting portraits has been a lifelong interest and I enjoy working in
+        all media to produce a likeness and a feeling of the personality of the subject.
+        I enjoy experimenting with media, mixing and layering, watercolour, acrylic and oil pastels.
+      %p
+        Please have a browse through the galleries. I have included works that are sold to show
+        the variety and range of my work. If you would like further details please contact me.
+      %p.text-center
+        = link_to "mailto:sandramary.orr@googlemail.com", target: "blanke" do
+          %img{src: "img/email.png", width: "40", height: "40", alt: "Email"}
+        = link_to "https://www.facebook.com/sandra.dickie.artist/" do
+          %img{src: "img/facebook.png", width: "40", height: "40", alt: "Facebook"}
+    .col-sm-7.p-5
+      %img.img-fluid{src: sample_work, alt: t("sample")}
