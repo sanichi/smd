@@ -4,4 +4,11 @@
     %span
   #navbar.collapse.navbar-collapse
     %ul.left
-      %li= link_to t("pages.note.title"), note_path
+      %li.dropdown
+        = link_to t("galleries"), "#", class: "dropdown-toggle", "data-toggle" => "dropdown"
+        .dropdown-menu
+          = link_to t("pages.gallery1.title"), gallery1_path
+          = link_to t("pages.gallery2.title"), gallery2_path
+          = link_to t("pages.gallery3.title"), gallery3_path
+          = link_to t("pages.gallery4.title"), gallery4_path
+      %li= link_to t("pages.exhibitions.title"), exhibitions_path
