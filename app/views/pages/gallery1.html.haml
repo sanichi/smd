@@ -1,1 +1,13 @@
-- set_meta_tags title: t("pages.gallery1.title")
+:ruby
+  top = [
+    {src: "a_quiet_street_in_venice",      size: "421x600", type: "mixed media", alt: "A Quiet Street in Venice"},
+  # {src: "cinque_terre",                  size: "600x809", type: "mixed media", alt: "Cinque Terre"},
+    {src: "cliff_top_houses_cinque_terre", size: "600x414", type: "mixed media", alt: "Cinque Terre, Village"},
+    {src: "italian_steps",                 size: "600x867", type: "mixed media", alt: "Italian Steps"},
+    {src: "provencal_olives",              size: "600x450", type: "mixed media", alt: "Provencal Olives"},
+    {src: "st_marks_venice",               size: "600x608", type: "mixed media", alt: "St Mark's Venice"},
+    {src: "tonys_olives",                  size: "600x450", type: "watercolour", alt: "Tony's Olives"},
+  ]
+  bot = []
+
+= render "pictures", g: 1, top: top, bot: bot

@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
+
+function select_work(num) {
+  $(".work").hide();
+  $("#work" + num).show();
+  $(".selector").removeClass("selected")
+  $("#selector" + num).addClass("selected")
+}

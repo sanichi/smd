@@ -1,1 +1,21 @@
-- set_meta_tags title: t("pages.gallery2.title")
+:ruby
+  top = [
+    {src: "a_bit_of_shade",                     size: "810x600", type: "oil",         alt: "A Bit of Shade"},
+    {src: "a_patch_of_light_the_meadows",       size: "732x600", type: "oil",         alt: "A Patch of Light, The Meadows"},
+    {src: "across_the_moors",                   size: "600x645", type: "oil",         alt: "Across the Moors"},
+    {src: "eigg_and_rum",                       size: "744x600", type: "mixed media", alt: "Eigg and Rum"},
+    {src: "gathering_clouds_at_beadnell_bay",   size: "600x433", type: "mixed media", alt: "Gathering Clouds at Beadnell Bay"},
+    {src: "gathering_storm_east_lothian",       size: "600x408", type: "mixed media", alt: "Gathering Storm, East Lothian"},
+    {src: "golden_glow_skye",                   size: "889x600", type: "mixed media", alt: "Golden Glow, Skye"},
+  ]
+  bot = [
+    {src: "hopeman_beach",                      size: "600x441", type: "mixed media", alt: "Hopeman Beach"},
+    {src: "pink_socks_stockbridge",             size: "600x581", type: "mixed media", alt: "Pink Socks, Stockbridge"},
+  # {src: "pleasures_are_like_poppies_spread",  size: "800x600", type: "mixed media", alt: "Pleasures Are Like Poppies Spread"},
+    {src: "red_chimneys_arisaig",               size: "600x261", type: "mixed media", alt: "Red Chimneys Arisaig"},
+    {src: "salisbury_crags_edinburgh",          size: "600x450", type: "mixed media", alt: "Salisbury Crags, Edinburgh"},
+    {src: "staffin_bay_skye",                   size: "600x345", type: "mixed media", alt: "Staffin Bay Skye"},
+    {src: "storms_approaching_in_beadnell_bay", size: "600x423", type: "mixed media", alt: "Storms Approaching in Beadnell Bay"},
+  ]
+
+= render "pictures", g: 2, top: top, bot: bot

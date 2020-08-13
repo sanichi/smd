@@ -1,1 +1,10 @@
-- set_meta_tags title: t("pages.gallery4.title")
+:ruby
+  top = [
+    {src: "lake",            size: "450x600", type: "pastel",              alt: "Lake"},
+    {src: "standing_figure", size: "230x600", type: "pastel",              alt: "Standing Figure"},
+    {src: "topaz",           size: "450x600", type: "charcoal and crayon", alt: "Gathering Clouds at Beadnell Bay"},
+    {src: "topaz_profile",   size: "436x600", type: "charcoal and crayon", alt: "Topaz Profile"},
+  ]
+  bot = []
+
+= render "pictures", g: 4, top: top, bot: bot

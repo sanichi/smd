@@ -1,1 +1,12 @@
-- set_meta_tags title: t("pages.gallery3.title")
+:ruby
+  top = [
+    {src: "blue_hydrangeas",   size: "600x567", type: "mixed media", alt:"Blue Hydrangeas"},
+    {src: "chunky_chick",      size: "600x600", type: "watercolour", alt:"Chunky Chick"},
+    {src: "three_french_hens", size: "600x388", type: "watercolour", alt:"Three French Hens"},
+    {src: "roses_in_bloom",    size: "600x561", type: "watercolour", alt:"Roses in Bloom"},
+    {src: "summer_flowers",    size: "600x561", type: "watercolour", alt:"Summer Flowers"},
+    {src: "warm_breeze",       size: "600x433", type: "mixed media", alt:"Warm Breeze"},
+  ]
+  bot = []
+
+= render "pictures", g: 3, top: top, bot: bot
