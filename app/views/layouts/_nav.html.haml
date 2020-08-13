@@ -1,6 +1,5 @@
 %nav
-  = link_to root_path do
-    %img{src: "/logo.png", width: "30", height: "30", alt: "logo", loading: "lazy"}
+  = link_to t("title"), root_path
   %button{type: "button", "data-toggle" => "collapse", "data-target" => "#navbar"}
     %span
   #navbar.collapse.navbar-collapse

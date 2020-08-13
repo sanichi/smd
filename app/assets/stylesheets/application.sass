@@ -3,13 +3,10 @@
 
 // Navbar
 nav
-  @extend .navbar, .navbar-expand-md, .navbar-light, .bg-light, .border, .border-secondary, .rounded, .mb-3
+  @extend .navbar, .navbar-expand-md, .navbar-dark, .bg-dark
 
   &>a
     @extend .navbar-brand
-
-    img
-      @extend .d-inline-block, .align-top
 
   button
     @extend .navbar-toggler
@@ -38,20 +35,3 @@ nav
 
           &>a
             @extend .nav-link, .dropdown-item
-
-// Sections
-section
-  @extend .card, .border-secondary, .mb-4
-
-  .header
-    @extend .card-header
-
-  .body
-    @extend .card-body
-
-  .footer
-    @extend .card-footer
-
-// Pre's
-pre
-  @extend .border, .border-dark, .p-2
