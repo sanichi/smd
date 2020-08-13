@@ -1,21 +1,28 @@
-- set_meta_tags title: t("pages.gallery#{g}.title")
+- d = t("pages.gallery#{g}")
+- set_meta_tags title: d[:title], description: d[:description], keywords: d[:keywords]
+- img = "img/gallery#{g}"
 
 .row
   .offset-2.col-8.text-center
-    %h2.mt-3= t("pages.gallery#{g}.title")
+    %h2.mt-3= d[:title]
     .row.mt-3.mb-4
       - top.each_with_index do |p, i|
         .col
-          %img{src: "img/gallery#{g}/#{p[:src]}_100x100.jpg", alt: p[:alt], class: "img-fluid selector #{i==0 ? 'selected' : ''}", id: "selector#{i+1}", onclick: "select_work(#{i+1})"}
+          - src = "#{img}/#{p[:src]}_100x100.jpg"
+          - kls = "img-fluid selector #{i==0 ? 'selected' : ''}"
+          %img{src: src, alt: p[:alt], class: kls, id: "selector#{i+1}", onclick: "select_work(#{i+1})"}
     - unless bot.empty?
       .row.mt-3.mb-4
         - bot.each_with_index do |p, j|
-          - i = j + top.size
           .col
-            %img{src: "img/gallery#{g}/#{p[:src]}_100x100.jpg", alt: p[:alt], class: "img-fluid selector #{i==0 ? 'selected' : ''}", id: "selector#{i+1}", onclick: "select_work(#{i+1})"}
+            - i = j + top.size
+            - src = "#{img}/#{p[:src]}_100x100.jpg"
+            - kls = "img-fluid selector #{i==0 ? 'selected' : ''}"
+            %img{src: src, alt: p[:alt], class: kls, id: "selector#{i+1}", onclick: "select_work(#{i+1})"}
     - (top + bot).each_with_index do |p, i|
       %div{id: "work#{i+1}", class: "work", style: "display: #{i==0 ? 'block' : 'none'}"}
-        %img{src: "img/gallery#{g}/#{p[:src]}_#{p[:size]}.jpg", alt: p[:alt], class: "img-fluid"}
+        - src = "#{img}/#{p[:src]}_#{p[:size]}.jpg"
+        %img{src: src, alt: p[:alt], class: "img-fluid"}
         %p.mt-3
           %strong= p[:alt]
           = "(#{p[:type]})"

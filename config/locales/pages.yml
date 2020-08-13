@@ -3,14 +3,22 @@ en:
     exhibitions:
       title: Exhibitions
     index:
-      description: Mark Orr’s minimal Rails template for a static site
-      keywords: bootstrap, capistrano, capybara, haml, jquery, meta-tags, rails, rbenv, rspec
+      description: Sandra Dickie artist, home page
+      keywords: sandra, dickie, orr, artist, paintings, pictures, images
       title: Home
     gallery1:
+      description: Selected paintings of Mediterranean scenes
+      keywords: gallery, mixed, media, watercolour, mediterranean
       title: Mediterranean Images
     gallery2:
+      description: Selected paintings of Scottish scenes
+      keywords: gallery, mixed, media, oil, scotland
       title: Scottish Colours
     gallery3:
+      description: Selected paintings of scenes from nature
+      keywords: gallery, mixed, media, watercolour, nature
       title: Flowers, Fauna and Folk
     gallery4:
+      description: Selected portraits
+      keywords: gallery, pastel, charcoal, crayon, portrait
       title: Portraits
