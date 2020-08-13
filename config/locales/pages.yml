@@ -1,0 +1,10 @@
+en:
+  pages:
+    index:
+      description: Mark Orr’s minimal Rails template for a static site
+      keywords: bootstrap, capistrano, capybara, haml, jquery, meta-tags, rails, rbenv, rspec
+      title: Index
+    note:
+      description: Instructions for using this project as a template for a new static site
+      keywords: instructions, note, template, 説明書
+      title: Note

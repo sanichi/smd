@@ -1,0 +1,57 @@
+// Bootstrap
+@import "bootstrap"
+
+// Navbar
+nav
+  @extend .navbar, .navbar-expand-md, .navbar-light, .bg-light, .border, .border-secondary, .rounded, .mb-3
+
+  &>a
+    @extend .navbar-brand
+
+    img
+      @extend .d-inline-block, .align-top
+
+  button
+    @extend .navbar-toggler
+
+    span
+      @extend .navbar-toggler-icon
+
+  #navbar
+    ul
+      @extend .navbar-nav
+
+      &.left
+        @extend .mr-auto
+
+      &.right
+        @extend .ml-auto
+
+      &>li
+        @extend .nav-item
+
+        &>a
+          @extend .nav-link
+
+        .dropdown-menu
+          @extend .p-2, .p-md-0
+
+          &>a
+            @extend .nav-link, .dropdown-item
+
+// Sections
+section
+  @extend .card, .border-secondary, .mb-4
+
+  .header
+    @extend .card-header
+
+  .body
+    @extend .card-body
+
+  .footer
+    @extend .card-footer
+
+// Pre's
+pre
+  @extend .border, .border-dark, .p-2

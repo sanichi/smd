@@ -1,0 +1,189 @@
+- set_meta_tags title: t("pages.note.title"), description: t("pages.note.description"), keywords: t("pages.note.keywords")
+
+%section
+  .header
+    %h3.d-inline= t("pages.note.title")
+  .body
+    %p This site is a template for me to start a new Rails-based static site.
+
+    %h4 Preparation
+    %p Before starting, do a gem update on the <em>sta</em> project.
+
+    %h4 Git
+    %p
+      Let’s say that you’ve decided on the name <em>mns</em> (short for my new site) for your new project.
+      Start by cloning the template project (whose name is <em>sta</em>), using this new name.
+    %pre
+      :plain
+        % cd ~/Projects/app
+        % git clone git@bitbucket.org:sanichi/sta.git mns
+        % cd mns
+    %p
+      At this point the new local repository is still connected to the remote template on BitBucket and
+      has it's history, neither of which we want. The easiest thing to do is start afresh.
+    %pre
+      :plain
+        % rm -rf .git
+        % git init
+    %p
+      Before you make the first commit, change the deployment directory in <em>config/deploy/production.rb</em>
+      to avoid accidental overwrites. It doesn't matter at this stage if this directory does not yet exist
+      on the target server. While we’re at it, change both the deployment directory and the public URL
+      in the Apache configuration file (which we'll copy to the server in due course), the name of the
+      app in the main locales file and the Rails app name in <em>config/application.rb</em>.
+    %pre
+      :plain
+        % perl -p -i -e 's/sta/mns/' config/deploy/production.rb
+        % perl -p -i -e 's/sta/mns/' config/httpd.conf
+        % perl -p -i -e 's/STA/MNS/' config/locales/en.yml
+        % perl -p -i -e 's/Sta/Mns/' config/application.rb
+    %p Also we need to change the application name and git repository in <em>config/deploy.rb</em>:
+    %pre
+      :plain
+        % vi config/deploy.rb
+    %p It should look something like this:
+    %pre
+      :plain
+        set :application, "mns"
+        set :repo_url, "git@bitbucket.org:sanichi/mns.git"
+        append :linked_files, "config/master.key"
+        append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+        set :log_level, :info
+    %p Now we're ready for the first commit.
+    %pre
+      :plain
+        % git add .
+        % git commit -m "Initial commit"
+    %p
+      Next, head over to BitBucket and create a new empty repository with the same name and then come back to
+      the command line and link it to our new local repository.
+    %pre
+      :plain
+        % git remote add origin git@bitbucket.org:sanichi/mns.git
+        % git push -u origin master
+
+    %h4 Bundler
+    %p Run:
+    %pre
+      :plain
+        % bin/bundle install
+
+    %h4 Credentials and Key
+    %p
+      The file <em>config/credentials.yml.enc</em> (which only contains the <em>secret_key_base</em>) is no
+      use without <em>config/master.key</em>. However, the latter is not available since it's never committed,
+      so generate new versions of both files.
+    %pre
+      :plain
+        % grep master .gitignore
+        /config/master.key
+        % git rm config/credentials.yml.enc
+        % EDITOR=vi bin/rails credentials:edit
+        % git add .
+        % git commit -m "New credentials and master key"
+        % git push
+    %p Store the contents of <em>config/master.key</em> in a password manager.
+
+    %h4 <em>ssh</em> and <em>scp</em>
+    %p
+      For what follows we assume the shortcut <em>tss</em> has been setup in <em>~/.ssh/config</em> for the
+      target server similar to this:
+    %pre
+      :plain
+        Host tss
+          Hostname thessaloniki.sanichi.me
+          User sanichi
+
+    %h4 Databases
+    %p
+      Since this template is for a static site, there are no databases (or rather, they're all empty).
+      The files <em>config/database.yml</em>, <em>db/production.sqlite3</em>, <em>db/development.sqlite3</em>,
+      <em>db/test.sqlite3</em> are all checked in and ready to go.
+      You should be able to run tests for the first time:
+    %pre
+      :plain
+        % bin/rspec spec/
+
+    %h4 Robots
+    %p
+      If you want robots to crawl the site, edit <em>public/robots.txt</em>.
+
+    %h4 Deployment
+    %p
+      First we create the deployment directory <em>/var/www/me.mns</em>, making sure it belongs to the
+      limited user account, not root.
+    %pre
+      :plain
+        % ssh -t tss sudo mkdir /var/www/me.mns
+        % ssh -t tss sudo chown sanichi:sanichi /var/www/me.mns
+    %p Next we start preparations for a full deploy:
+    %pre
+      :plain
+        % bin/cap production deploy:check
+    %p
+      This will only partially work because a shared file is missing: <em>config/master.key</em>.
+      Simply copy the local version:
+    %pre
+      :plain
+        % scp config/master.key tss:/var/www/me.mns/shared/config/
+    %p Now we can try a full deploy:
+    %pre
+      :plain
+        % bin/cap production deploy
+    %p This may take some time to compile all the gems.
+
+    %h4 Apache
+    %p
+      The configuration file for the template app, which we modified earlier, is setup for https-only.
+      As this is the first install of your new app, you likely have no certificate yet, so we'll use
+      an http-only version for now. Copy <em>config/httpd.conf</em> to the temporary file
+      <em>/tmp/me.mns.conf</em> and edit that:
+    %pre
+      :plain
+        % cp config/httpd.conf /tmp/me.mns.conf
+        % vi /tmp/me.mns.conf
+    %p Make sure to:
+    %ul
+      %li comment out all of the existing port 80 section
+      %li change 443 to 80 on what was the https section
+      %li comment out the references to certificate files, SSL configuration and the HTTP/2.0 (h2) protocol
+    %p Then copy it to the remote server, and move it to the right place:
+    %pre
+      :plain
+        % scp /tmp/me.mns.conf tss:
+        % ssh -t tss sudo mv me.mns.conf /etc/httpd/conf.d
+        % ssh -t tss sudo chown root:root /etc/httpd/conf.d/me.mns.conf
+    %p Now check the configuration and, if it’s OK, restart the server and test the site:
+    %pre
+      :plain
+        % ssh -t tss sudo apachectl configtest
+        Syntax OK
+        % ssh -t tss sudo systemctl restart httpd
+        % open http://mns.sanichi.me
+
+    %h4 Log Rotation
+    %p
+      Add something like the following to the appropriate file in <em>/etc/logrotate.d</em>
+      to rotate both the apache and rails log files:
+    %pre
+      :plain
+        /var/www/me.mns/shared/log/*.log {
+          weekly
+          missingok
+          rotate 5
+          compress
+          delaycompress
+          notifempty
+          copytruncate
+          su sanichi sanichi
+        }
+        /var/www/me.mns/shared/log/*_log {
+          weekly
+          missingok
+          rotate 5
+          compress
+          delaycompress
+          notifempty
+          copytruncate
+          su root root
+        }
