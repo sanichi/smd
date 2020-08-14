@@ -23,9 +23,9 @@
 .row
   .offset-2.col-8.text-center
     %h2.mt-3= d[:title]
-    - pics.each_slice(cols).each_with_index do |r, j|
+    - pics.each_slice(cols).each_with_index do |row, j|
       .row.mt-4.mb-4
-        - r.each_with_index do |p, i|
+        - row.each_with_index do |p, i|
           .col
             - src = "#{img}/#{p[:src]}_100x100.jpg"
             - n = j * cols + i + 1
