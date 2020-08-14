@@ -6,11 +6,18 @@
 
   pics = pictures(g)
   trys = [4, 5, 6]
-  if pics.length <= trys[-1]
+  if pics.empty?
+    cols = trys[-1]
+  elsif pics.length <= trys[-1]
     cols = pics.length
   else
     scores = trys.map { |t| pics.length % t }
-    cols = trys[scores.rindex(scores.min)]
+    exact = scores.rindex(0)
+    if exact
+      cols = trys[exact]
+    else
+      cols = trys[scores.rindex(scores.max)]
+    end
   end
 
 .row
