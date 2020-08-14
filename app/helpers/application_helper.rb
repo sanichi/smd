@@ -3,7 +3,7 @@ module ApplicationHelper
     {g: 1, r: 1, s: 1, src: "a_quiet_street_in_venice",           size: "421x600", type: "mm", alt: "A Quiet Street in Venice"},
   # {g: 1, r: 1, s: 0, src: "cinque_terre",                       size: "600x809", type: "mm", alt: "Cinque Terre"},
     {g: 1, r: 1, s: 1, src: "cliff_top_houses_cinque_terre",      size: "600x414", type: "mm", alt: "Cinque Terre, Village"},
-    {g: 1, r: 1, s: 0, src: "italian_steps",                      size: "600x867", type: "mm", alt: "Italian Steps"},
+  # {g: 1, r: 1, s: 0, src: "italian_steps",                      size: "600x867", type: "mm", alt: "Italian Steps"},
     {g: 1, r: 1, s: 1, src: "provencal_olives",                   size: "600x450", type: "mm", alt: "Provencal Olives"},
     {g: 1, r: 1, s: 1, src: "st_marks_venice",                    size: "600x608", type: "mm", alt: "St Mark's Venice"},
     {g: 1, r: 1, s: 1, src: "tonys_olives",                       size: "600x450", type: "wc", alt: "Tony's Olives"},
