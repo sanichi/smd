@@ -32,7 +32,8 @@
             - kls = "img-fluid selector #{n==1 ? 'selected' : ''}"
             %img{src: src, alt: p[:alt], class: kls, id: "selector#{n}", onclick: "select_work(#{n})"}
     - pics.each_with_index do |p, i|
-      %div{id: "work#{i+1}", class: "work", style: "display: #{i==0 ? 'block' : 'none'}"}
+      - n = i + 1
+      %div{id: "work#{n}", class: "work", style: "display: #{n==1 ? 'block' : 'none'}"}
         - src = "#{img}/#{p[:src]}_#{p[:size]}.jpg"
         %img{src: src, alt: p[:alt], class: "img-fluid"}
         %p.mt-3
