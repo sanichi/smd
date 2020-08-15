@@ -1,52 +1,69 @@
 module ApplicationHelper
   PICTURES = [
-    {g: 1, s: 1, src: "a_quiet_street_in_venice",           size: "421x600", type: "mm", alt: "A Quiet Street in Venice"},
-  # {g: 1, s: 0, src: "cinque_terre",                       size: "600x809", type: "mm", alt: "Cinque Terre"},
-    {g: 1, s: 1, src: "cliff_top_houses_cinque_terre",      size: "600x414", type: "mm", alt: "Cinque Terre, Village"},
-  # {g: 1, s: 0, src: "italian_steps",                      size: "600x867", type: "mm", alt: "Italian Steps"},
-    {g: 1, s: 1, src: "provencal_olives",                   size: "600x450", type: "mm", alt: "Provencal Olives"},
-    {g: 1, s: 1, src: "st_marks_venice",                    size: "600x608", type: "mm", alt: "St Mark's Venice"},
-    {g: 1, s: 1, src: "tonys_olives",                       size: "600x450", type: "wc", alt: "Tony's Olives"},
-    {g: 1, s: 1, src: "positano",                           size: "900x582", type: "mm", alt: "Positano"},
-    {g: 1, s: 1, src: "olive_trees_provence",               size: "900x560", type: "mm", alt: "Olive Trees, Provence"},
-    {g: 1, s: 1, src: "washing_day_venice",                 size: "900x680", type: "mm", alt: "Washing Day, Venice"},
-    {g: 2, s: 0, src: "a_bit_of_shade",                     size: "810x600", type: "ol", alt: "A Bit of Shade"},
-  # {g: 2, s: 0, src: "a_patch_of_light_the_meadows",       size: "732x600", type: "ol", alt: "A Patch of Light, The Meadows"},
-  # {g: 2, s: 0, src: "across_the_moors",                   size: "600x645", type: "ol", alt: "Across the Moors"},
-    {g: 2, s: 0, src: "eigg_and_rum",                       size: "744x600", type: "mm", alt: "Eigg and Rum"},
-    {g: 2, s: 1, src: "gathering_clouds_at_beadnell_bay",   size: "600x433", type: "mm", alt: "Gathering Clouds at Beadnell Bay"},
-    {g: 2, s: 0, src: "gathering_storm_east_lothian",       size: "600x408", type: "mm", alt: "Gathering Storm, East Lothian"},
-  # {g: 2, s: 0, src: "golden_glow_skye",                   size: "889x600", type: "mm", alt: "Golden Glow, Skye"},
-    {g: 2, s: 0, src: "poppy_field_east_lothian",           size: "800x548", type: "mm", alt: "Poppy Field, East Lothian"},
-    {g: 2, s: 0, src: "poppy_field_fife",                   size: "800x500", type: "mm", alt: "Poppy Field, Fife"},
-    {g: 2, s: 1, src: "the_singing_sands",                  size: "800x800", type: "mm", alt: "The Singing Sands"},
-    {g: 2, s: 1, src: "north_berwick_law",                  size: "800x520", type: "mm", alt: "North Berwick Law"},
-    {g: 2, s: 0, src: "hopeman_beach",                      size: "600x441", type: "mm", alt: "Hopeman Beach"},
-    {g: 2, s: 1, src: "pink_socks_stockbridge",             size: "600x581", type: "mm", alt: "Pink Socks, Stockbridge"},
-  # {g: 2, s: 0, src: "pleasures_are_like_poppies_spread",  size: "800x600", type: "mm", alt: "Pleasures Are Like Poppies Spread"},
-    {g: 2, s: 0, src: "red_chimneys_arisaig",               size: "600x261", type: "mm", alt: "Red Chimneys Arisaig"},
-    {g: 2, s: 0, src: "salisbury_crags_edinburgh",          size: "600x450", type: "mm", alt: "Salisbury Crags, Edinburgh"},
-  # {g: 2, s: 1, src: "staffin_bay_skye",                   size: "600x345", type: "mm", alt: "Staffin Bay Skye"},
-    {g: 2, s: 0, src: "storms_approaching_in_beadnell_bay", size: "600x423", type: "mm", alt: "Storms Approaching in Beadnell Bay"},
-    {g: 2, s: 1, src: "rocky_foreshore",                    size: "800x400", type: "mm", alt: "Rocky Foreshore"},
-    {g: 2, s: 0, src: "dark_trees",                         size: "800x550", type: "mm", alt: "Dark Trees"},
-    {g: 3, s: 0, src: "blue_hydrangeas",                    size: "600x567", type: "mm", alt: "Blue Hydrangeas"},
-    {g: 3, s: 0, src: "chunky_chick",                       size: "600x600", type: "wc", alt: "Chunky Chick"},
-    {g: 3, s: 0, src: "three_french_hens",                  size: "600x388", type: "wc", alt: "Three French Hens"},
-    {g: 3, s: 0, src: "roses_in_bloom",                     size: "600x561", type: "wc", alt: "Roses in Bloom"},
-    {g: 3, s: 1, src: "summer_flowers",                     size: "600x561", type: "wc", alt: "Summer Flowers"},
-    {g: 3, s: 1, src: "warm_breeze",                        size: "600x433", type: "mm", alt: "Warm Breeze"},
-    {g: 4, s: 0, src: "lake",                               size: "450x600", type: "pt", alt: "Lake"},
-    {g: 4, s: 0, src: "standing_figure",                    size: "230x600", type: "pt", alt: "Standing Figure"},
-    {g: 4, s: 0, src: "topaz",                              size: "450x600", type: "cc", alt: "Gathering Clouds at Beadnell Bay"},
-    {g: 4, s: 0, src: "topaz_profile",                      size: "436x600", type: "cc", alt: "Topaz Profile"},
-  ]
+    [1, 1, "a_quiet_street_in_venice",           "421x600", "mm", "A Quiet Street in Venice"],
+  # [1, 0, "cinque_terre",                       "600x809", "mm", "Cinque Terre"],
+    [1, 1, "cliff_top_houses_cinque_terre",      "600x414", "mm", "Cinque Terre, Village"],
+  # [1, 0, "italian_steps",                      "600x867", "mm", "Italian Steps"],
+    [1, 1, "provencal_olives",                   "600x450", "mm", "Provencal Olives"],
+    [1, 1, "st_marks_venice",                    "600x608", "mm", "St Mark's Venice"],
+    [1, 1, "tonys_olives",                       "600x450", "wc", "Tony's Olives"],
+    [1, 1, "positano",                           "900x582", "mm", "Positano"],
+    [1, 1, "olive_trees_provence",               "900x560", "mm", "Olive Trees, Provence"],
+    [1, 1, "washing_day_venice",                 "900x680", "mm", "Washing Day, Venice"],
+    [2, 0, "a_bit_of_shade",                     "810x600", "ol", "A Bit of Shade"],
+  # [2, 0, "a_patch_of_light_the_meadows",       "732x600", "ol", "A Patch of Light, The Meadows"],
+  # [2, 0, "across_the_moors",                   "600x645", "ol", "Across the Moors"],
+    [2, 0, "eigg_and_rum",                       "744x600", "mm", "Eigg and Rum"],
+    [2, 1, "gathering_clouds_at_beadnell_bay",   "600x433", "mm", "Gathering Clouds at Beadnell Bay"],
+    [2, 0, "gathering_storm_east_lothian",       "600x408", "mm", "Gathering Storm, East Lothian"],
+  # [2, 0, "golden_glow_skye",                   "889x600", "mm", "Golden Glow, Skye"],
+    [2, 0, "poppy_field_east_lothian",           "800x548", "mm", "Poppy Field, East Lothian"],
+    [2, 0, "poppy_field_fife",                   "800x500", "mm", "Poppy Field, Fife"],
+    [2, 1, "the_singing_sands",                  "800x800", "mm", "The Singing Sands"],
+    [2, 1, "north_berwick_law",                  "800x520", "mm", "North Berwick Law"],
+    [2, 0, "hopeman_beach",                      "600x441", "mm", "Hopeman Beach"],
+    [2, 1, "pink_socks_stockbridge",             "600x581", "mm", "Pink Socks, Stockbridge"],
+  # [2, 0, "pleasures_are_like_poppies_spread",  "800x600", "mm", "Pleasures Are Like Poppies Spread"],
+    [2, 0, "red_chimneys_arisaig",               "600x261", "mm", "Red Chimneys Arisaig"],
+    [2, 0, "salisbury_crags_edinburgh",          "600x450", "mm", "Salisbury Crags, Edinburgh"],
+  # [2, 1, "staffin_bay_skye",                   "600x345", "mm", "Staffin Bay Skye"],
+    [2, 0, "storms_approaching_in_beadnell_bay", "600x423", "mm", "Storms Approaching in Beadnell Bay"],
+    [2, 1, "rocky_foreshore",                    "800x400", "mm", "Rocky Foreshore"],
+    [2, 0, "dark_trees",                         "800x550", "mm", "Dark Trees"],
+    [3, 0, "blue_hydrangeas",                    "600x567", "mm", "Blue Hydrangeas"],
+    [3, 0, "chunky_chick",                       "600x600", "wc", "Chunky Chick"],
+    [3, 0, "three_french_hens",                  "600x388", "wc", "Three French Hens"],
+    [3, 0, "roses_in_bloom",                     "600x561", "wc", "Roses in Bloom"],
+    [3, 1, "summer_flowers",                     "600x561", "wc", "Summer Flowers"],
+    [3, 1, "warm_breeze",                        "600x433", "mm", "Warm Breeze"],
+    [4, 0, "lake",                               "450x600", "pt", "Lake"],
+    [4, 0, "standing_figure",                    "230x600", "pt", "Standing Figure"],
+    [4, 0, "topaz",                              "450x600", "cc", "Gathering Clouds at Beadnell Bay"],
+    [4, 0, "topaz_profile",                      "436x600", "cc", "Topaz Profile"],
+  ].map { |d| Image.new(*d) }
 
   def pictures(gallery)
-    PICTURES.select { |p| p[:g] == gallery }
+    pics = PICTURES.select{ |p| p.g == gallery }
+
+    trys = [4, 5, 6]
+    if pics.empty?
+      cols = trys[-1]
+    elsif pics.length <= trys[-1]
+      cols = pics.length
+    else
+      scores = trys.map { |t| pics.length % t }
+      exact = scores.rindex(0)
+      if exact
+        cols = trys[exact]
+      else
+        cols = trys[scores.rindex(scores.max)]
+      end
+    end
+
+    [pics, cols]
   end
 
   def sample_work
-    "img/gallery%d/%s_%s.jpg" % PICTURES.select{ |p| p[:s] == 1 }.sample.fetch_values(:g, :src, :size)
+    PICTURES.select{ |p| p.s == 1 }.sample.src
   end
 end

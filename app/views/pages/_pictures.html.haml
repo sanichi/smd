@@ -1,24 +1,7 @@
-:ruby
-  d = t("pages.gallery#{g}")
-  set_meta_tags title: d[:title], description: d[:description], keywords: d[:keywords]
+- d = t("pages.gallery#{g}")
+= render "meta_tags", d: d
 
-  img = "img/gallery#{g}"
-
-  pics = pictures(g)
-  trys = [4, 5, 6]
-  if pics.empty?
-    cols = trys[-1]
-  elsif pics.length <= trys[-1]
-    cols = pics.length
-  else
-    scores = trys.map { |t| pics.length % t }
-    exact = scores.rindex(0)
-    if exact
-      cols = trys[exact]
-    else
-      cols = trys[scores.rindex(scores.max)]
-    end
-  end
+- pics, cols = pictures(g)
 
 .row
   .offset-2.col-8.text-center
@@ -27,15 +10,11 @@
       .row.mt-4.mb-4
         - row.each_with_index do |p, i|
           .col
-            - src = "#{img}/#{p[:src]}_100x100.jpg"
             - n = j * cols + i + 1
             - kls = "img-fluid selector #{n==1 ? 'selected' : ''}"
-            %img{src: src, alt: p[:alt], class: kls, id: "selector#{n}", onclick: "select_work(#{n})"}
+            %img{src: p.src(true), alt: p.alt, class: kls, id: "selector#{n}", onclick: "select_work(#{n})"}
     - pics.each_with_index do |p, i|
       - n = i + 1
       %div{id: "work#{n}", class: "work", style: "display: #{n==1 ? 'block' : 'none'}"}
-        - src = "#{img}/#{p[:src]}_#{p[:size]}.jpg"
-        %img{src: src, alt: p[:alt], class: "img-fluid"}
-        %p.mt-3
-          %strong= p[:alt]
-          = "(" + t("type.#{p[:type]}") + ")"
+        %img{src: p.src, alt: p.alt, class: "img-fluid"}
+        %p.mt-3= p.alt(true)

@@ -1,9 +1,10 @@
-- set_meta_tags title: t("pages.exhibitions.title")
+- d = t("pages.exhibitions")
+= render "meta_tags", d: d
 
 %main
   .row
     .col-sm-5.p-5
-      %h4 Exhibitions
+      %h4= d[:title]
       %p
         I exhibit regularly throughout Scotland and my work is in private collections
         in the UK, America, France and Australia. My work is currently on display in
