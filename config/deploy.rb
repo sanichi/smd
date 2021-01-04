@@ -1,6 +1,3 @@
-# config valid for current version and patch releases of Capistrano
-# lock "~> 3.14.1"
-
 set :application, "smd"
 set :repo_url, "git@bitbucket.org:sanichi/smd.git"
 append :linked_files, "config/master.key"
