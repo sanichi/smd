@@ -10,6 +10,7 @@ module ApplicationHelper
     [1, 1, "positano",                           "900x582", "mm", "Positano"],
     [1, 1, "olive_trees_provence",               "900x560", "mm", "Olive Trees, Provence"],
     [1, 1, "washing_day_venice",                 "900x680", "mm", "Washing Day, Venice"],
+    [2, 0, "after_the_rain",                     "600x440", "mm", "After the Rain"],
     [2, 0, "a_bit_of_shade",                     "810x600", "ol", "A Bit of Shade"],
   # [2, 0, "a_patch_of_light_the_meadows",       "732x600", "ol", "A Patch of Light, The Meadows"],
   # [2, 0, "across_the_moors",                   "600x645", "ol", "Across the Moors"],
