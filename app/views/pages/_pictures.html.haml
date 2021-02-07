@@ -6,14 +6,7 @@
 .row
   .offset-2.col-8.text-center
     %h2.mt-4= d[:title]
-    - pics.each_slice(cols).each_with_index do |row, j|
-      .row.mt-4.mb-4
-        - row.each_with_index do |p, i|
-          .col
-            - n = j * cols + i + 1
-            - kls = "img-fluid selector #{n==1 ? 'selected' : ''}"
-            %img{src: p.src(true), alt: p.alt, class: kls, id: "selector#{n}", onclick: "select_work(#{n})"}
-    %p.text-center
+    %p.mt-3.text-center
       %button.btn.btn-dark.btn-sm{onclick: "select_next(-1)"}= "<"
       %button.btn.btn-dark.btn-sm{onclick: "select_next(1)"}= ">"
     - pics.each_with_index do |p, i|
@@ -21,3 +14,10 @@
       %div{id: "work#{n}", class: "work", style: "display: #{n==1 ? 'block' : 'none'}"}
         %img{src: p.src, alt: p.alt, class: "img-fluid"}
         %p.mt-3= p.alt(true)
+    - pics.each_slice(cols).each_with_index do |row, j|
+      .row.mt-4.mb-4
+        - row.each_with_index do |p, i|
+          .col
+            - n = j * cols + i + 1
+            - kls = "img-fluid selector #{n==1 ? 'selected' : ''}"
+            %img{src: p.src(true), alt: p.alt, class: kls, id: "selector#{n}", onclick: "select_work(#{n})"}
