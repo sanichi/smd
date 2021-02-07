@@ -21,6 +21,7 @@ function select_work(num) {
   $("#work" + num).show();
   $(".selector").removeClass("selected");
   $("#selector" + num).addClass("selected");
+  $("#num").text(num);
 }
 
 // keyboard controls
