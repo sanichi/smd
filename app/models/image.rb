@@ -7,7 +7,7 @@ Image = Struct.new(:g, :s, :file, :px, :cm, :type, :name) do
     if full
       details = I18n.t('type.' + type)
       if cm =~ /\A([1-9]\d*)x([1-9]\d*)\z/
-        details += ", #{$1} x #{$2} cm"
+        details += ", #{$1} × #{$2} cm"
       end
       "<strong>#{name}</strong> (#{details})".html_safe
     else
