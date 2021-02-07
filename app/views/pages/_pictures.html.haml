@@ -12,8 +12,8 @@
     - pics.each_with_index do |p, i|
       - n = i + 1
       %div{id: "work#{n}", class: "work", style: "display: #{n==1 ? 'block' : 'none'}"}
-        %img{src: p.src, alt: p.alt, class: "img-fluid"}
         %p.mt-3= p.alt(true)
+        %img{src: p.src, alt: p.alt, class: "img-fluid"}
     - pics.each_slice(cols).each_with_index do |row, j|
       .row.mt-4.mb-4
         - row.each_with_index do |p, i|
