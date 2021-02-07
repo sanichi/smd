@@ -41,9 +41,13 @@ nav
           &>a
             @extend .dropdown-item
 
-  // Selection pictures
+// Selection pictures
 img.selector.selected
   opacity: 1.0
   border: 1px black solid
 img.selector
   opacity: 0.4
+
+// So text doesn't get selected when buttons are pressed.
+.unselectable
+  user-select: none
