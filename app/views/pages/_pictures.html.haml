@@ -13,6 +13,9 @@
             - n = j * cols + i + 1
             - kls = "img-fluid selector #{n==1 ? 'selected' : ''}"
             %img{src: p.src(true), alt: p.alt, class: kls, id: "selector#{n}", onclick: "select_work(#{n})"}
+    %p.text-center
+      %button.btn.btn-dark.btn-small{onclick: "select_next(-1)"}= "<"
+      %button.btn.btn-dark.btn-small{onclick: "select_next(1)"}= ">"
     - pics.each_with_index do |p, i|
       - n = i + 1
       %div{id: "work#{n}", class: "work", style: "display: #{n==1 ? 'block' : 'none'}"}
