@@ -21,8 +21,12 @@
         all media to produce a likeness and a feeling of the personality of the subject.
         I enjoy experimenting with media, mixing and layering, watercolour, acrylic and oil pastels.
       %p
-        Please have a browse through the galleries. I have included works that are sold to show
-        the variety and range of my work. If you would like further details please contact me.
+        Please have a browse through my galleries (menu above).
+        I have included works that are sold to show the variety and range of my work.
+        = render "sold", sold: true
+        means sold while
+        = render "sold", sold: false
+        means still available. Please feel free to contact me for further details.
       %p.text-center
         = link_to "mailto:sandramary.orr@googlemail.com", target: "blanke" do
           %img{src: "img/email.png", width: "40", height: "40", alt: "Email"}
