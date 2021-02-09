@@ -1,0 +1,8 @@
+%p
+  %strong= p.name
+  = precede("(") do
+    = succeed(")") do
+      = succeed(p.cm =~ /\A([1-9]\d*)x([1-9]\d*)\z/ ? ", %s × %s cm" % [$1, $2] : "") do
+        = t("type.#{p.type}")
+  - color = p.sold == "s" ? "danger" : "success"
+  %span.badge.badge-pill{class: "badge-#{color}"}= 160.chr(Encoding::UTF_8)
