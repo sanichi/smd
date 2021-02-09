@@ -7,7 +7,7 @@ module ApplicationHelper
     [1, 1, "tmp",                     "400x600", "00x00", "mm", "a", "Provencal Village"],
     [1, 1, "flamboyant_olives",                  "600x600", "30x30", "mm", "a", "Flamboyant Olives"],
     [1, 1, "bargemon_provence",                  "600x400", "42x30", "mm", "a", "Bargemon, Provence"],
-    [1, 1, "provencal_village",                  "600x400", "42x29", "mm", "s", "French Village"],
+    [1, 1, "french_village",                     "600x400", "42x29", "mm", "s", "French Village"],
     [1, 1, "amalfi_houses",                      "400x600", "29x42", "mm", "a", "Amalfi Houses"],
     [1, 1, "la_dolce_vita",                      "600x600", "37x39", "mm", "a", "La Dolce Vita"],
     [1, 1, "marias_cafe",                        "400x600", "15x21", "mm", "a", "Maria's Cafe"],
