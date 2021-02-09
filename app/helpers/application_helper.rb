@@ -4,7 +4,7 @@ module ApplicationHelper
     [1, 1, "a_quiet_street_in_venice",           "421x600", "00x00", "mm", "s", "A Quiet Street in Venice"],
     [1, 1, "midnight_in_florence",               "600x500", "39x33", "mm", "a", "Midnight in Florence"],
     [1, 1, "cotingac_france",                    "400x600", "26x39", "mm", "s", "Cotingac, France"],
-    [1, 1, "french_village",                     "400x600", "00x00", "mm", "a", "Provencal Village"],
+    [1, 1, "tmp",                     "400x600", "00x00", "mm", "a", "Provencal Village"],
     [1, 1, "flamboyant_olives",                  "600x600", "30x30", "mm", "a", "Flamboyant Olives"],
     [1, 1, "bargemon_provence",                  "600x400", "42x30", "mm", "a", "Bargemon, Provence"],
     [1, 1, "provencal_village",                  "600x400", "42x29", "mm", "s", "French Village"],
