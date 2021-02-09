@@ -90,12 +90,25 @@ module ApplicationHelper
     PICTURES.select{ |p| p.s == 1 }.sample
   end
 
-  def gallery_path(g)
-    case g
-    when 4 then gallery4_path
-    when 3 then gallery3_path
-    when 2 then gallery2_path
-    else        gallery1_path
+  def gallery_path(p)
+    path =
+      case p.g
+      when 4 then gallery4_path(f: p.file)
+      when 3 then gallery3_path(f: p.file)
+      when 2 then gallery2_path(f: p.file)
+      else        gallery1_path(f: p.file)
+      end
+    path
+  end
+
+  def selected_number(pics, file)
+    num = 1
+    return num unless file.present?
+    pics.each do |p|
+      break if p.file == file
+      num += 1
     end
+    num = 1 if num > pics.length
+    num
   end
 end
