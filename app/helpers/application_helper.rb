@@ -86,7 +86,16 @@ module ApplicationHelper
     [pics, cols]
   end
 
-  def sample_work
-    PICTURES.select{ |p| p.s == 1 }.sample.src
+  def sample
+    PICTURES.select{ |p| p.s == 1 }.sample
+  end
+
+  def gallery_path(g)
+    case g
+    when 4 then gallery4_path
+    when 3 then gallery3_path
+    when 2 then gallery2_path
+    else        gallery1_path
+    end
   end
 end

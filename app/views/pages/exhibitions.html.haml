@@ -24,5 +24,7 @@
         %li Di Rollo Gallery, Edinburgh
         %li Paisley Art Institute
         %li No. 4 Gallery, St Abbs
-    .col-sm-7.p-5
-      %img.img-fluid{src: sample_work, alt: t("sample")}
+    .col-sm-7.p-5.text-center
+      - p = sample
+      %img.img-fluid.mb-2{src: p.src, alt: t("sample")}
+      = render "title", p: p, gallery: true

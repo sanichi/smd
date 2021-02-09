@@ -10,25 +10,33 @@ describe PagesController do
   end
 
   it "gallery 1" do
-    click_link t("pages.gallery1.title")
+    within ".dropdown" do
+      click_link t("pages.gallery1.title")
+    end
 
     expect(page).to have_title t("pages.gallery1.title")
   end
 
   it "gallery 2" do
-    click_link t("pages.gallery2.title")
+    within ".dropdown" do
+      click_link t("pages.gallery2.title")
+    end
 
     expect(page).to have_title t("pages.gallery2.title")
   end
 
   it "gallery 3" do
-    click_link t("pages.gallery3.title")
+    within ".dropdown" do
+      click_link t("pages.gallery3.title")
+    end
 
     expect(page).to have_title t("pages.gallery3.title")
   end
 
   it "gallery 4" do
-    click_link t("pages.gallery4.title")
+    within ".dropdown" do
+      click_link t("pages.gallery4.title")
+    end
 
     expect(page).to have_title t("pages.gallery4.title")
   end
