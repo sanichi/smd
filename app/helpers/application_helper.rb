@@ -102,13 +102,7 @@ module ApplicationHelper
   end
 
   def selected_number(pics, file)
-    num = 1
-    return num unless file.present?
-    pics.each do |p|
-      break if p.file == file
-      num += 1
-    end
-    num = 1 if num > pics.length
-    num
+    return 1 unless file.present?
+    1 + (pics.index{ |p| p.file == file } || 0)
   end
 end
