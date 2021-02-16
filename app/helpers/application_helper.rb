@@ -1,6 +1,6 @@
 module ApplicationHelper
   PICTURES = [
-    [1, 1, "italian_birds",                      "600x400", "27x19", "mm", "a", "Birds of a Feather"],
+    [1, 1, "italian_birds",                      "600x400", "27x19", "mm", "s", "Birds of a Feather"],
     [1, 1, "amalfi_coast",                       "600x360", "42x30", "mm", "a", "Amalfi Coast"],
     [1, 1, "a_quiet_street_in_venice",           "421x600", "00x00", "mm", "s", "A Quiet Street in Venice"],
     [1, 1, "midnight_in_florence",               "600x500", "39x33", "mm", "a", "Midnight in Florence"],
