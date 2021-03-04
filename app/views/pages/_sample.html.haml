@@ -1,0 +1,4 @@
+- p = sample
+= link_to gallery_path(p) do
+  %img.img-fluid.mb-2{src: p.src, alt: t("sample")}
+= render "title", p: p, gallery: true

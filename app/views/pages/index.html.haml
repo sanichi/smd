@@ -37,6 +37,4 @@
         = link_to "https://www.instagram.com/sandra_dickie_artist/" do
           %img{src: "img/instagram.png", width: "40", height: "40", alt: "Instagram"}
     .col-sm-7.p-5.text-center
-      - p = sample
-      %img.img-fluid.mb-2{src: p.src, alt: t("sample")}
-      = render "title", p: p, gallery: true
+      = render "sample"
