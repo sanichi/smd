@@ -10,7 +10,7 @@ module ApplicationHelper
     [1, 1, "bargemon_provence",                  "600x400", "42x30", "mm", "a", "Bargemon, Provence"],
     [1, 1, "french_village",                     "600x400", "42x29", "mm", "a", "French Village"],
     [1, 1, "amalfi_houses",                      "400x600", "29x42", "mm", "a", "Amalfi Houses"],
-    [1, 1, "la_dolce_vita",                      "600x600", "37x39", "mm", "a", "La Dolce Vita"],
+    [1, 1, "a_day_at_the_beach",                 "600x600", "37x39", "mm", "a", "A Day at the Beach"], # used to be la_dolce_vita
     [1, 1, "marias_cafe",                        "400x600", "15x21", "mm", "a", "Maria's Cafe"],
     [1, 1, "secret_of_villa_gioia",              "530x600", "20x20", "mm", "a", "The Secret of Villa Gioia"],
     [1, 1, "lerici_italy",                       "600x500", "56x46", "mm", "s", "Lerici, Italy"],
