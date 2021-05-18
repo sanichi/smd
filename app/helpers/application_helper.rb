@@ -1,5 +1,8 @@
 module ApplicationHelper
   PICTURES = [
+    [1, 1, "moonlight_over_venice",              "900x350", "60x31", "mm", "a", "Moonlight Over Venice"],
+    [1, 1, "silence_of_villa_gioia",             "600x600", "29x29", "mm", "a", "The Silence of Villa Gioia"],
+    [1, 1, "forever_venice",                     "900x600", "57x48", "mm", "a", "Forever Venice"],
     [1, 1, "italian_birds",                      "600x400", "27x19", "mm", "s", "Birds of a Feather"],
     [1, 1, "amalfi_coast",                       "600x360", "42x30", "mm", "a", "Amalfi Coast"],
     [1, 1, "a_quiet_street_in_venice",           "421x600", "00x00", "mm", "s", "A Quiet Street in Venice"],
@@ -21,6 +24,8 @@ module ApplicationHelper
     [1, 1, "positano",                           "900x582", "00x00", "mm", "s", "Positano"],
     [1, 1, "washing_day_venice",                 "900x680", "59x48", "mm", "a", "Washing Day, Venice"],
     [1, 1, "a_bit_of_shade",                     "810x600", "38x29", "ol", "a", "A Bit of Shade, Spain"],
+    [2, 1, "mediterranean_gardenstown",          "600x600", "43x43", "mm", "s", "Mediterranean Gardenstown"],
+    [2, 1, "pennan",                             "800x380", "00x00", "mm", "s", "Pennan"],
     [2, 1, "after_the_rain",                     "600x440", "56x46", "mm", "s", "After the Rain"],
     [2, 1, "across_the_moorfoots",               "600x300", "69x48", "mm", "a", "Across the Moorfoots"],
     [2, 1, "the_moorfoots",                      "600x235", "00x00", "mm", "s", "The Moorfoots"],

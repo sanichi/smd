@@ -7,13 +7,30 @@
       %h4= d[:title]
       %p
         I exhibit regularly throughout Scotland and my work is in private collections
-        in the UK, America, France and Australia. My work is currently on display in
-        the Flat Cat Gallery, Lauder.
-      %h5 Joint Exhibitions
+        in the UK, America, France and Australia.
+      %h5 Current
       %ul
-        %li 2012 The Flat Cat Gallery, Lauder, Scotland
-        %li 2011 Oathlaw Gallery, Forfar, Scotland
-      %h5 Group Exhibitions
+        %li
+          = succeed(",") do
+            = link_to "Flat Cat Gallery", "https://www.flatcatgallery.co.uk/product-category/sandra-dickie/"
+          Lauder
+        %li
+          = succeed(",") do
+            = link_to "Gallery Q", "https://www.galleryq.co.uk"
+          Dundee (forthcoming)
+        %li
+          = succeed(",") do
+            = link_to "Larks Gallery", "https://larksgallery.com"
+          Ballater
+        %li
+          = succeed(",") do
+            = link_to "number four gallery", "http://www.numberfourgallery.co.uk/index.html"
+          St Abbs
+        %li
+          = succeed(",") do
+            = link_to "Torrance Gallery", "https://www.torrancegallery.co.uk/spring21"
+          Edinburgh
+      %h5 Previous
       %ul
         %li Stathearn Gallery, Crieff
         %li City Art Centre, Edinburgh
@@ -23,6 +40,5 @@
         %li Poldrate Mill, Haddington
         %li Di Rollo Gallery, Edinburgh
         %li Paisley Art Institute
-        %li No. 4 Gallery, St Abbs
     .col-sm-7.p-5.text-center
       = render "sample"
