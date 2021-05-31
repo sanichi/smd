@@ -1,3 +1,9 @@
-- color = sold ? "danger" : "success"
+- defined?(p) || p = false
+- defined?(sold) || sold = false
 
-%span.badge.badge-pill{class: "badge-#{color}"}= 160.chr(Encoding::UTF_8)
+- color = p&.sold? || sold ? "danger" : "success"
+
+%span.badge.rounded-pill{class: "bg-#{color}"}= 160.chr(Encoding::UTF_8)
+
+- if p && p.valid_price? && !p.sold?
+  %span= "£#{p.price}"

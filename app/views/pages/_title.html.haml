@@ -9,4 +9,4 @@
       - else
         = succeed(p.cm =~ /\A([1-9]\d*)x([1-9]\d*)\z/ ? ", %s × %s cm" % [$1, $2] : "") do
           = t("type.#{p.type}")
-  = render "sold", sold: p.sold == 's'
+  = render "sold", p: p
