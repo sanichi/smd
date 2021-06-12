@@ -34,7 +34,7 @@ module ApplicationHelper
     [2, 1, "derbyshire_dales",                   "600x440", "39x27", "mm", "a", nil, "Derbyshire Dales"],
     [2, 1, "into_the_blue_rocky_foreshore",      "600x420", "00x00", "mm", "a", 375, "Into the Blue, Rocky Foreshore"],
     [2, 1, "borderlands",                        "600x400", "58x42", "mm", "a", 580, "Landlines"],
-    [2, 1, "glimpse_of_islands",                 "600x400", "42x33", "mm", "a", 390, "A Glimpse of Islands"],
+    [2, 1, "glimpse_of_islands",                 "600x400", "42x33", "mm", "s", 390, "A Glimpse of Islands"],
     [2, 1, "the_sentinel",                       "600x500", "35x33", "mm", "a", 380, "The Sentinel"],
     [2, 1, "shades_of_iona",                     "600x500", "41x23", "mm", "a", 380, "Shades of Iona"],
     [2, 1, "take_me_there",                      "600x445", "42x29", "mm", "a", 380, "Take Me There"],
