@@ -21,7 +21,7 @@
         all media to produce a likeness and a feeling of the personality of the subject.
         I enjoy experimenting with media, mixing and layering, watercolour, acrylic and oil pastels.
       %p
-        Please have a browse through my galleries (menu above).
+        Please have a browse through my <b>galleries</b> (menu above).
         I have included paintings that are already sold to show the variety and range of my work.
         = render "sold", sold: true
         denotes sold and
@@ -36,5 +36,11 @@
         != "&nbsp;"
         = link_to "https://www.instagram.com/sandra_dickie_artist/" do
           %img{src: "img/instagram.png", width: "40", height: "40", alt: "Instagram"}
-    .col-sm-7.p-5.text-center
-      = render "sample"
+    .col-sm-7.p-5
+      = form_tag "search", method: :get, remote: true, class: "mb-3" do
+        = text_field_tag :name, "", class: "form-control auto-submit", list: "names", placeholder: t("pages.index.search")
+        %datalist#names
+          - @names.each do |name|
+            %option{value: name}
+      #result.text-center
+        = render "sample"

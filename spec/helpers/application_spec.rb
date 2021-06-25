@@ -8,10 +8,10 @@ describe ApplicationHelper do
   end
 
   it "4 galleries" do
-    gal = pic.map{ |p| p.g }.uniq.sort
-    expect(gal.length).to eq 4
-    expect(gal.first).to eq 1
-    expect(gal.last).to eq 4
+    gals = pic.map{ |p| p.g }.uniq.sort
+    expect(gals.length).to eq 4
+    expect(gals.first).to eq 1
+    expect(gals.last).to eq 4
   end
 
   it "selectable or not" do
@@ -22,8 +22,8 @@ describe ApplicationHelper do
   end
 
   it "unique files" do
-    fil = pic.map{ |p| p.file }.uniq
-    expect(fil.length).to eq pic.length
+    files = pic.map{ |p| p.file }.uniq
+    expect(files.length).to eq pic.length
   end
 
   it "main images exist" do
@@ -66,4 +66,10 @@ describe ApplicationHelper do
       expect(p.price.nil? || p.valid_price?).to be true
     end
   end
+
+  it "unique names" do
+    names = pic.map{ |p| p.name }.uniq
+    expect(names.length).to eq pic.length
+  end
+
 end

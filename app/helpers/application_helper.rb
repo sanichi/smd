@@ -63,7 +63,7 @@ module ApplicationHelper
     [3, 1, "warm_breeze",                        "600x433", "00x00", "mm", "s", nil, "Warm Breeze"],
     [4, 0, "lake",                               "450x600", "00x00", "pt", "s", nil, "Lake"],
     [4, 0, "standing_figure",                    "230x600", "00x00", "pt", "s", nil, "Standing Figure"],
-    [4, 0, "topaz",                              "450x600", "00x00", "cc", "s", nil, "Gathering Clouds at Beadnell Bay"],
+    [4, 0, "topaz",                              "450x600", "00x00", "cc", "s", nil, "Topaz"],
     [4, 0, "topaz_profile",                      "436x600", "00x00", "cc", "s", nil, "Topaz Profile"],
   # [1, 1, "olive_trees_provence",               "900x560", "00x00", "mm", "s", nil, "Olive Trees, Provence"],
   # [1, 0, "cinque_terre",                       "600x809", "00x00", "mm", "s", nil, "Cinque Terre"],
@@ -98,6 +98,11 @@ module ApplicationHelper
 
   def sample
     PICTURES.select{ |p| p.s == 1 }.sample
+  end
+
+  def search(name)
+    return unless name.present?
+    PICTURES.find{ |p| p.name == name }
   end
 
   def gallery_path(p)
