@@ -71,5 +71,4 @@ describe ApplicationHelper do
     names = pic.map{ |p| p.name }.uniq
     expect(names.length).to eq pic.length
   end
-
 end
