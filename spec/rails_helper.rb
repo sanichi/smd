@@ -20,8 +20,16 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
+# Checks for pending migrations and applies them before tests are run.
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError => e
+  puts e.to_s.strip
+  exit 1
+end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -29,7 +37,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  # config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = false
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -59,6 +67,22 @@ Capybara.configure do |config|
   config.exact = true # exact matches
 end
 
+def login(user)
+  visit sign_in_path
+  fill_in t("user.name"), with: user.name
+  fill_in t("user.password"), with: user.password
+  click_button t("session.sign_in")
+end
+
 def t(key, **opts)
   I18n.t(key, **opts)
+end
+
+def expect_error(page, text)
+  expect(page).to have_css("div.rails-alert", text: text)
+end
+
+def expect_forbidden(page)
+  expect_error(page, "not authorized")
+  expect(page).to have_title t("session.sign_in")
 end

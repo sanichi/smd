@@ -1,7 +1,15 @@
 en:
+  cancel: Cancel
+  edit: Edit
+  delete: Delete
   galleries: Galleries
   sample: Sample Work
+  save: Save
+  sure: Are you sure?
   title: Sandra Dickie
+  symbol:
+    cross: ✘
+    tick: ✔︎
   type:
     cc: charcoal and crayon
     mm: mixed media

@@ -1,0 +1,9 @@
+en:
+  user:
+    admin: Admin
+    edit: Edit User
+    name: Name
+    new: New User
+    password: Password
+    user: User
+    users: Users
