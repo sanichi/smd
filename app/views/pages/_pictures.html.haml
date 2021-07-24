@@ -6,7 +6,7 @@
 
 .row
   .offset-2.col-8.text-center
-    %h2.mt-4= d[:title]
+    %h2= d[:title]
     %p.mt-3.unselectable
       %button.btn.btn-light.btn-sm{onclick: "select_next(-1)"}= "←"
       %span#num= num

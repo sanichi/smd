@@ -46,3 +46,43 @@ img.selector
 // So text doesn't get selected when buttons are pressed.
 .unselectable
   user-select: none
+
+// Sections
+section
+  @extend .card, .border-secondary, .mb-4
+
+  .header
+    @extend .card-header
+
+  .body
+    @extend .card-body
+    overflow: hidden
+
+  .footer
+    @extend .card-footer
+
+// Crud forms
+form.crud
+
+  textarea
+    @extend .font-monospace
+    font-size: 0.9rem
+    height: 100%
+
+  div.field_with_errors
+    label
+      color: $red
+    input[type="text"], input[type="password"], textarea, select
+      background: lighten($pink, 40%)
+
+// Flash notices. Note that, for dismissal, the class "alert" needs to be explicitly present in the HTML.
+.flash
+  text-align: center
+  margin-top: -1rem
+  margin-bottom: 1rem
+
+  &.notice
+    @extend .alert-success
+
+  &.rails-alert
+    @extend .alert-danger

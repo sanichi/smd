@@ -2,7 +2,7 @@
 
 %main
   .row
-    .col-sm-5.p-5
+    .col-sm-5.ps-5.pe-5
       %h4 Welcome to my Website
       %p
         I was born in the Scottish Borders and the colour and light from this area has always
@@ -36,7 +36,7 @@
         != "&nbsp;"
         = link_to "https://www.instagram.com/sandra_dickie_artist/" do
           %img{src: "img/instagram.png", width: "40", height: "40", alt: "Instagram"}
-    .col-sm-7.p-5
+    .col-sm-7.ps-5.pe-5
       = form_tag "search", method: :get, remote: true, class: "mb-3" do
         = text_field_tag :name, "", class: "form-control auto-submit", list: "names", placeholder: t("pages.index.search")
         %datalist#names
