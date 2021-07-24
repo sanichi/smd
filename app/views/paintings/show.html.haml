@@ -1,0 +1,20 @@
+- set_meta_tags title: @painting.title
+
+.row
+  %div{class: center(xx: 4, xl: 6, lg: 8, md: 10)}
+    %section
+      .header
+        %h3.d-inline= @painting.title
+      .body
+        %table{class: "table table-bordered"}
+          %tbody
+            %tr
+              %td= t("painting.filename")
+              %th= @painting.filename
+            %tr
+              %td= t("updated")
+              %th= @painting.last_updated
+      .footer
+        - if can?(:edit, @painting)
+          = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"
+        = link_to t("painting.paintings"), paintings_path, class: "btn btn-success btn-sm"

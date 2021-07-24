@@ -1,0 +1,10 @@
+en:
+  painting:
+    edit: Edit Painting
+    filename: Filename
+    new: New Painting
+    paintings: Paintings
+    title: Title
+    order:
+      title: by Title
+      updated: by Last Updated

@@ -1,0 +1,30 @@
+:ruby
+  set_meta_tags title: t("painting.paintings")
+  lo = Layout.new(
+    xl: [[2,2]],
+    lg: [[3,3]],
+    xs: [[4,4]],
+  ).to_a
+  inputs = [
+    [:query, t("search"), :text,   lo[0], placeholder: t("search"), autofocus: true],
+    [:order, t("order"),  :select, lo[1], menu: painting_order_menu(params[:order])],
+  ]
+
+%section
+  .header
+    %h3.d-inline= t("painting.paintings")
+  .body
+    = render "utils/search/form", index: paintings_path, inputs: inputs
+    .row
+      %div{class: center(xl: 6, lg: 8, md: 10, sm: 12)}
+        %table.mt-4{class: "table table-bordered table-sm"}
+          %thead
+            %tr
+              %th= t("painting.title")
+              %th= t("painting.filename")
+              %th.text-center= t("updated")
+          %tbody{id: "results"}
+            = render "results", paintings: @paintings
+  - if can?(:create, Painting)
+    .footer
+      = link_to t("painting.new"), new_painting_path, class: "btn btn-primary btn-sm"

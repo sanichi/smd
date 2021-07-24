@@ -137,4 +137,19 @@ module ApplicationHelper
     klass.push "offset-xxl-#{(12 - xx) / 2} col-xxl-#{xx}" if xx > 0
     klass.any? ? klass.join(" ") : "col-12"
   end
+
+  def col(s)
+    case s
+    when true
+      "col-12"
+    when false, nil
+      ""
+    else
+      s.to_s.gsub(/(\A| )(sx|ms|dm|gl|lx|lxx)-(\d|1[012])/) do
+        "#{$1}offset-#{$2 == 'sx' ? '' : $2.reverse + '-'}#{$3}"
+      end.gsub(/(\A| )((?:xs|sm|md|lg|xl|xxl)-)?(\d|1[012])/) do
+        "#{$1}col-#{$2 == 'xs-' ? '' : $2}#{$3}"
+      end
+    end
+  end
 end
