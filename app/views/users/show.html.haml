@@ -10,7 +10,7 @@
           %tbody
             %tr
               %td= t("user.admin")
-              %th= admin(@user)
+              %th.text-center= admin(@user)
       .footer
         - if can?(:edit, @user)
           = link_to t("edit"), edit_user_path(@user), class: "btn btn-primary btn-sm"
