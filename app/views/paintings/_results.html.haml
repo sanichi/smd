@@ -1,6 +1,6 @@
-- paintings.matches.each do |painting|
+- paintings.matches.each do |p|
   %tr
-    %td= link_to painting.title, painting
-    %td= painting.filename
-    %td.text-center= painting.last_updated
+    %td= link_to p.title, p
+    %td.text-center= painting_size(p)
+    %td.text-center= p.last_updated
 = render "utils/pagination/links", pager: paintings, columns: 3

@@ -16,6 +16,8 @@ describe Painting do
         click_link t("painting.new")
         fill_in t("painting.title"), with: data.title
         fill_in t("painting.filename"), with: data.filename
+        fill_in t("painting.width"), with: data.width
+        fill_in t("painting.height"), with: data.height
         click_button t("save")
 
         expect(page).to have_title data.title
@@ -23,11 +25,15 @@ describe Painting do
         p = Painting.by_updated.first
         expect(p.title).to eq data.title
         expect(p.filename).to eq data.filename
+        expect(p.width).to eq data.width
+        expect(p.height).to eq data.height
       end
 
       it "failure" do
         click_link t("painting.new")
         fill_in t("painting.title"), with: data.title
+        fill_in t("painting.width"), with: data.width
+        fill_in t("painting.height"), with: data.height
         click_button t("save")
 
         expect(page).to have_title t("painting.new")

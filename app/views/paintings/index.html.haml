@@ -21,7 +21,7 @@
           %thead
             %tr
               %th= t("painting.title")
-              %th= t("painting.filename")
+              %th.text-center= t("painting.size")
               %th.text-center= t("updated")
           %tbody{id: "results"}
             = render "results", paintings: @paintings

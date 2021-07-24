@@ -2,5 +2,7 @@
   inputs = [
     [:title,    t("painting.title"),    :text, maxlength: Painting::MAX_TITLE],
     [:filename, t("painting.filename"), :text, maxlength: Painting::MAX_TITLE],
+    [:width,    t("painting.width"),    :text],
+    [:height,   t("painting.height"),   :text],
   ]
 = render "utils/crud/form", object: painting, index: paintings_path, inputs: inputs, title: title, center: center(xl: 4, lg: 6, md: 8, sm: 10)

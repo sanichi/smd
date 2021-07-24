@@ -2,9 +2,13 @@ en:
   painting:
     edit: Edit Painting
     filename: Filename
+    height: Height
     new: New Painting
     paintings: Paintings
+    size: Dimensions
     title: Title
+    width: Width
     order:
       title: by Title
       updated: by Last Updated
+      size: Size

@@ -12,6 +12,9 @@
               %th= t("painting.filename")
               %td= @painting.filename
             %tr
+              %th= t("painting.size")
+              %td= painting_size(@painting)
+            %tr
               %th= t("updated")
               %td= @painting.last_updated
       .footer
