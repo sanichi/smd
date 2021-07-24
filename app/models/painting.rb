@@ -34,4 +34,13 @@ class Painting < ApplicationRecord
     filename&.squish!
     title&.squish!
   end
+
+  def self.migrate
+    puts "before: #{count}"
+    destroy_all
+    ApplicationHelper::PICTURES.each do |p|
+      create!(title: p.name, filename: p.file)
+    end
+    puts "after: #{count}"
+  end
 end
