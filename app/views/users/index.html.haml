@@ -11,10 +11,10 @@
         %table{class: "table table-bordered table-sm mt-3"}
           %thead
             %tr
-              %th= t("user.name")
-              %th.text-center= t("user.admin")
+              %td= t("user.name")
+              %td.text-center= t("user.admin")
           %tbody
             - @users.each do |user|
               %tr
-                %td= link_to user.name, user
-                %td.text-center= user.admin? ? t("symbol.tick") : t("symbol.cross")
+                %th= link_to user.name, user
+                %th.text-center= user.admin? ? t("symbol.tick") : t("symbol.cross")
