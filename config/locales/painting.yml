@@ -5,10 +5,10 @@ en:
     height: Height
     new: New Painting
     paintings: Paintings
-    size: Dimensions
+    size: Size
     title: Title
     width: Width
     order:
       title: by Title
       updated: by Last Updated
-      size: Size
+      size: by Size
