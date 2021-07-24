@@ -9,11 +9,11 @@
         %table{class: "table table-bordered"}
           %tbody
             %tr
-              %td= t("painting.filename")
-              %th= @painting.filename
+              %th= t("painting.filename")
+              %td= @painting.filename
             %tr
-              %td= t("updated")
-              %th= @painting.last_updated
+              %th= t("updated")
+              %td= @painting.last_updated
       .footer
         - if can?(:edit, @painting)
           = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"

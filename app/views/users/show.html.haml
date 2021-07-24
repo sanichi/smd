@@ -9,8 +9,8 @@
         %table{class: "table table-bordered mt-3"}
           %tbody
             %tr
-              %td= t("user.admin")
-              %th.text-center= admin(@user)
+              %th= t("user.admin")
+              %td.text-center= admin(@user)
       .footer
         - if can?(:edit, @user)
           = link_to t("edit"), edit_user_path(@user), class: "btn btn-primary btn-sm"

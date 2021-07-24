@@ -10,6 +10,13 @@ en:
   sure: Are you sure?
   title: Sandra Dickie
   updated: Last Updated
+  pagination:
+    frst: first
+    last: last
+    next: next
+    prev: prev
+    of: of
+    sep: ' ∙ '
   symbol:
     cross: ✘
     tick: ✔︎
