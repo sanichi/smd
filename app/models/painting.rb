@@ -5,12 +5,14 @@ class Painting < ApplicationRecord
   MAX_TITLE = 50
   MAX_SIZE = 200
   MIN_SIZE = 5
+  MEDIA = %w/mm wc cc pt ol/
 
   before_validation :normalize_attributes
 
   validates :filename, length: { maximum: MAX_TITLE }, uniqueness: true, format: { with: /\A[a-z0-9]+(_[a-z0-9]+)*\z/ }
   validates :title,    length: { maximum: MAX_TITLE }, uniqueness: true, presence: true
   validates :width, :height, numericality: { only_integer: true, greater_than_or_equal_to: MIN_SIZE, less_than_or_equal_to: MAX_SIZE }, allow_nil: true
+  validates :media, inclusion: { in: MEDIA }
 
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
   scope :by_title,   -> { order(:title) }
@@ -19,6 +21,9 @@ class Painting < ApplicationRecord
   def self.search(matches, params, path, opt={})
     if sql = cross_constraint(params[:query], %w{title filename})
       matches = matches.where(sql)
+    end
+    if MEDIA.include?(params[:media])
+      matches = matches.where(media: params[:media])
     end
     case params[:order]
     when "updated"
@@ -29,6 +34,11 @@ class Painting < ApplicationRecord
       matches = matches.by_title
     end
     paginate(matches, params, path, opt)
+  end
+
+  def size
+    return "" unless width.present? && height.present?
+    "%d x %d cm" % [width, height]
   end
 
   def last_updated
@@ -55,7 +65,7 @@ class Painting < ApplicationRecord
         width = $1.to_i
         height = $2.to_i
       end
-      create!(title: p.name, filename: p.file, width: width, height: height)
+      create!(title: p.name, filename: p.file, width: width, height: height, media: p.type)
     end
     puts "after: #{count}"
   end

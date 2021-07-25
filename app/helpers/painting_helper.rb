@@ -4,8 +4,9 @@ module PaintingHelper
     options_for_select(opts, selected)
   end
 
-  def painting_size(p)
-    return "" unless p.width.present? && p.height.present?
-    "%d x %d cm" % [p.width, p.height]
+  def painting_media_menu(selected, search=true)
+    opts = Painting::MEDIA.map{ |m| [t("painting.medias.#{m}"), m] }
+    opts.unshift [t("any"), ""] if search
+    options_for_select(opts, selected)
   end
 end

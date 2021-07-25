@@ -1,6 +1,7 @@
 - paintings.matches.each do |p|
   %tr
     %td= link_to p.title, p
-    %td.text-center= painting_size(p)
+    %td.text-center= p.size
+    %td.text-center= p.media
     %td.text-center= p.last_updated
-= render "utils/pagination/links", pager: paintings, columns: 3
+= render "utils/pagination/links", pager: paintings, columns: 4

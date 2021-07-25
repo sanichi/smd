@@ -9,11 +9,14 @@
         %table{class: "table table-bordered"}
           %tbody
             %tr
+              %th= t("painting.size")
+              %td= @painting.size
+            %tr
+              %th= t("painting.media")
+              %td= t("painting.medias.#{@painting.media}")
+            %tr
               %th= t("painting.filename")
               %td= @painting.filename
-            %tr
-              %th= t("painting.size")
-              %td= painting_size(@painting)
             %tr
               %th= t("updated")
               %td= @painting.last_updated

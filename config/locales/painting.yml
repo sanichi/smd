@@ -3,11 +3,18 @@ en:
     edit: Edit Painting
     filename: Filename
     height: Height
+    media: Media
     new: New Painting
     paintings: Paintings
     size: Size
     title: Title
     width: Width
+    medias:
+      cc: charcoal and crayon
+      mm: mixed media
+      ol: oil
+      pt: pastel
+      wc: watercolour
     order:
       title: by Title
       updated: by Last Updated

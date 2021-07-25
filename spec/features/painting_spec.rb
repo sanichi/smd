@@ -18,6 +18,7 @@ describe Painting do
         fill_in t("painting.filename"), with: data.filename
         fill_in t("painting.width"), with: data.width
         fill_in t("painting.height"), with: data.height
+        select t("painting.medias.#{data.media}"), from: t("painting.media")
         click_button t("save")
 
         expect(page).to have_title data.title
@@ -27,6 +28,7 @@ describe Painting do
         expect(p.filename).to eq data.filename
         expect(p.width).to eq data.width
         expect(p.height).to eq data.height
+        expect(p.media).to eq data.media
       end
 
       it "failure" do
@@ -34,6 +36,7 @@ describe Painting do
         fill_in t("painting.title"), with: data.title
         fill_in t("painting.width"), with: data.width
         fill_in t("painting.height"), with: data.height
+        select t("painting.medias.#{data.media}"), from: t("painting.media")
         click_button t("save")
 
         expect(page).to have_title t("painting.new")
@@ -50,12 +53,14 @@ describe Painting do
         expect(page).to have_title t("painting.edit")
 
         fill_in t("painting.title"), with: data.title
+        select t("painting.medias.#{data.media}"), from: t("painting.media")
         click_button t("save")
 
         expect(page).to have_title data.title
         expect(Painting.count).to eq 1
         p = Painting.by_updated.first
         expect(p.title).to eq data.title
+        expect(p.media).to eq data.media
       end
     end
   end
