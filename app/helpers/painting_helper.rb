@@ -11,7 +11,7 @@ module PaintingHelper
   end
 
   def painting_gallery_menu(selected, search=true)
-    opts = Painting::GALLERY.map{ |g| [g, g] }
+    opts = Painting::GALLERY.map{ |g| [t("painting.gallery")[0] + g.to_s, g] }
     opts.unshift [t("all"), ""] if search
     options_for_select(opts, selected)
   end
