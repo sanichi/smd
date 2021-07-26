@@ -5,6 +5,7 @@ class Painting < ApplicationRecord
   MAX_TITLE = 50
   MAX_SIZE = 200
   MIN_SIZE = 5
+  GALLERY = 1..4
   MEDIA = %w/mm wc chcr pstl oil/
 
   before_validation :normalize_attributes
@@ -13,6 +14,7 @@ class Painting < ApplicationRecord
   validates :title,    length: { maximum: MAX_TITLE }, uniqueness: true, presence: true
   validates :width, :height, numericality: { only_integer: true, greater_than_or_equal_to: MIN_SIZE, less_than_or_equal_to: MAX_SIZE }, allow_nil: true
   validates :media, inclusion: { in: MEDIA }
+  validates :gallery, inclusion: { in: GALLERY }
 
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
   scope :by_title,   -> { order(:title) }
@@ -24,6 +26,9 @@ class Painting < ApplicationRecord
     end
     if MEDIA.include?(params[:media])
       matches = matches.where(media: params[:media])
+    end
+    if GALLERY.include?(g = params[:gallery].to_i)
+      matches = matches.where(gallery: g)
     end
     case params[:sold]
       when "sold"
@@ -86,6 +91,7 @@ class Painting < ApplicationRecord
         height: height,
         media: media,
         sold: p.sold?,
+        gallery: p.g,
       )
     end
     puts "after: #{count}"

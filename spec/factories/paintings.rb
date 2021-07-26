@@ -6,5 +6,6 @@ FactoryBot.define do
     height   { [rand(Painting::MIN_SIZE..Painting::MAX_SIZE), nil].sample }
     media    { Painting::MEDIA.sample }
     sold     { [true, false].sample }
+    gallery  { rand(Painting::GALLERY) }
   end
 end

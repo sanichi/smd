@@ -1,7 +1,8 @@
 - paintings.matches.each do |p|
   %tr
     %td= link_to p.title, p
+    %td.text-center= p.gallery
     %td.text-center= p.size(true)
     %td.text-center= p.media
     %td.text-center= t("symbol.tick") if p.sold?
-= render "utils/pagination/links", pager: paintings, columns: 4
+= render "utils/pagination/links", pager: paintings, columns: 5

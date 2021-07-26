@@ -10,6 +10,12 @@ module PaintingHelper
     options_for_select(opts, selected)
   end
 
+  def painting_gallery_menu(selected, search=true)
+    opts = Painting::GALLERY.map{ |g| [g, g] }
+    opts.unshift [t("all"), ""] if search
+    options_for_select(opts, selected)
+  end
+
   def painting_sold_menu(selected)
     opts = %w/available sold/.map { |s| [t("painting.#{s}"), s] }
     opts.unshift [t("all"), ""]

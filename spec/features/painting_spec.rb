@@ -19,6 +19,7 @@ describe Painting do
         fill_in t("painting.width"), with: data.width
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
+        select data.gallery.to_s, from: t("painting.gallery")
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
 
@@ -30,6 +31,7 @@ describe Painting do
         expect(p.width).to eq data.width
         expect(p.height).to eq data.height
         expect(p.media).to eq data.media
+        expect(p.gallery).to eq data.gallery
         expect(p.sold).to eq data.sold
       end
 
@@ -39,6 +41,7 @@ describe Painting do
         fill_in t("painting.width"), with: data.width
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
+        select data.gallery.to_s, from: t("painting.gallery")
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
 
@@ -57,6 +60,7 @@ describe Painting do
 
         fill_in t("painting.title"), with: data.title
         select t("painting.medias.#{data.media}"), from: t("painting.media")
+        select data.gallery.to_s, from: t("painting.gallery")
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
 
@@ -65,6 +69,7 @@ describe Painting do
         p = Painting.by_updated.first
         expect(p.title).to eq data.title
         expect(p.media).to eq data.media
+        expect(p.gallery).to eq data.gallery
         expect(p.sold).to eq data.sold
       end
     end

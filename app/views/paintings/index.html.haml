@@ -1,16 +1,17 @@
 :ruby
   set_meta_tags title: t("painting.paintings")
   lo = Layout.new(
-    xl: [[2,2],[2,2]],
-    lg: [[3,3],[3,3]],
-    sm: [[4,4,],[4,4]],
-    xs: [[5,5],[5,5]],
+    xl: [[2,2],[2,2,2]],
+    lg: [[3,3],[2,3,3]],
+    sm: [[4,4,],[2,4,4]],
+    xs: [[5,5],[2,5,5]],
   ).to_a
   inputs = [
-    [:query, t("search"),         :text,   lo[0], placeholder: t("search"), autofocus: true],
-    [:order, t("order"),          :select, lo[1], menu: painting_order_menu(params[:order])],
-    [:media, t("painting.media"), :select, lo[2], menu: painting_media_menu(params[:media])],
-    [:sold,  t("painting.sold"),  :select, lo[3], menu: painting_sold_menu(params[:sold])],
+    [:query,   t("search"),           :text,   lo[0], placeholder: t("search"), autofocus: true],
+    [:order,   t("order"),            :select, lo[1], menu: painting_order_menu(params[:order])],
+    [:gallery, t("painting.gallery"), :select, lo[2], menu: painting_gallery_menu(params[:gallery])],
+    [:media,   t("painting.media"),   :select, lo[3], menu: painting_media_menu(params[:media])],
+    [:sold,    t("painting.sold"),    :select, lo[4], menu: painting_sold_menu(params[:sold])],
   ]
 
 %section
@@ -24,6 +25,7 @@
           %thead
             %tr
               %th= t("painting.title")
+              %th.text-center= t("painting.gallery")[0]
               %th.text-center= t("painting.size")
               %th.text-center= t("painting.media")
               %th.text-center= t("painting.sold")

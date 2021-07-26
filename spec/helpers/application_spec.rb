@@ -51,7 +51,8 @@ describe ApplicationHelper do
   end
 
   it "valid types" do
-    expect(pic.map{ |p| p.type }.uniq.sort.join("|")).to eq "cc|mm|ol|pt|wc"
+    # expect(pic.map{ |p| p.type }.uniq.sort.join("|")).to eq "cc|mm|ol|pt|wc" # no oils right now
+    expect(pic.map{ |p| p.type }.uniq.sort.join("|")).to eq "cc|mm|pt|wc"
   end
 
   it "sold or not" do

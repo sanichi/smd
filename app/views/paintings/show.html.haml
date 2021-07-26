@@ -9,6 +9,9 @@
         %table{class: "table table-bordered"}
           %tbody
             %tr
+              %th= t("painting.gallery")
+              %td= t("pages.gallery#{@painting.gallery}.title")
+            %tr
               %th= t("painting.size")
               %td= @painting.size
             %tr
