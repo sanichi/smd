@@ -1,5 +1,6 @@
 en:
   painting:
+    available: Available
     edit: Edit Painting
     filename: Filename
     height: Height
@@ -7,6 +8,7 @@ en:
     new: New Painting
     paintings: Paintings
     size: Size
+    sold: Sold
     title: Title
     width: Width
     medias:

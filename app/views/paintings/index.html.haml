@@ -1,15 +1,16 @@
 :ruby
   set_meta_tags title: t("painting.paintings")
   lo = Layout.new(
-    xl: [[4],[2,2]],
-    lg: [[6],[3,3]],
-    sm: [[8],[4,4]],
-    xs: [[10],[5,5]],
+    xl: [[2,2],[2,2]],
+    lg: [[3,3],[3,3]],
+    sm: [[4,4,],[4,4]],
+    xs: [[5,5],[5,5]],
   ).to_a
   inputs = [
     [:query, t("search"),         :text,   lo[0], placeholder: t("search"), autofocus: true],
     [:order, t("order"),          :select, lo[1], menu: painting_order_menu(params[:order])],
     [:media, t("painting.media"), :select, lo[2], menu: painting_media_menu(params[:media])],
+    [:sold,  t("painting.sold"),  :select, lo[3], menu: painting_sold_menu(params[:sold])],
   ]
 
 %section
@@ -25,7 +26,7 @@
               %th= t("painting.title")
               %th.text-center= t("painting.size")
               %th.text-center= t("painting.media")
-              %th.text-center= t("updated")
+              %th.text-center= t("painting.sold")
           %tbody{id: "results"}
             = render "results", paintings: @paintings
   - if can?(:create, Painting)

@@ -25,6 +25,12 @@ class Painting < ApplicationRecord
     if MEDIA.include?(params[:media])
       matches = matches.where(media: params[:media])
     end
+    case params[:sold]
+      when "sold"
+        matches = matches.where(sold: true)
+      when "available"
+        matches = matches.where(sold: false)
+    end
     case params[:order]
     when "updated"
       matches = matches.by_updated
@@ -36,9 +42,10 @@ class Painting < ApplicationRecord
     paginate(matches, params, path, opt)
   end
 
-  def size
+  def size(short=false)
     return "" unless width.present? && height.present?
-    "%d x %d cm" % [width, height]
+    format = short ? "%dx%d" : "%d x %d cm"
+    format % [width, height]
   end
 
   def last_updated
@@ -65,7 +72,14 @@ class Painting < ApplicationRecord
         width = $1.to_i
         height = $2.to_i
       end
-      create!(title: p.name, filename: p.file, width: width, height: height, media: p.type)
+      create!(
+        title: p.name,
+        filename: p.file,
+        width: width,
+        height: height,
+        media: p.type,
+        sold: p.sold?,
+      )
     end
     puts "after: #{count}"
   end

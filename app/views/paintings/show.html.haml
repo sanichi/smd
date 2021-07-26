@@ -15,6 +15,9 @@
               %th= t("painting.media")
               %td= t("painting.medias.#{@painting.media}")
             %tr
+              %th= t("painting.sold")
+              %td= t("symbol.tick") if @painting.sold?
+            %tr
               %th= t("painting.filename")
               %td= @painting.filename
             %tr

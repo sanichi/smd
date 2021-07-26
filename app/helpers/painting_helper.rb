@@ -6,7 +6,13 @@ module PaintingHelper
 
   def painting_media_menu(selected, search=true)
     opts = Painting::MEDIA.map{ |m| [t("painting.medias.#{m}"), m] }
-    opts.unshift [t("any"), ""] if search
+    opts.unshift [t("all"), ""] if search
+    options_for_select(opts, selected)
+  end
+
+  def painting_sold_menu(selected)
+    opts = %w/available sold/.map { |s| [t("painting.#{s}"), s] }
+    opts.unshift [t("all"), ""]
     options_for_select(opts, selected)
   end
 end
