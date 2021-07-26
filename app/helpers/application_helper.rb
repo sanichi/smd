@@ -1,6 +1,6 @@
 module ApplicationHelper
   PICTURES = [
-    [1, 1, "magical_moonlight_trees",            "810x600", "46x37", "ol", "a", 410, "Magical Moonlight Trees"],
+    [1, 1, "magical_moonlight_trees",            "810x600", "46x37", "mm", "a", 410, "Magical Moonlight Trees"],
     [1, 1, "moonlight_over_venice",              "900x350", "60x31", "mm", "a", 420, "Moonlight Over Venice"],
     [1, 1, "positano_2",                         "500x700", "48x57", "mm", "s", 430, "Positano 2"],
     [1, 1, "under_the_arches",                   "600x600", "28x28", "mm", "a", 420, "Under the Arches, Venice"],

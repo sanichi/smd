@@ -5,7 +5,7 @@ class Painting < ApplicationRecord
   MAX_TITLE = 50
   MAX_SIZE = 200
   MIN_SIZE = 5
-  MEDIA = %w/mm wc cc pt ol/
+  MEDIA = %w/mm wc chcr pstl oil/
 
   before_validation :normalize_attributes
 
@@ -72,12 +72,19 @@ class Painting < ApplicationRecord
         width = $1.to_i
         height = $2.to_i
       end
+      media =
+        case p.type
+        when "pt" then "pstl"
+        when "ol" then "oil"
+        when "cc" then "chcr"
+        else p.type
+        end
       create!(
         title: p.name,
         filename: p.file,
         width: width,
         height: height,
-        media: p.type,
+        media: media,
         sold: p.sold?,
       )
     end

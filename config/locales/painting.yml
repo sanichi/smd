@@ -12,10 +12,10 @@ en:
     title: Title
     width: Width
     medias:
-      cc: charcoal and crayon
+      chcr: charcoal and crayon
       mm: mixed media
-      ol: oil
-      pt: pastel
+      oil: oil
+      pstl: pastel
       wc: watercolour
     order:
       title: by Title

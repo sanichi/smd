@@ -22,3 +22,9 @@ en:
   symbol:
     cross: ✘
     tick: ✔︎
+  type:
+    cc: charcoal and crayon
+    mm: mixed media
+    ol: oil
+    pt: pastel
+    wc: watercolour
