@@ -55,7 +55,7 @@ class Painting < ApplicationRecord
     format % [width, height]
   end
 
-  def image_path(web: false, tn: false)
+  def image_path(web: true, tn: false)
     path = "#{tn ? 'thumbnails' : 'images'}/#{Rails.env.test? ? 'test' : filename}.jpg"
     if web
       "/" + path
@@ -65,7 +65,7 @@ class Painting < ApplicationRecord
   end
 
   def image_dimensions(tn: false)
-    return nil unless %x|file #{image_path(tn: tn)}|.match(/JPEG.*, ([1-9]\d{2,3}x[1-9]\d{2,3}),/)
+    return nil unless %x|file #{image_path(web: false, tn: tn)}|.match(/JPEG.*, ([1-9]\d{2,3}x[1-9]\d{2,3}),/)
     $1
   end
 
@@ -129,7 +129,7 @@ class Painting < ApplicationRecord
       )
       source = Rails.root + "public" + p.src
       if source.exist?
-        target = painting.image_path
+        target = painting.image_path(web: false)
         unless target.exist? && target.size == source.size
           FileUtils.cp(source, target)
           copies += 1
@@ -139,7 +139,7 @@ class Painting < ApplicationRecord
       end
       source = Rails.root + "public" + p.src(true)
       if source.exist?
-        target = painting.image_path(tn: true)
+        target = painting.image_path(web:false, tn: true)
         unless target.exist? && target.size == source.size
           FileUtils.cp(source, target)
           copies += 1

@@ -4,5 +4,5 @@
     %td.text-center= p.gallery
     %td.text-center= p.size(true)
     %td.text-center= p.media
-    %td.text-center= t("symbol.tick") if p.sold?
+    %td.text-center= render "sold", sold: p.sold
 = render "utils/pagination/links", pager: paintings, columns: 5

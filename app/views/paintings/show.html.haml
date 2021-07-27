@@ -5,7 +5,9 @@
     %section
       .header
         %h3.d-inline= @painting.title
+        .float-end= render "sold", sold: @painting.sold
       .body
+        %img.img-fluid{src: @painting.image_path, alt: @painting.title}
         %table{class: "table table-bordered"}
           %tbody
             %tr
@@ -18,9 +20,6 @@
               %th= t("painting.media")
               %td= t("painting.medias.#{@painting.media}")
             %tr
-              %th= t("painting.sold")
-              %td= t("symbol.tick") if @painting.sold?
-            %tr
               %th= t("painting.filename")
               %td= @painting.filename
             %tr
@@ -32,6 +31,8 @@
             %tr
               %th= t("updated")
               %td= @painting.last_updated
+        .text-center
+          %img{src: @painting.image_path(tn: true), alt: @painting.title, width: 100, height: 100}
       .footer
         - if can?(:edit, @painting)
           = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"
