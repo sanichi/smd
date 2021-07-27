@@ -1,8 +1,9 @@
 en:
   painting:
     available: Available
+    dimensions: Image Dimensions
     edit: Edit Painting
-    filename: Filename
+    filename: Image File
     gallery: Gallery
     height: Height
     media: Media

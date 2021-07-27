@@ -62,6 +62,11 @@ class Painting < ApplicationRecord
     end
   end
 
+  def image_dimensions(tn: false)
+    return nil unless %x|file #{image_path(tn: tn)}|.match(/JPEG.*, ([1-9]\d{2,3}x[1-9]\d{2,3}),/)
+    $1
+  end
+
   def last_updated
     updated_at.strftime("%Y-%m-%d")
   end
