@@ -8,29 +8,29 @@
         .float-end= render "sold", sold: @painting.sold
       .body
         .row.border.ms-1.me-1
-          .col-6.border-end
+          .col-6.tmd-td
             .row
               .col
-              %div{class: centre(10, 9, 8, 7, 6)}
+              %div{class: centre(8, 8, 7, 7, 6, 6)}
                 %img.img-fluid.img-thumbnail{src: @painting.image_path, alt: @painting.title}
               .col
-          .col-6.text-center
+          .col-6.ted-td.text-center
             %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title}
-          .col-6.fw-bold.border-top.border-end.p-1= t("painting.gallery")
-          .col-6.border-top.p-1= t("pages.gallery#{@painting.gallery}.title")
-          .col-6.fw-bold.border-top.border-end.p-1= t("painting.size")
-          .col-6.border-top.p-1= @painting.size
-          .col-6.fw-bold.border-top.border-end.p-1= t("painting.media")
-          .col-6.border-top.p-1= t("painting.medias.#{@painting.media}")
-          .col-6.fw-bold.border-top.border-end.p-1= t("painting.filename")
-          .col-6.border-top.p-1= @painting.filename
-          .col-6.fw-bold.border-top.border-end.p-1= t("painting.dimensions")
-          .col-6.border-top.p-1
+          .col-6.mid-th= t("painting.gallery")
+          .col-6.end-td= t("pages.gallery#{@painting.gallery}.title")
+          .col-6.mid-th= t("painting.size")
+          .col-6.end-td= @painting.size
+          .col-6.mid-th= t("painting.media")
+          .col-6.end-td= t("painting.medias.#{@painting.media}")
+          .col-6.mid-th= t("painting.filename")
+          .col-6.end-td= @painting.filename
+          .col-6.mid-th= t("painting.dimensions")
+          .col-6.end-td
             = succeed(",") do
               = @painting.image_dimensions(tn: false)
             = @painting.image_dimensions(tn: true)
-          .col-6.fw-bold.border-top.border-end.p-1= t("updated")
-          .col-6.border-top.p-1= @painting.last_updated
+          .col-6.mid-th= t("updated")
+          .col-6.end-td= @painting.last_updated
       .footer
         - if can?(:edit, @painting)
           = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"

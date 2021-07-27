@@ -61,6 +61,24 @@ section
   .footer
     @extend .card-footer
 
+// When using rows and columns to simulate tables
+.tmd-td
+  @extend .p-1, .border-end
+.ted-td
+  @extend .p-1
+.tmd-th
+  @extend .p-1, .border-end, .fw-bold
+.ted-th
+  @extend .p-1, .fw-bold
+.mid-td
+  @extend .p-1, .border-top, .border-end
+.end-td
+  @extend .p-1, .border-top
+.mid-th
+  @extend .p-1, .border-top, .border-end, .fw-bold
+.end-th
+  @extend .p-1, .border-top, .fw-bold
+
 // Crud forms
 form.crud
 
