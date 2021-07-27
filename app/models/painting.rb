@@ -53,6 +53,15 @@ class Painting < ApplicationRecord
     format % [width, height]
   end
 
+  def image_path(web: false, tn: false)
+    path = "#{tn ? 'thumbnails' : 'images'}/#{filename}.jpg"
+    if web
+      "/" + path
+    else
+      Rails.root + "public" + path
+    end
+  end
+
   def last_updated
     updated_at.strftime("%Y-%m-%d")
   end
@@ -71,6 +80,7 @@ class Painting < ApplicationRecord
   def self.migrate
     puts "before: #{count}"
     destroy_all
+    copies = 0
     ApplicationHelper::PICTURES.each do |p|
       width, height = nil, nil
       if p.cm != "00x00" && p.cm.match(/\A(\d\d)x(\d\d)/)
@@ -84,7 +94,7 @@ class Painting < ApplicationRecord
         when "cc" then "chcr"
         else p.type
         end
-      create!(
+      painting = create!(
         title: p.name,
         filename: p.file,
         width: width,
@@ -93,7 +103,27 @@ class Painting < ApplicationRecord
         sold: p.sold?,
         gallery: p.g,
       )
+      source = Rails.root + "public" + p.src
+      if source.exist?
+        target = painting.image_path
+        unless target.exist? && target.size == source.size
+          FileUtils.cp(source, target)
+          copies += 1
+        end
+      else
+        raise "image #{source} does not exist"
+      end
+      source = Rails.root + "public" + p.src(true)
+      if source.exist?
+        target = painting.image_path(tn: true)
+        unless target.exist? && target.size == source.size
+          FileUtils.cp(source, target)
+          copies += 1
+        end
+      else
+        raise "image #{source} does not exist"
+      end
     end
-    puts "after: #{count}"
+    puts "after: #{count}, copies: #{copies}"
   end
 end
