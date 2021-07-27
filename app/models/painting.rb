@@ -16,6 +16,8 @@ class Painting < ApplicationRecord
   validates :media, inclusion: { in: MEDIA }
   validates :gallery, inclusion: { in: GALLERY }
 
+  validate :check_images
+
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
   scope :by_title,   -> { order(:title) }
   scope :by_updated, -> { order(updated_at: :desc) }
@@ -54,7 +56,7 @@ class Painting < ApplicationRecord
   end
 
   def image_path(web: false, tn: false)
-    path = "#{tn ? 'thumbnails' : 'images'}/#{filename}.jpg"
+    path = "#{tn ? 'thumbnails' : 'images'}/#{Rails.env.test? ? 'test' : filename}.jpg"
     if web
       "/" + path
     else
@@ -80,6 +82,23 @@ class Painting < ApplicationRecord
     self.width = nil if width == 0
     self.height = height.to_i
     self.height = nil if height == 0
+  end
+
+  def check_images
+    if filename.present?
+      dim = image_dimensions(tn: false)
+      if dim.nil?
+        errors.add(:filename, "main image doesn't exist yet or is the wrong type")
+      elsif dim == "100x100"
+        errors.add(:filename, "main image has wrong dimensions (#{dim})")
+      end
+      dim = image_dimensions(tn: true)
+      if dim.nil?
+        errors.add(:filename, "thumnail image doesn't exist yet or is the wrong type")
+      elsif dim != "100x100"
+        errors.add(:filename, "thumnail image has wrong dimensions (#{dim})")
+      end
+    end
   end
 
   def self.migrate
