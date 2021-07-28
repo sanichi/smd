@@ -19,7 +19,7 @@ describe Painting do
         fill_in t("painting.width"), with: data.width
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
-        select t("painting.gallery")[0] + data.gallery.to_s, from: t("painting.gallery")
+        select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
@@ -45,7 +45,7 @@ describe Painting do
         fill_in t("painting.width"), with: data.width
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
-        select t("painting.gallery")[0] + data.gallery.to_s, from: t("painting.gallery")
+        select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
@@ -57,7 +57,7 @@ describe Painting do
     end
 
     context "edit" do
-      it "title" do
+      it "success" do
         click_link painting.title
         click_link t("edit")
 
@@ -65,7 +65,7 @@ describe Painting do
 
         fill_in t("painting.title"), with: data.title
         select t("painting.medias.#{data.media}"), from: t("painting.media")
-        select t("painting.gallery")[0] + data.gallery.to_s, from: t("painting.gallery")
+        select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
