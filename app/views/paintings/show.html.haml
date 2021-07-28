@@ -9,11 +9,9 @@
       .body
         .row.border.ms-1.me-1
           .col-6.tmd-td.text-center
-            - wid, hit = @painting.image_dimensions.split('x').map(&:to_f)
-            - eqv = (wid * 100 / hit).round
-            %img.img-thumbnail{src: @painting.image_path, alt: @painting.title, width: eqv}
+            %img.img-thumbnail{src: @painting.image_path, alt: @painting.title, width: @painting.proportionate_width}
           .col-6.ted-td.text-center
-            %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title, width: 100}
+            %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title, width: Painting::TN_PIXELS}
           .col-6.mid-th= t("painting.gallery")
           .col-6.end-td= t("pages.gallery#{@painting.gallery}.title")
           .col-6.mid-th= t("painting.size")
@@ -23,10 +21,7 @@
           .col-6.mid-th= t("painting.filename")
           .col-6.end-td= @painting.filename
           .col-6.mid-th= t("painting.dimensions")
-          .col-6.end-td
-            = succeed(",") do
-              = @painting.image_dimensions(tn: false)
-            = @painting.image_dimensions(tn: true)
+          .col-6.end-td= @painting.dimensions
           .col-6.mid-th= t("updated")
           .col-6.end-td= @painting.last_updated
       .footer

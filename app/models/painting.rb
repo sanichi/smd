@@ -5,6 +5,9 @@ class Painting < ApplicationRecord
   MAX_TITLE = 50
   MAX_SIZE = 200
   MIN_SIZE = 5
+  MAX_PIXELS = 1000
+  MIN_PIXELS = 100
+  TN_PIXELS = 100
   GALLERY = 1..4
   MEDIA = %w/mm wc chcr pstl oil/
 
@@ -55,6 +58,15 @@ class Painting < ApplicationRecord
     format % [width, height]
   end
 
+  def dimensions(short=false)
+    format = short ? "%dx%d" : "%d x %d px"
+    format % [image_width, image_height]
+  end
+
+  def proportionate_width
+    (image_width.to_f * TN_PIXELS / image_height.to_f).round
+  end
+
   def image_path(web: true, tn: false)
     path = "#{tn ? 'thumbnails' : 'images'}/#{Rails.env.test? ? 'test' : filename}.jpg"
     if web
@@ -62,11 +74,6 @@ class Painting < ApplicationRecord
     else
       Rails.root + "public" + path
     end
-  end
-
-  def image_dimensions(tn: false)
-    return nil unless %x|file #{image_path(web: false, tn: tn)}|.match(/JPEG.*, ([1-9]\d{2,3}x[1-9]\d{2,3}),/)
-    $1
   end
 
   def last_updated
@@ -84,19 +91,29 @@ class Painting < ApplicationRecord
     self.height = nil if height == 0
   end
 
+  def get_dimensions(tn: false)
+    return [0, 0] unless %x|file #{image_path(web: false, tn: tn)}|.match(/JPEG.*, ([1-9]\d{2,3})x([1-9]\d{2,3}),/)
+    [$1.to_i, $2.to_i]
+  end
+
   def check_images
     if filename.present?
-      dim = image_dimensions(tn: false)
-      if dim.nil?
+      w, h = get_dimensions
+      if w == 0 || h == 0
         errors.add(:filename, "main image doesn't exist yet or is the wrong type")
-      elsif dim == "100x100"
-        errors.add(:filename, "main image has wrong dimensions (#{dim})")
+      elsif w <= MIN_PIXELS || w > MAX_PIXELS
+        errors.add(:filename, "main image width (#{w}) should be > #{MIN_PIXELS} and ≤ #{MAX_PIXELS}")
+      elsif h <= MIN_PIXELS || h > MAX_PIXELS
+        errors.add(:filename, "main image height (#{w}) should be > #{MIN_PIXELS} and ≤ #{MAX_PIXELS}")
+      else
+        self.image_width = w
+        self.image_height = h
       end
-      dim = image_dimensions(tn: true)
-      if dim.nil?
+      w, h = get_dimensions(tn: true)
+      if w == 0 || h == 0
         errors.add(:filename, "thumnail image doesn't exist yet or is the wrong type")
-      elsif dim != "100x100"
-        errors.add(:filename, "thumnail image has wrong dimensions (#{dim})")
+      elsif w != TN_PIXELS || h != TN_PIXELS
+        errors.add(:filename, "thumnail image should be #{TN_PIXELS}x#{TN_PIXELS}")
       end
     end
   end
@@ -139,7 +156,7 @@ class Painting < ApplicationRecord
       end
       source = Rails.root + "public" + p.src(true)
       if source.exist?
-        target = painting.image_path(web:false, tn: true)
+        target = painting.image_path(web: false, tn: true)
         unless target.exist? && target.size == source.size
           FileUtils.cp(source, target)
           copies += 1

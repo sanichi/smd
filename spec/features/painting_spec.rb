@@ -71,6 +71,8 @@ describe Painting do
         expect(p.media).to eq data.media
         expect(p.gallery).to eq data.gallery
         expect(p.sold).to eq data.sold
+        expect(p.image_width).to eq 700 # test.jpg image
+        expect(p.image_height).to eq 600 # test.jpg image
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_26_180213) do
+ActiveRecord::Schema.define(version: 2021_07_28_092531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2021_07_26_180213) do
     t.string "media", limit: 5
     t.boolean "sold", default: false
     t.integer "gallery", limit: 2
+    t.integer "image_width", limit: 2
+    t.integer "image_height", limit: 2
   end
 
   create_table "users", force: :cascade do |t|
