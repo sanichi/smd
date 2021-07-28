@@ -10,26 +10,12 @@
         in the UK, America, France and Australia.
       %h5 Current
       %ul
-        %li
-          = succeed(",") do
-            = link_to "Flat Cat Gallery", "https://www.flatcatgallery.co.uk/product-category/sandra-dickie/"
-          Lauder
-        %li
-          = succeed(",") do
-            = link_to "Gallery Q", "https://www.galleryq.co.uk/artist/sandra-dickie/"
-          Dundee
-        %li
-          = succeed(",") do
-            = link_to "Larks Gallery", "https://larksgallery.com"
-          Ballater
-        %li
-          = succeed(",") do
-            = link_to "number four gallery", "http://www.numberfourgallery.co.uk/index.html"
-          St Abbs
-        %li
-          = succeed(",") do
-            = link_to "Torrance Gallery", "https://www.torrancegallery.co.uk/spring21"
-          Edinburgh
+        = render "exhibition", g: "Brightwater Gallery", t: "Alnwick",   l: "brightwatergallery.co.uk/paintings-and-prints"
+        = render "exhibition", g: "Flat Cat Gallery",    t: "Lauder",    l: "flatcatgallery.co.uk/product-category/sandra-dickie/"
+        = render "exhibition", g: "Gallery Q",           t: "Dundee",    l: "galleryq.co.uk/artist/sandra-dickie/"
+        = render "exhibition", g: "Larks Gallery",       t: "Ballater",  l: "larksgallery.com", w: false
+        = render "exhibition", g: "number four gallery", t: "St Abbs",   l: "numberfourgallery.co.uk/index.html", s: false
+        = render "exhibition", g: "Torrance Gallery",    t: "Edinburgh", l: "torrancegallery.co.uk"
       %h5 Previous
       %ul
         %li City Art Centre, Edinburgh

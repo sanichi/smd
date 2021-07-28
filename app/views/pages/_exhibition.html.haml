@@ -1,0 +1,9 @@
+- defined?(s) || s = true
+- defined?(w) || w = true
+
+- link = "http" + (s ? "s" : "") + "://" + (w ? "www." : "") + l
+
+%li
+  = succeed(",") do
+    = link_to g, link, target: "exhibition"
+  = t
