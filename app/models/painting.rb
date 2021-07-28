@@ -132,6 +132,7 @@ class Painting < ApplicationRecord
   def self.migrate
     puts "before: #{count}"
     destroy_all
+    ActiveRecord::Base.connection.execute("ALTER SEQUENCE paintings_id_seq RESTART WITH 1");
     copies = 0
     ApplicationHelper::PICTURES.each do |p|
       width, height = nil, nil
