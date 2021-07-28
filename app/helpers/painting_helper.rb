@@ -1,6 +1,6 @@
 module PaintingHelper
   def painting_order_menu(selected)
-    opts = %w/title updated size/.map { |o| [t("painting.order.#{o}"), o] }
+    opts = %w/title size price updated/.map { |o| [t("painting.order.#{o}"), o] }
     options_for_select(opts, selected)
   end
 

@@ -11,9 +11,11 @@
           .col-6.tmd-td.text-center
             %img.img-thumbnail{src: @painting.image_path, alt: @painting.title, width: @painting.proportionate_width}
           .col-6.ted-td.text-center
-            %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title, width: Painting::TN_PIXELS}
+            %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title, width: Painting::THUMB}
           .col-6.mid-th= t("painting.gallery")
           .col-6.end-td= t("pages.gallery#{@painting.gallery}.title")
+          .col-6.mid-th= t("painting.price")
+          .col-6.end-td= @painting.pounds
           .col-6.mid-th= t("painting.size")
           .col-6.end-td= @painting.size
           .col-6.mid-th= t("painting.media")

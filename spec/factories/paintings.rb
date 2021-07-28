@@ -1,11 +1,12 @@
 FactoryBot.define do
   factory :painting do
-    title    { Faker::Lorem.paragraph.truncate(Painting::MAX_TITLE) }
-    filename { Faker::Lorem.words(number: 3).join("_").truncate(Painting::MAX_TITLE) }
-    width    { [rand(Painting::MIN_SIZE..Painting::MAX_SIZE), nil].sample }
-    height   { [rand(Painting::MIN_SIZE..Painting::MAX_SIZE), nil].sample }
-    media    { Painting::MEDIA.sample }
-    sold     { [true, false].sample }
+    title    { Faker::Lorem.paragraph.truncate(Painting::TITLE) }
+    filename { Faker::Lorem.words(number: 3).join("_").truncate(Painting::TITLE) }
+    width    { [rand(Painting::SIZE), nil].sample }
+    height   { [rand(Painting::SIZE), nil].sample }
     gallery  { rand(Painting::GALLERY) }
+    media    { Painting::MEDIA.sample }
+    price    { rand(Painting::PRICE) }
+    sold     { [true, false].sample }
   end
 end

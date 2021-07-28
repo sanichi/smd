@@ -9,6 +9,7 @@ en:
     media: Media
     new: New Painting
     paintings: Paintings
+    price: Price
     size: Size
     sold: Sold
     title: Title
@@ -20,6 +21,7 @@ en:
       pstl: pastel
       wc: watercolour
     order:
+      price: by Price
       title: by Title
       updated: by Last Updated
       size: by Size

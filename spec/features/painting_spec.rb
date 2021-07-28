@@ -20,6 +20,7 @@ describe Painting do
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
         select t("painting.gallery")[0] + data.gallery.to_s, from: t("painting.gallery")
+        fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
 
@@ -32,7 +33,10 @@ describe Painting do
         expect(p.height).to eq data.height
         expect(p.media).to eq data.media
         expect(p.gallery).to eq data.gallery
+        expect(p.price).to eq data.price
         expect(p.sold).to eq data.sold
+        expect(p.image_width).to eq 700 # test.jpg image
+        expect(p.image_height).to eq 600 # test.jpg image
       end
 
       it "failure" do
@@ -42,6 +46,7 @@ describe Painting do
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
         select t("painting.gallery")[0] + data.gallery.to_s, from: t("painting.gallery")
+        fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
 
@@ -61,6 +66,7 @@ describe Painting do
         fill_in t("painting.title"), with: data.title
         select t("painting.medias.#{data.media}"), from: t("painting.media")
         select t("painting.gallery")[0] + data.gallery.to_s, from: t("painting.gallery")
+        fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
 
@@ -70,6 +76,7 @@ describe Painting do
         expect(p.title).to eq data.title
         expect(p.media).to eq data.media
         expect(p.gallery).to eq data.gallery
+        expect(p.price).to eq data.price
         expect(p.sold).to eq data.sold
         expect(p.image_width).to eq 700 # test.jpg image
         expect(p.image_height).to eq 600 # test.jpg image
