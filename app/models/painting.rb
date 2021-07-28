@@ -37,7 +37,9 @@ class Painting < ApplicationRecord
     if GALLERY.include?(g = params[:gallery].to_i)
       matches = matches.where(gallery: g)
     end
-    if sql = numerical_constraint(params[:price], :price)
+    if params[:price]&.squish == "0"
+      matches = matches.where(price: nil)
+    elsif sql = numerical_constraint(params[:price], :price)
       matches = matches.where(sql)
     end
     case params[:sold]
