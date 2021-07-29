@@ -1,18 +1,19 @@
 :ruby
   set_meta_tags title: t("painting.paintings")
   lo = Layout.new(
-    xl: [[2,2,2],[2,2,2]],
-    lg: [[3,2,3],[2,3,3]],
-    sm: [[4,2,4],[2,4,4]],
-    xs: [[4,3,5],[2,5,5]],
+    xl: [[2,2,2],[2,2,2,2]],
+    lg: [[3,2,3],[2,2],[3,3]],
+    sm: [[4,2,4],[2,2],[3,3]],
+    xs: [[4,3,5],[2,2],[4,4]],
   ).to_a
   inputs = [
-    [:query,   t("search"),           :text,   lo[0], placeholder: t("search"), autofocus: true],
+    [:query,   t("search"),           :text,   lo[0], placeholder: t("painting.title"), autofocus: true],
     [:price,   t("painting.price"),   :text,   lo[1], placeholder: t("painting.price")],
     [:order,   t("order"),            :select, lo[2], menu: painting_order_menu(params[:order])],
     [:gallery, t("painting.gallery"), :select, lo[3], menu: painting_gallery_menu(params[:gallery])],
-    [:media,   t("painting.media"),   :select, lo[4], menu: painting_media_menu(params[:media])],
-    [:sold,    t("painting.sold"),    :select, lo[5], menu: painting_sold_menu(params[:sold])],
+    [:stars,   t("painting.stars"),   :select, lo[4], menu: painting_stars_menu(params[:stars])],
+    [:media,   t("painting.media"),   :select, lo[5], menu: painting_media_menu(params[:media])],
+    [:sold,    t("painting.sold"),    :select, lo[6], menu: painting_sold_menu(params[:sold])],
   ]
 
 %section
@@ -27,10 +28,11 @@
             %tr
               %th= t("painting.title")
               %th.text-center= t("painting.gallery")[0]
-              %th.text-center= t("painting.price")
+              %th.text-center= t("symbol.pound")
               %th.text-center= t("painting.size")
-              %th.text-center= t("painting.media")
-              %th.text-center= t("painting.sold")
+              %th.text-center= t("painting.media")[0]
+              %th.text-center= t("symbol.star")
+              %th.text-center= t("painting.sold")[0]
           %tbody{id: "results"}
             = render "results", paintings: @paintings
   - if can?(:create, Painting)

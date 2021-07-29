@@ -5,6 +5,7 @@
     [:width,    t("painting.width"),    :text],
     [:height,   t("painting.height"),   :text],
     [:media,    t("painting.media"),    :select, menu: painting_media_menu(painting.media, false)],
+    [:stars,    t("painting.stars"),    :select, menu: painting_stars_menu(painting.stars, false)],
     [:price,    t("painting.price"),    :text],
     [:sold,     t("painting.sold"),     :check],
     [:filename, t("painting.filename"), :text, maxlength: Painting::TITLE],

@@ -7,6 +7,7 @@ class Painting < ApplicationRecord
   PIXELS = 100..1000
   PRICE = 10..10000
   SIZE = 5..200
+  STARS = 0..5
   THUMB = 100
   TITLE = 50
 
@@ -16,6 +17,7 @@ class Painting < ApplicationRecord
   validates :title,    length: { maximum: TITLE }, uniqueness: true, presence: true
   validates :gallery,  inclusion: { in: GALLERY }
   validates :media,    inclusion: { in: MEDIA }
+  validates :stars,    inclusion: { in: STARS }
   validates :price,    inclusion: { in: PRICE }, allow_nil: true
   validates :width,    inclusion: { in: SIZE }, allow_nil: true
   validates :height,   inclusion: { in: SIZE }, allow_nil: true
@@ -25,6 +27,7 @@ class Painting < ApplicationRecord
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
   scope :by_price,   -> { order(Arel.sql("COALESCE(price,0) DESC")) }
   scope :by_updated, -> { order(updated_at: :desc) }
+  scope :by_stars,   -> { order(stars: :desc) }
   scope :by_title,   -> { order(:title) }
 
   def self.search(matches, params, path, opt={})
@@ -36,6 +39,9 @@ class Painting < ApplicationRecord
     end
     if GALLERY.include?(g = params[:gallery].to_i)
       matches = matches.where(gallery: g)
+    end
+    if params[:stars].present? && STARS.include?(s = params[:stars].to_i)
+      matches = matches.where(stars: s)
     end
     if params[:price]&.squish == "0"
       matches = matches.where(price: nil)
@@ -49,14 +55,11 @@ class Painting < ApplicationRecord
         matches = matches.where(sold: false)
     end
     case params[:order]
-    when "updated"
-      matches = matches.by_updated
-    when "size"
-      matches = matches.by_size
-    when "price"
-      matches = matches.by_price
-    else
-      matches = matches.by_title
+    when "price"   then matches = matches.by_price
+    when "size"    then matches = matches.by_size
+    when "stars"   then matches = matches.by_stars
+    when "updated" then matches = matches.by_updated
+    else                matches = matches.by_title
     end
     paginate(matches, params, path, opt)
   end
@@ -136,6 +139,9 @@ class Painting < ApplicationRecord
     destroy_all
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE paintings_id_seq RESTART WITH 1");
     copies = 0
+    gallery = 0
+    total = 0
+    index = 0
     ApplicationHelper::PICTURES.each do |p|
       width, height = nil, nil
       if p.cm != "00x00" && p.cm.match(/\A(\d\d)x(\d\d)/)
@@ -149,15 +155,24 @@ class Painting < ApplicationRecord
         when "cc" then "chcr"
         else p.type
         end
+      if p.g != gallery
+        gallery = p.g
+        total = ApplicationHelper::PICTURES.select{ |p| p.g == gallery }.size
+        index = 0
+      else
+        index += 1
+      end
+      stars = p.s == 0 ? 0 : 1 + (4.0 * (total - index).to_f / total.to_f).round
       painting = create!(
         title: p.name,
         filename: p.file,
-        width: width,
-        height: height,
+        gallery: p.g,
         media: media,
         price: p.price,
         sold: p.sold?,
-        gallery: p.g,
+        stars: stars,
+        width: width,
+        height: height,
       )
       source = Rails.root + "public" + p.src
       if source.exist?

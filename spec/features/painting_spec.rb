@@ -20,6 +20,7 @@ describe Painting do
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
         select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
+        select data.stars.to_s, from: t("painting.stars")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
@@ -35,6 +36,7 @@ describe Painting do
         expect(p.gallery).to eq data.gallery
         expect(p.price).to eq data.price
         expect(p.sold).to eq data.sold
+        expect(p.stars).to eq data.stars
         expect(p.image_width).to eq 700 # test.jpg image
         expect(p.image_height).to eq 600 # test.jpg image
       end
@@ -46,6 +48,7 @@ describe Painting do
         fill_in t("painting.height"), with: data.height
         select t("painting.medias.#{data.media}"), from: t("painting.media")
         select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
+        select data.stars.to_s, from: t("painting.stars")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
         click_button t("save")
@@ -68,6 +71,7 @@ describe Painting do
         select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
+        select data.stars.to_s, from: t("painting.stars")
         click_button t("save")
 
         expect(page).to have_title data.title
@@ -78,6 +82,7 @@ describe Painting do
         expect(p.gallery).to eq data.gallery
         expect(p.price).to eq data.price
         expect(p.sold).to eq data.sold
+        expect(p.stars).to eq data.stars
         expect(p.image_width).to eq 700 # test.jpg image
         expect(p.image_height).to eq 600 # test.jpg image
       end

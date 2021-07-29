@@ -24,6 +24,8 @@
           .col-6.end-td= @painting.filename
           .col-6.mid-th= t("painting.dimensions")
           .col-6.end-td= @painting.dimensions
+          .col-6.mid-th= t("painting.stars")
+          .col-6.end-td= t("symbol.star") * @painting.stars
           .col-6.mid-th= t("updated")
           .col-6.end-td= @painting.last_updated
       .footer

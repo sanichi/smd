@@ -8,5 +8,6 @@ FactoryBot.define do
     media    { Painting::MEDIA.sample }
     price    { rand(Painting::PRICE) }
     sold     { [true, false].sample }
+    stars    { rand(Painting::STARS) }
   end
 end

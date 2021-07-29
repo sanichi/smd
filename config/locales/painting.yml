@@ -12,6 +12,7 @@ en:
     price: Price
     size: Size
     sold: Sold
+    stars: Stars
     title: Title
     width: Width
     medias:
@@ -25,3 +26,4 @@ en:
       title: by Title
       updated: by Last Updated
       size: by Size
+      stars: by Stars
