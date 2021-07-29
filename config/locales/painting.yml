@@ -27,3 +27,10 @@ en:
       updated: by Last Updated
       size: by Size
       stars: by Stars
+    symbol:
+      gallery: G
+      media: 🎨
+      price: £
+      size: cm⨯cm
+      sold: 🏷
+      star: ⭐️

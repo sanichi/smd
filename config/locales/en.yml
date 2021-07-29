@@ -21,8 +21,6 @@ en:
     sep: ' ∙ '
   symbol:
     cross: ✘
-    pound: £
-    star: ⭐️
     tick: ✔︎
   type:
     cc: charcoal and crayon

@@ -66,7 +66,7 @@ class Painting < ApplicationRecord
 
   def size(short=false)
     return "" unless width.present? && height.present?
-    format = short ? "%dx%d" : "%d x %d cm"
+    format = short ? "%d⨯%d" : "%d ⨯ %d cm"
     format % [width, height]
   end
 
@@ -75,7 +75,7 @@ class Painting < ApplicationRecord
   end
 
   def dimensions(short=false)
-    format = short ? "%dx%d" : "%d x %d px"
+    format = short ? "%d⨯%d" : "%d ⨯ %d px"
     format % [image_width, image_height]
   end
 

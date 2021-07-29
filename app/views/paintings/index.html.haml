@@ -27,12 +27,12 @@
           %thead
             %tr
               %th= t("painting.title")
-              %th.text-center= t("painting.gallery")[0]
-              %th.text-center= t("symbol.pound")
-              %th.text-center= t("painting.size")
-              %th.text-center= t("painting.media")[0]
-              %th.text-center= t("symbol.star")
-              %th.text-center= t("painting.sold")[0]
+              %th.text-center= t("painting.symbol.gallery")
+              %th.text-center= t("painting.symbol.price")
+              %th.text-center= t("painting.symbol.size")
+              %th.text-center= t("painting.symbol.media")
+              %th.text-center= t("painting.symbol.star")
+              %th.text-center= t("painting.symbol.sold")
           %tbody{id: "results"}
             = render "results", paintings: @paintings
   - if can?(:create, Painting)

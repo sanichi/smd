@@ -27,7 +27,7 @@ module PaintingHelper
 
   def painting_stars_menu(selected, search=true)
     opts = Painting::STARS.to_a.reverse.map do |s|
-      t = (search ? t("symbol.star") : "") + s.to_s
+      t = (search ? t("painting.symbol.star") : "") + s.to_s
       [t, s]
     end
     opts.unshift [t("all"), ""] if search
