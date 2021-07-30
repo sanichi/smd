@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get "sign_in" => "sessions#new"
   (1..4).each { |p| get "gallery#{p}" => "pages#gallery#{p}" }
 
-  resources :paintings
+  resources :paintings do
+    get :archive, on: :collection
+  end
   resources :users
 
   resource :session, only: [:new, :create, :destroy]

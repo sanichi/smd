@@ -8,6 +8,7 @@
     [:stars,    t("painting.stars"),    :select, menu: painting_stars_menu(painting.stars, false)],
     [:price,    t("painting.price"),    :text],
     [:sold,     t("painting.sold"),     :check],
+    [:archived, t("painting.archived"), :check],
     [:filename, t("painting.filename"), :text, maxlength: Painting::TITLE],
   ]
 = render "utils/crud/form", object: painting, index: paintings_path, inputs: inputs, title: title, center: center(xl: 4, lg: 6, md: 8, sm: 10)

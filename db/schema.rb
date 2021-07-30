@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_121850) do
+ActiveRecord::Schema.define(version: 2021_07_30_150142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_07_29_121850) do
     t.integer "image_height", limit: 2
     t.integer "price", limit: 2
     t.integer "stars", limit: 2
+    t.boolean "archived", default: false
   end
 
   create_table "users", force: :cascade do |t|

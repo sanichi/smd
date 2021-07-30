@@ -1,5 +1,7 @@
 en:
   painting:
+    archive: Archive
+    archived: Archived
     available: Available
     dimensions: Image Dimensions
     edit: Edit Painting

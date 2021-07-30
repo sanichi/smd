@@ -1,0 +1,28 @@
+- set_meta_tags title: t("painting.archive")
+
+%section
+  .header
+    %h3.d-inline= t("painting.archive")
+  .body
+    .row
+      %div{class: center(xl: 6, lg: 8, md: 10, sm: 12)}
+        %table.mt-4{class: "table table-bordered table-sm"}
+          %thead
+            %tr
+              %th= t("painting.title")
+              %th.text-center= t("painting.symbol.gallery")
+              %th.text-center= t("painting.symbol.price")
+              %th.text-center= t("painting.symbol.size")
+              %th.text-center= t("painting.symbol.media")
+              %th.text-center= t("painting.symbol.star")
+              %th.text-center= t("painting.symbol.sold")
+          %tbody
+            - @paintings.each do |p|
+              %tr
+                %td= link_to p.title, p
+                %td.text-center= p.gallery
+                %td.text-center= p.price
+                %td.text-center= p.size(true)
+                %td.text-center= p.media
+                %td.text-center= p.stars
+                %td.text-center= render "sold", sold: p.sold

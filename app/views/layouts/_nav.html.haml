@@ -19,6 +19,7 @@
             %ul.dropdown-menu
               - if can?(:manage, Painting)
                 %li= link_to t("painting.paintings"), paintings_path
+                %li= link_to t("painting.archive"), archive_paintings_path
               - if can?(:manage, User)
                 %li= link_to t("user.users"), users_path
       %ul.ms-auto

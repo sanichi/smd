@@ -2,7 +2,11 @@ class PaintingsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @paintings = Painting.search(@paintings, params, paintings_path, per_page: 10)
+    @paintings = Painting.search(@paintings.where(archived: false), params, paintings_path, per_page: 10)
+  end
+
+  def archive
+    @paintings = @paintings.where(archived: true).by_title
   end
 
   def create
@@ -31,6 +35,6 @@ class PaintingsController < ApplicationController
   private
 
   def resource_params
-    params.require(:painting).permit(:filename, :gallery, :height, :media, :price, :sold, :stars, :title, :width)
+    params.require(:painting).permit(:archived, :filename, :gallery, :height, :media, :price, :sold, :stars, :title, :width)
   end
 end

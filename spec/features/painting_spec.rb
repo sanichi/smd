@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Painting do
   let!(:user)     { create(:user, admin: false) }
-  let!(:painting) { create(:painting) }
+  let!(:painting) { create(:painting, archived: false) }
   let(:data)      { build(:painting) }
 
   context "users" do
@@ -23,6 +23,7 @@ describe Painting do
         select data.stars.to_s, from: t("painting.stars")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
+        data.archived ? check(t("painting.archived")) : uncheck(t("painting.archived"))
         click_button t("save")
 
         expect(page).to have_title data.title
@@ -36,6 +37,7 @@ describe Painting do
         expect(p.gallery).to eq data.gallery
         expect(p.price).to eq data.price
         expect(p.sold).to eq data.sold
+        expect(p.archived).to eq data.archived
         expect(p.stars).to eq data.stars
         expect(p.image_width).to eq 700 # test.jpg image
         expect(p.image_height).to eq 600 # test.jpg image
@@ -71,6 +73,7 @@ describe Painting do
         select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
         fill_in t("painting.price"), with: data.price
         data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
+        data.archived ? check(t("painting.archived")) : uncheck(t("painting.archived"))
         select data.stars.to_s, from: t("painting.stars")
         click_button t("save")
 
@@ -82,6 +85,7 @@ describe Painting do
         expect(p.gallery).to eq data.gallery
         expect(p.price).to eq data.price
         expect(p.sold).to eq data.sold
+        expect(p.archived).to eq data.archived
         expect(p.stars).to eq data.stars
         expect(p.image_width).to eq 700 # test.jpg image
         expect(p.image_height).to eq 600 # test.jpg image
