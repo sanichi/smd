@@ -22,17 +22,10 @@
   .body
     = render "utils/search/form", index: paintings_path, inputs: inputs
     .row
-      %div{class: center(xl: 6, lg: 8, md: 10, sm: 12)}
+      %div{class: painting_table_center}
         %table.mt-4{class: "table table-bordered table-sm"}
           %thead
-            %tr
-              %th= t("painting.title")
-              %th.text-center= t("painting.symbol.gallery")
-              %th.text-center= t("painting.symbol.price")
-              %th.text-center= t("painting.symbol.size")
-              %th.text-center= t("painting.symbol.media")
-              %th.text-center= t("painting.symbol.star")
-              %th.text-center= t("painting.symbol.sold")
+            = render "table_hdr"
           %tbody{id: "results"}
             = render "results", paintings: @paintings
   - if can?(:create, Painting)

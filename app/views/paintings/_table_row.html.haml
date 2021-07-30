@@ -1,0 +1,8 @@
+%tr
+  %td= link_to p.title, p
+  %td.text-center= p.gallery
+  %td.text-center= p.price
+  %td.text-center= p.size(true)
+  %td.text-center= p.media
+  %td.text-center= p.stars
+  %td.text-center= render "sold", sold: p.sold
