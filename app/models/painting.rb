@@ -135,9 +135,9 @@ class Painting < ApplicationRecord
   end
 
   def self.migrate
-    puts "before: #{count}"
     destroy_all
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE paintings_id_seq RESTART WITH 1");
+    puts "before: #{count}"
     copies = 0
     gallery = 0
     total = 0
@@ -163,7 +163,27 @@ class Painting < ApplicationRecord
         index += 1
       end
       stars = p.s == 0 ? 0 : 1 + (4.0 * (total - index).to_f / total.to_f).round
-      painting = create!(
+      source = Rails.root + "public" + p.src
+      if source.exist?
+        target = Rails.root + "public" + "images" + "#{p.file}.jpg"
+        unless target.exist? && target.size == source.size
+          FileUtils.cp(source, target)
+          copies += 1
+        end
+      else
+        raise "image #{source} does not exist"
+      end
+      source = Rails.root + "public" + p.src(true)
+      if source.exist?
+        target = Rails.root + "public" + "thumbnails" + "#{p.file}.jpg"
+        unless target.exist? && target.size == source.size
+          FileUtils.cp(source, target)
+          copies += 1
+        end
+      else
+        raise "image #{source} does not exist"
+      end
+      create!(
         title: p.name,
         filename: p.file,
         gallery: p.g,
@@ -174,9 +194,26 @@ class Painting < ApplicationRecord
         width: width,
         height: height,
       )
+    end
+    puts "after: #{count}, copies: #{copies}"
+
+    ApplicationHelper::ARCHIVE.each do |p|
+      width, height = nil, nil
+      if p.cm != "00x00" && p.cm.match(/\A(\d\d)x(\d\d)/)
+        width = $1.to_i
+        height = $2.to_i
+      end
+      media =
+        case p.type
+        when "pt" then "pstl"
+        when "ol" then "oil"
+        when "cc" then "chcr"
+        else p.type
+        end
+      stars = 2
       source = Rails.root + "public" + p.src
       if source.exist?
-        target = painting.image_path(web: false)
+        target = Rails.root + "public" + "images" + "#{p.file}.jpg"
         unless target.exist? && target.size == source.size
           FileUtils.cp(source, target)
           copies += 1
@@ -186,7 +223,7 @@ class Painting < ApplicationRecord
       end
       source = Rails.root + "public" + p.src(true)
       if source.exist?
-        target = painting.image_path(web: false, tn: true)
+        target = target = Rails.root + "public" + "thumbnails" + "#{p.file}.jpg"
         unless target.exist? && target.size == source.size
           FileUtils.cp(source, target)
           copies += 1
@@ -194,7 +231,19 @@ class Painting < ApplicationRecord
       else
         raise "image #{source} does not exist"
       end
+      create!(
+        title: p.name,
+        filename: p.file,
+        gallery: p.g,
+        media: media,
+        price: p.price,
+        sold: p.sold?,
+        stars: stars,
+        width: width,
+        height: height,
+        archived: true,
+      )
     end
-    puts "after: #{count}, copies: #{copies}"
+    puts "after archive: #{count}, copies: #{copies}"
   end
 end

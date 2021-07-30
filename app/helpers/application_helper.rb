@@ -69,16 +69,19 @@ module ApplicationHelper
     [4, 0, "standing_figure",                    "230x600", "00x00", "pt", "s", nil, "Standing Figure"],
     [4, 0, "topaz",                              "450x600", "00x00", "cc", "s", nil, "Topaz"],
     [4, 0, "topaz_profile",                      "436x600", "00x00", "cc", "s", nil, "Topaz Profile"],
-  # [1, 1, "olive_trees_provence",               "900x560", "00x00", "mm", "s", nil, "Olive Trees, Provence"],
-  # [1, 0, "cinque_terre",                       "600x809", "00x00", "mm", "s", nil, "Cinque Terre"],
-  # [1, 0, "italian_steps",                      "600x867", "00x00", "mm", "s", nil, "Italian Steps"],
-  # [1, 1, "forever_venice",                     "900x600", "57x48", "mm", "a", nil, "Forever Venice"],
-  # [1, 1, "a_bit_of_shade",                     "810x600", "38x29", "ol", "a", nil, "A Bit of Shade, Spain"],
-  # [2, 0, "a_patch_of_light_the_meadows",       "732x600", "00x00", "ol", "s", nil, "A Patch of Light, The Meadows"],
-  # [2, 0, "across_the_moors",                   "600x645", "00x00", "ol", "s", nil, "Across the Moors"],
-  # [2, 0, "golden_glow_skye",                   "889x600", "00x00", "mm", "s", nil, "Golden Glow, Skye"],
-  # [2, 0, "pleasures_are_like_poppies_spread",  "800x600", "00x00", "mm", "s", nil, "Pleasures Are Like Poppies Spread"],
-  # [2, 1, "staffin_bay_skye",                   "600x345", "00x00", "mm", "s", nil, "Staffin Bay Skye"],
+  ].map { |d| Image.new(*d) }
+
+  ARCHIVE = [
+    [1, 1, "olive_trees_provence",               "900x560", "00x00", "mm", "s", nil, "Olive Trees, Provence"],
+    [1, 0, "cinque_terre",                       "600x809", "00x00", "mm", "s", nil, "Cinque Terre"],
+    [1, 0, "italian_steps",                      "600x867", "00x00", "mm", "s", nil, "Italian Steps"],
+    [1, 1, "forever_venice",                     "900x600", "57x48", "mm", "a", nil, "Forever Venice"],
+    [1, 1, "a_bit_of_shade",                     "810x600", "38x29", "ol", "a", nil, "A Bit of Shade, Spain"],
+    [2, 0, "a_patch_of_light_the_meadows",       "732x600", "00x00", "ol", "s", nil, "A Patch of Light, The Meadows"],
+    [2, 0, "across_the_moors",                   "600x645", "00x00", "ol", "s", nil, "Across the Moors"],
+    [2, 0, "golden_glow_skye",                   "889x600", "00x00", "mm", "s", nil, "Golden Glow, Skye"],
+    [2, 0, "pleasures_are_like_poppies_spread",  "800x600", "00x00", "mm", "s", nil, "Pleasures Are Like Poppies Spread"],
+    [2, 1, "staffin_bay_skye",                   "600x345", "00x00", "mm", "s", nil, "Staffin Bay Skye"],
   ].map { |d| Image.new(*d) }
 
   def pictures(gallery)
