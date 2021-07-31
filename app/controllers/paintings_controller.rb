@@ -5,6 +5,12 @@ class PaintingsController < ApplicationController
     @paintings = Painting.search(@paintings.where(archived: false), params, paintings_path, per_page: 10)
   end
 
+  def gallery
+    @g = params[:g].to_i
+    @g = Painting::GALLERY.first unless Painting::GALLERY.include?(@g)
+    @paintings = Painting.where(gallery: @g).where(archived: false).by_stars
+  end
+
   def archive
     @paintings = @paintings.where(archived: true).by_title
   end

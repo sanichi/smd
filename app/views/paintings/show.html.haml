@@ -10,7 +10,7 @@
             %em
               = surround("(", ")") do
                 = t("painting.archived")
-        .float-end= render "sold", sold: @painting.sold
+        .float-end= dot(@painting.sold)
       .body
         .row.border.ms-1.me-1
           .col-6.tmd-td.text-center

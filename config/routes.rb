@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   %w{index exhibitions search}.each { |p| get p => "pages##{p}" }
   get "sign_in" => "sessions#new"
-  (1..4).each { |p| get "gallery#{p}" => "pages#gallery#{p}" }
+  get "gallery(/:g)", to: "paintings#gallery", as: "gallery"
+  # (1..4).each { |g| get "/gallery#{g}", to: redirect("/gallery/#{g}") }
+  (1..4).each { |g| get "gallery#{g}" => "pages#gallery#{g}" }
 
   resources :paintings do
     get :archive, on: :collection

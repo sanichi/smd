@@ -9,6 +9,8 @@ class Ability
         can :manage, :all
         cannot :manage, User
       end
+
+      can :gallery, Painting
     end
   end
 end

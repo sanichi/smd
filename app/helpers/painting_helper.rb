@@ -34,6 +34,12 @@ module PaintingHelper
     options_for_select(opts, selected)
   end
 
+  def dot(sold)
+    content_tag(:span, class: "badge rounded-pill dot bg-#{sold ? "danger" : "success"}") do
+      160.chr(Encoding::UTF_8)
+    end
+  end
+
   def painting_table_center
     center(xl: 6, lg: 8, md: 10, sm: 12)
   end
