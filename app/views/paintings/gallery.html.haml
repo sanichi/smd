@@ -5,8 +5,8 @@
   %div.text-center{class: center(xx: 6, lg: 8, xs: 10)}
     %h2= d[:title]
     - @paintings.each do |p|
-      %img{src: p.image_path, alt: p.title, class: "img-fluid"}
-      %p
+      %img.img-fluid.mt-4{src: p.image_path, alt: p.title}
+      %p.mt-2
         %strong= p.title
         - if p.width && p.height
           = surround("(", ")") { p.size }
