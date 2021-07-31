@@ -5,12 +5,10 @@
   %div.text-center{class: center(xx: 6, lg: 8, xs: 10)}
     %h2= d[:title]
     - @paintings.each do |p|
-      %a{name: "p-#{p.id}"}
-        %img.img-fluid.mt-4{src: p.image_path, alt: p.title}
+      %a{name: p.anchor}
+        %img.img-fluid.img-thumbnail.mt-4{src: p.image_path, alt: p.title}
       %p.mt-2
-        %strong
-          = link_to_if can?(:view, p), p.title, p
-        - if p.width && p.height
-          = surround("(", ")") { p.size }
+        %strong= link_to_if can?(:view, p), p.title, p
+        = p.size
         = dot(p.sold)
         = p.pounds

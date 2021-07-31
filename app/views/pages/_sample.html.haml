@@ -1,9 +1,9 @@
-= link_to gallery_path(p.gallery, anchor: "p-#{p.id}") do
+= link_to gallery_path(p.gallery, anchor: p.anchor) do
   %img.img-fluid.mb-2{src: p.image_path, alt: t("sample")}
 %p.mt-2
   %strong
     = p.title
   = surround("(", ")") do
-    = link_to t("pages.gallery#{p.gallery}.title"), gallery_path(p.gallery, anchor: "p-#{p.id}")
+    = link_to t("pages.gallery#{p.gallery}.title"), gallery_path(p.gallery, anchor: p.anchor)
   = dot(p.sold)
   = p.pounds

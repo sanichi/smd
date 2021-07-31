@@ -66,7 +66,7 @@ class Painting < ApplicationRecord
 
   def size(short=false)
     return "" unless width.present? && height.present?
-    format = short ? "%d⨯%d" : "%d ⨯ %d cm"
+    format = short ? "%d⨯%d" : "%d⨯%dcm"
     format % [width, height]
   end
 
@@ -75,12 +75,12 @@ class Painting < ApplicationRecord
   end
 
   def dimensions(short=false)
-    format = short ? "%d⨯%d" : "%d ⨯ %d px"
+    format = short ? "%d⨯%d" : "%d⨯%dpx"
     format % [image_width, image_height]
   end
 
-  def proportionate_width
-    (image_width.to_f * THUMB / image_height.to_f).round
+  def anchor
+    "p-#{id}"
   end
 
   def image_path(web: true, tn: false)
