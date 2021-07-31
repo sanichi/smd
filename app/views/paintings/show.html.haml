@@ -1,4 +1,11 @@
-- set_meta_tags title: @painting.title
+:ruby
+  set_meta_tags title: @painting.title
+  list_path =
+    if @painting.archived
+      archive_paintings_path
+    else
+      gallery_path(@painting.gallery, anchor: @painting.anchor)
+    end
 
 .row
   %div{class: center(xx: 4, xl: 6, lg: 8, md: 10)}
@@ -14,7 +21,7 @@
       .body
         .row.border.ms-1.me-1
           .col-12.ted-td.text-center
-            = link_to gallery_path(@painting.gallery, anchor: @painting.anchor) do
+            = link_to list_path do
               %img.img-thumbnail.img-fluid{src: @painting.image_path, alt: @painting.title}
           .col-6.mid-th= t("painting.gallery")
           .col-6.end-td= t("pages.gallery#{@painting.gallery}.title")
@@ -33,7 +40,7 @@
           .col-6.mid-th= t("updated")
           .col-6.end-td= @painting.last_updated
           .col-12.end-td.text-center
-            = link_to gallery_path(@painting.gallery, anchor: @painting.anchor) do
+            = link_to list_path do
               %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title, width: Painting::THUMB}
       .footer
         - if can?(:edit, @painting)
