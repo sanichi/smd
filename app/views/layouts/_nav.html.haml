@@ -8,10 +8,8 @@
         %li.dropdown
           = link_to t("galleries"), "#", class: "dropdown-toggle", "data-bs-toggle" => "dropdown", role: "button"
           %ul.dropdown-menu
-            %li= link_to t("pages.gallery1.title"), gallery1_path
-            %li= link_to t("pages.gallery2.title"), gallery2_path
-            %li= link_to t("pages.gallery3.title"), gallery3_path
-            %li= link_to t("pages.gallery4.title"), gallery4_path
+            - Painting::GALLERY.each do |g|
+              %li= link_to t("pages.gallery#{g}.title"), gallery_path(g)
         %li= link_to t("pages.exhibitions.title"), exhibitions_path
         - if !current_user.guest?
           %li.dropdown

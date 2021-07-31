@@ -1,6 +1,9 @@
-- defined?(name) || name = nil
-- p = search(name) || sample
-
-= link_to gallery_path(p) do
-  %img.img-fluid.mb-2{src: p.src, alt: t("sample")}
-= render "title", p: p, gallery: true
+= link_to gallery_path(p, anchor: "p-#{p.id}") do
+  %img.img-fluid.mb-2{src: p.image_path, alt: t("sample")}
+%p.mt-2
+  %strong
+    = p.title
+  = surround("(", ")") do
+    = link_to t("pages.gallery#{p.gallery}.title"), gallery_path(p.gallery, anchor: "p-#{p.id}")
+  = dot(p.sold)
+  = p.pounds

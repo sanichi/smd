@@ -96,6 +96,10 @@ class Painting < ApplicationRecord
     updated_at.strftime("%Y-%m-%d")
   end
 
+  def self.sample
+    where(archived: false).where("stars > 0").sample
+  end
+
   private
 
   def normalize_attributes

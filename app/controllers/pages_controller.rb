@@ -2,7 +2,11 @@ class PagesController < ApplicationController
   before_action :get_file, only: [:gallery1, :gallery2, :gallery3, :gallery4]
 
   def index
-    @names = ApplicationHelper::PICTURES.map(&:name).sort
+    @sample = Painting.sample
+  end
+
+  def exhibitions
+    @sample = Painting.sample
   end
 
   def search

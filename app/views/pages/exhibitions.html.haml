@@ -27,4 +27,5 @@
         %li Stathearn Gallery, Crieff
         %li Visual Arts Scotland (RSA Gallery)
     .col-sm-7.ps-5.pe-5.text-center
-      = render "sample"
+      - if @sample
+        = render "sample", p: @sample

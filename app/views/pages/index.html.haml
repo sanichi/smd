@@ -38,9 +38,10 @@
           %img{src: "img/instagram.png", width: "40", height: "40", alt: "Instagram"}
     .col-sm-7.ps-5.pe-5
       #result.text-center
-        = render "sample"
-      = form_tag "search", method: :get, remote: true do
-        = text_field_tag :name, "", class: "form-control auto-submit", list: "names", placeholder: t("pages.index.search")
-        %datalist#names
-          - @names.each do |name|
-            %option{value: name}
+        - if @sample
+          = render "sample", p: @sample
+      -# = form_tag "search", method: :get, remote: true do
+      -#   = text_field_tag :name, "", class: "form-control auto-submit", list: "names", placeholder: t("pages.index.search")
+      -#   %datalist#names
+      -#     - @names.each do |name|
+      -#       %option{value: name}
