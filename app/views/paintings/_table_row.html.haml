@@ -1,7 +1,8 @@
 %tr
   %td= link_to p.title, p
   %td.text-center
-    %img{src: p.image_path(tn: true), alt: p.title, width: "20", height: "20"}
+    = link_to p do
+      %img{src: p.image_path(tn: true), alt: p.title, width: "20", height: "20"}
   %td.text-center= p.gallery
   %td.text-center= p.price
   %td.text-center= p.size(true)
