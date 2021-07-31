@@ -1,4 +1,4 @@
-= link_to gallery_path(p, anchor: "p-#{p.id}") do
+= link_to gallery_path(p.gallery, anchor: "p-#{p.id}") do
   %img.img-fluid.mb-2{src: p.image_path, alt: t("sample")}
 %p.mt-2
   %strong

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe PagesController do
+  let!(:painting) { create(:painting, archived: false, stars: 3) }
+
   before(:each) do
     visit index_path
   end
