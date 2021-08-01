@@ -17,6 +17,7 @@
             %ul.dropdown-menu
               - if can?(:read, Painting)
                 %li= link_to t("painting.paintings"), paintings_path
+              - if can?(:archive, Painting)
                 %li= link_to t("painting.archive"), archive_paintings_path
               - if can?(:read, Content)
                 %li= link_to t("content.contents"), contents_path

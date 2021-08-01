@@ -118,6 +118,11 @@ describe Painting do
         expect(page).to_not have_css "a", text: t("delete")
       end
     end
+
+    it "archive" do
+      click_link t("painting.archive")
+      expect(page).to have_title t("painting.archive")
+    end
   end
 
   context "guests" do

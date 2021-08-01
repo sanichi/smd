@@ -6,7 +6,7 @@ class Ability
 
     return if user.guest?
 
-    can [:read, :update, :create], Painting
+    can [:read, :update, :create, :archive], Painting
     can [:read, :update], Content
 
     return unless user.admin?
