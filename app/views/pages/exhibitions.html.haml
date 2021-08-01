@@ -3,29 +3,5 @@
 
 %main
   .row
-    .col-sm-5.ps-5.pe-5
-      %h4= d[:title]
-      %p
-        I exhibit regularly throughout Scotland and my work is in private collections
-        in the UK, America, France and Australia.
-      %h5 Current
-      %ul
-        = render "exhibition", g: "Brightwater Gallery", t: "Alnwick",   l: "brightwatergallery.co.uk/paintings-and-prints"
-        = render "exhibition", g: "Flat Cat Gallery",    t: "Lauder",    l: "flatcatgallery.co.uk/product-category/sandra-dickie/"
-        = render "exhibition", g: "Gallery Q",           t: "Dundee",    l: "galleryq.co.uk/artist/sandra-dickie/"
-        = render "exhibition", g: "Larks Gallery",       t: "Ballater",  l: "larksgallery.com", w: false
-        = render "exhibition", g: "number four gallery", t: "St Abbs",   l: "numberfourgallery.co.uk/index.html", s: false
-        = render "exhibition", g: "Torrance Gallery",    t: "Edinburgh", l: "torrancegallery.co.uk"
-      %h5 Previous
-      %ul
-        %li City Art Centre, Edinburgh
-        %li Di Rollo Gallery, Edinburgh
-        %li Paisley Art Institute
-        %li Perth Art Gallery and Museum
-        %li Peter Potter Gallery, Haddington
-        %li Poldrate Mill, Haddington
-        %li Stathearn Gallery, Crieff
-        %li Visual Arts Scotland (RSA Gallery)
-    .col-sm-7.ps-5.pe-5.text-center
-      - if @sample
-        = render "sample", p: @sample
+    .col-sm-5.ps-5.pe-5= to_html(@markdown)
+    .col-sm-7.ps-5.pe-5.text-center= render "sample", p: @sample if @sample

@@ -1,4 +1,4 @@
-module Remarkable
+module PagesHelper
   class CustomRenderer < Redcarpet::Render::HTML
     def link(link, title, alt_text)
       if lnk_trg_txt = link_with_target(link, alt_text)
@@ -27,9 +27,9 @@ module Remarkable
     end
   end
 
-  def to_html(text, filter_html: false, images: false)
+  def to_html(text)
     return "" unless text.present?
-    renderer = CustomRenderer.new(filter_html: filter_html)
+    renderer = CustomRenderer.new(filter_html: false)
     options =
     {
       autolink: true,
@@ -40,6 +40,8 @@ module Remarkable
       tables: true,
       underline: true,
     }
+    text.gsub!("red_dot", dot(true))
+    text.gsub!("green_dot", dot(false))
     markdown = Redcarpet::Markdown.new(renderer, options)
     markdown.render(text).html_safe
   end

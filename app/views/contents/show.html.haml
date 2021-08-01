@@ -5,7 +5,7 @@
     %section
       .header.text-center
         %h3.d-inline= @content.name
-      .body= @content.html
+      .body= to_html(@content.markdown)
       .footer
         = link_to t("content.contents"), contents_path, class: "btn btn-success btn-sm"
         - if can?(:update, Content)
