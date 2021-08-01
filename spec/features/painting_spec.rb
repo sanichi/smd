@@ -1,9 +1,28 @@
 require 'rails_helper'
 
 describe Painting do
+  let!(:admin)    { create(:user, admin: true) }
   let!(:user)     { create(:user, admin: false) }
   let!(:painting) { create(:painting, archived: false) }
   let(:data)      { build(:painting) }
+
+  context "admin" do
+    before(:each) do
+      login(admin)
+      click_link t("painting.paintings")
+    end
+
+    context "delete" do
+      it "success" do
+        click_link painting.title
+        click_link t("edit")
+        click_link t("delete")
+
+        expect(page).to have_title t("painting.paintings")
+        expect(Painting.count).to eq 0
+      end
+    end
+  end
 
   context "users" do
     before(:each) do
@@ -89,6 +108,14 @@ describe Painting do
         expect(p.stars).to eq data.stars
         expect(p.image_width).to eq 700 # test.jpg image
         expect(p.image_height).to eq 600 # test.jpg image
+      end
+    end
+
+    context "delete" do
+      it "disallowed" do
+        click_link painting.title
+        click_link t("edit")
+        expect(page).to_not have_css "a", text: t("delete")
       end
     end
   end
