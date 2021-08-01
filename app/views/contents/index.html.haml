@@ -1,0 +1,18 @@
+- set_meta_tags title: t("content.contents")
+
+.row
+  %div{class: center(xl: 2, lg: 4, md: 6, sm: 8)}
+    %section
+      .header.text-center
+        %h3.d-inline= t("content.contents")
+      .body
+        %table{class: "table table-bordered table-sm mt-3"}
+          %thead
+            %tr
+              %th= t("content.name")
+          %tbody
+            - @contents.each do |content|
+              %tr
+                %td= link_to content.name, content
+      - if can?(:create, Content)
+        .footer= link_to t("content.new"), new_content_path, class: "btn btn-primary btn-sm"

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :paintings do
     get :archive, on: :collection
   end
+  resources :contents
   resources :users
 
   resource :session, only: [:new, :create, :destroy]

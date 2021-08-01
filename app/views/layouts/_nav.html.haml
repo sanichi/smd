@@ -15,10 +15,12 @@
           %li.dropdown
             = link_to t("user.admin"), "#", class: "dropdown-toggle", "data-bs-toggle" => "dropdown", role: "button"
             %ul.dropdown-menu
-              - if can?(:manage, Painting)
+              - if can?(:read, Painting)
                 %li= link_to t("painting.paintings"), paintings_path
                 %li= link_to t("painting.archive"), archive_paintings_path
-              - if can?(:manage, User)
+              - if can?(:read, Content)
+                %li= link_to t("content.contents"), contents_path
+              - if can?(:read, User)
                 %li= link_to t("user.users"), users_path
       %ul.ms-auto
         - unless controller_name == "sessions"

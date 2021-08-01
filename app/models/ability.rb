@@ -2,14 +2,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.guest?
-      can :gallery, Painting
-    else
-      can :manage, :all
-      unless user.admin?
-        cannot :manage, User
-        cannot :destroy, Painting
-      end
-    end
+    can :gallery, Painting
+
+    return if user.guest?
+
+    can [:read, :update, :create], Painting
+    can [:read, :update], Content
+
+    return unless user.admin?
+
+    can :manage, :all
   end
 end

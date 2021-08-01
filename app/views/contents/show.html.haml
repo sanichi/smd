@@ -1,0 +1,14 @@
+- set_meta_tags title: @content.name
+
+.row
+  %div{class: center(xl: 6, lg: 8, md:10, sm: 12)}
+    %section
+      .header.text-center
+        %h3.d-inline= @content.name
+      .body= @content.html
+      .footer
+        = link_to t("content.contents"), contents_path, class: "btn btn-success btn-sm"
+        - if can?(:update, Content)
+          = link_to t("edit"), edit_content_path(@content), class: "btn btn-primary btn-sm"
+        - if can?(:create, Content)
+          = link_to t("delete"), @content, class: "btn btn-danger btn-sm", method: :delete, data: { confirm: t("sure") }
