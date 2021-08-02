@@ -1,7 +1,8 @@
 en:
   content:
+    contents: Pages
     edit: Edit Page
     markdown: Text
     name: Name
     new: New Page
-    contents: Pages
+    update: 'Update %{name}'

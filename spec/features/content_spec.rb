@@ -29,6 +29,7 @@ describe Content do
     it "update" do
       click_link content.name
       click_link t("edit")
+      expect(page).to have_css "label", text: t("content.name")
       fill_in t("content.name"), with: data.name
       fill_in t("content.markdown"), with: data.markdown
       click_button t("save")
@@ -68,7 +69,7 @@ describe Content do
 
       click_link content.name
       click_link t("edit")
-      fill_in t("content.name"), with: data.name
+      expect(page).to_not have_css "label", text: t("content.name")
       fill_in t("content.markdown"), with: data.markdown
       click_button t("save")
 

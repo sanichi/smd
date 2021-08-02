@@ -1,6 +1,5 @@
 :ruby
-  inputs = [
-    [:name,     t("content.name"),     :text, maxlength: Content::NAME],
-    [:markdown, t("content.markdown"), :area, rows: 40],
-  ]
+  inputs = []
+  inputs.push [:name, t("content.name"), :text, maxlength: Content::NAME] if current_user.admin?
+  inputs.push [:markdown, t("content.markdown"), :area, rows: 40]
 = render "utils/crud/form", object: content, index: contents_path, inputs: inputs, title: title, center: center(xl: 10)
