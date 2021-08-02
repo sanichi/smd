@@ -1,16 +1,16 @@
 module PagesHelper
   class CustomRenderer < Redcarpet::Render::HTML
     def link(link, title, alt_text)
-      if lnk_trg_txt = link_with_target(link, alt_text)
-        '<a href="%s" target="%s">%s</a>' % lnk_trg_txt
+      if external?(link)
+        '<a href="%s" target="%s">%s</a>' % [link, "external", alt_text]
       else
         '<a href="%s">%s</a>' % [link, alt_text]
       end
     end
 
     def autolink(link, link_type)
-      if lnk_trg_txt = link_with_target(link)
-        '<a href="%s" target="%s">%s</a>' % lnk_trg_txt
+      if external?(link)
+        '<a href="%s" target="%s">%s</a>' % [link, "external", link]
       else
         '<a href="%s">%s</a>' % [link, link]
       end
@@ -18,12 +18,8 @@ module PagesHelper
 
     private
 
-    def link_with_target(link, text=nil)
-      return unless link =~ /\A(.+)\|(\w*)\z/
-      link = $1
-      trgt = $2.blank?? "external" : $2
-      text = link if text.blank?
-      [link, trgt, text]
+    def external?(link)
+      link.match?(/\Ahttps?:\/\//)
     end
   end
 
