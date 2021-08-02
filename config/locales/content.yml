@@ -1,7 +1,7 @@
 en:
   content:
-    edit: Edit Content
-    markdown: Content
+    edit: Edit Page
+    markdown: Text
     name: Name
-    new: New Content
-    contents: Contents
+    new: New Page
+    contents: Pages
