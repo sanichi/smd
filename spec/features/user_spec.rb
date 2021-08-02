@@ -5,19 +5,19 @@ describe User do
   let!(:user)  { create(:user, admin: false) }
   let(:data)   { build(:user, admin: false) }
 
-  context "admins" do
+  context "admin" do
     before(:each) do
       login admin
       click_link t("user.users")
     end
 
-    it "user counts" do
+    it "counts" do
       expect(page).to have_title t("user.users")
       expect(User.where(admin: false).count).to eq 1
       expect(User.where(admin: true).count).to eq 1
     end
 
-    it "create user" do
+    it "create, login" do
       click_link t("user.new")
 
       fill_in t("user.name"), with: data.name
@@ -41,7 +41,7 @@ describe User do
       click_link t("session.sign_out", name: u.name)
     end
 
-    it "edit user" do
+    it "edit" do
       click_link user.name
       click_link t("edit")
       fill_in t("user.name"), with: data.name
@@ -50,7 +50,7 @@ describe User do
       expect(User.where(admin: false, name: data.name).count).to eq 1
     end
 
-    it "delete user" do
+    it "delete" do
       click_link user.name
       click_link t("edit")
       click_link t("delete")
@@ -61,58 +61,54 @@ describe User do
     end
   end
 
-  context "users" do
+  context "user" do
     before(:each) do
       login user
     end
 
-    it "can log out" do
+    it "log out" do
+      expect(page).to_not have_css "a", text: t("session.sign_in")
       click_link t("session.sign_out", name: user.name)
-
-      expect(page).to have_title t("pages.index.title")
+      expect(page).to have_css "a", text: t("session.sign_in")
     end
 
-    it "can't list users" do
+    it "can't index" do
       expect(page).to_not have_css "a", text: t("user.users")
-
       visit users_path
-
       expect_forbidden page
     end
 
-    it "can't create users" do
+    it "can't view" do
+      visit user_path admin
+      expect_forbidden page
+    end
+
+    it "can't create" do
       expect(page).to_not have_css "a", text: t("user.new")
-
       visit new_user_path
-
       expect_forbidden page
     end
   end
 
-  context "guests" do
+  context "guest" do
     before(:each) do
       visit root_path
     end
 
-    it "can login" do
-      click_link t("session.sign_in")
-
-      expect(page).to have_title t("session.sign_in")
-    end
-
-    it "can't list users" do
+    it "can't index" do
       expect(page).to_not have_css "a", text: t("user.users")
-
       visit users_path
-
       expect_forbidden page
     end
 
-    it "can't create users" do
+    it "can't view" do
+      visit user_path admin
+      expect_forbidden page
+    end
+
+    it "can't create" do
       expect(page).to_not have_css "a", text: t("user.new")
-
       visit new_user_path
-
       expect_forbidden page
     end
   end

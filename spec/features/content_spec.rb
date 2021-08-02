@@ -6,7 +6,7 @@ describe Content do
   let(:data)     { build(:content) }
   let!(:content) { create(:content) }
 
-  context "admins" do
+  context "admin" do
     before(:each) do
       login admin
       click_link t("content.contents")
@@ -26,7 +26,7 @@ describe Content do
       expect(t.markdown).to eq data.markdown
     end
 
-    it "update" do
+    it "edit" do
       click_link content.name
       click_link t("edit")
       expect(page).to have_css "label", text: t("content.name")
@@ -41,7 +41,7 @@ describe Content do
       expect(t.markdown).to eq data.markdown
     end
 
-    it "destroy" do
+    it "delete" do
       click_link content.name
       click_link t("edit")
       expect(page).to have_css "a", text: t("delete")
@@ -58,13 +58,7 @@ describe Content do
       click_link t("content.contents")
     end
 
-    it "can't create" do
-      expect(page).to_not have_css "a", text: t("content.new")
-      visit new_content_path
-      expect_forbidden page
-    end
-
-    it "update (but not name)" do
+    it "edit (but not name)" do
       old_name = content.name
 
       click_link content.name
@@ -80,7 +74,13 @@ describe Content do
       expect(t.markdown).to eq data.markdown
     end
 
-    it "can't destroy" do
+    it "can't create" do
+      expect(page).to_not have_css "a", text: t("content.new")
+      visit new_content_path
+      expect_forbidden page
+    end
+
+    it "can't delete" do
       click_link content.name
       click_link t("edit")
       expect(page).to_not have_css "a", text: t("delete")
@@ -92,9 +92,14 @@ describe Content do
       visit root_path
     end
 
-    it "can't read" do
+    it "can't index" do
       expect(page).to_not have_css "a", text: t("content.contents")
       visit contents_path
+      expect_forbidden page
+    end
+
+    it "can't view" do
+      visit content_path content
       expect_forbidden page
     end
 
