@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 
-# Setup.
+# DB setup.
 my $tsu_db  = 'smd_production';
 my $loc_db  = 'smd_development';
 my $tmp_sql = '/tmp/smd.sql';
@@ -16,12 +16,30 @@ my $ssh_usr = 'sanichi@thessaloniki.sanichi.me';
 # Copy new data from server.
 &run("scp $ssh_usr:$tmp_sql $tmp_sql", "couldn't copy SQL export from server");
 
+# Image setup.
+my $tsu_path = '/var/www/smd/shared/public';
+my $loc_path = '/Users/mjo/Projects/app/smd/public';
+my $tsu_dir  = 'img';
+my $tmp_tar  = '/tmp/smd.tar.gz';
+
+# Generate data on server.
+&run("ssh $ssh_usr 'tar -zcf $tmp_tar -C $tsu_path $tsu_dir'", "couldn't tar images on server");
+
+# Remove old local data.
+&run("rm -f $tmp_tar", "couldn't remove $tmp_tar") if -f $tmp_tar;
+
+# Copy new data from server.
+&run("scp $ssh_usr:$tmp_tar $tmp_tar", "couldn't copy tar export from server");
+
 # Does this all look good so far?
 my $ans = &ask('Proceed with sync [yN]', qr/^(Y(es)?|No?|)$/i);
 exit unless $ans =~ /^Y(es)?/i;
 
-# Install data locally.
+# Update local database.
 &run("psql -q $loc_db < $tmp_sql", "couldn't import SQL to development DB");
+
+# Update local images.
+&run("tar -xzf $tmp_tar -C $loc_path", "couldn't untar local images");
 
 #
 # Utilities.
