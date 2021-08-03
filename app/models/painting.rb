@@ -148,10 +148,11 @@ class Painting < ApplicationRecord
       identity = %x|identify #{image.path} 2>&1|
       Rails.logger.info "IMAGE identity: #{identity}"
       temp_path = Rails.root + "public" + "img" + "test.jpg"
-      cmd = "convert #{image.path} -resize 100x100 #{temp_path}"
+      cmd = "convert #{image.path} -resize '100x100!' #{temp_path}"
       Rails.logger.info "IMAGE cmd: #{cmd}"
       convert = %x|#{cmd} 2>&1|
       Rails.logger.info "IMAGE convert: #{convert}"
+      ##### convert moor.jpg -thumbnail '100x100^' -gravity center -extent 100x100 test.jpg
       # unless identity =~ /(?:JPEG|PNG|GIF) ([1-9]\d*)x([1-9]\d*)/
     #   Rails.logger.error "bad image identity: #{identity}"
     #   errors.add(:image, "unrecognised format")
