@@ -1,7 +1,7 @@
 set :application, "smd"
 set :repo_url, "git@bitbucket.org:sanichi/smd.git"
 append :linked_files, "config/database.yml", "config/master.key"
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/img"
 set :log_level, :info
 set :branch, "main"
 
