@@ -10,6 +10,7 @@ class PagesController < ApplicationController
   end
 
   def test
+    @which = %x|which convert|
     @jpg = Rails.root + "public" + "img" + "jpg.jpg"
     @jpg_c = %x|convert /tmp/img.jpg -resize '100x100!' #{@jpg}|
     @jpg_i = %x|identify #{@jpg}|
