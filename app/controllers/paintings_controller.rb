@@ -41,6 +41,6 @@ class PaintingsController < ApplicationController
   private
 
   def resource_params
-    params.require(:painting).permit(:archived, :filename, :gallery, :height, :media, :price, :sold, :stars, :title, :width)
+    params.require(:painting).permit(:archived, :filename, :gallery, :height, :image, :media, :price, :sold, :stars, :title, :width)
   end
 end

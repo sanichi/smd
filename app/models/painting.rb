@@ -11,9 +11,11 @@ class Painting < ApplicationRecord
   THUMB = 100
   TITLE = 50
 
+  attr_accessor :image
+
   before_validation :normalize_attributes
 
-  validates :filename, length: { maximum: TITLE }, uniqueness: true, format: { with: /\A[a-z0-9]+(_[a-z0-9]+)*\z/ }
+  validates :filename, length: { maximum: TITLE }, uniqueness: false, format: { with: /\A[a-z0-9]+(_[a-z0-9]+)*\z/ }
   validates :title,    length: { maximum: TITLE }, uniqueness: true, presence: true
   validates :gallery,  inclusion: { in: GALLERY }
   validates :media,    inclusion: { in: MEDIA }
@@ -23,6 +25,7 @@ class Painting < ApplicationRecord
   validates :height,   inclusion: { in: SIZE }, allow_nil: true
 
   validate :check_images
+  validate :check_image
 
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
   scope :by_price,   -> { order(Arel.sql("COALESCE(price,0) DESC")) }
@@ -135,6 +138,34 @@ class Painting < ApplicationRecord
       elsif w != THUMB || h != THUMB
         errors.add(:filename, "thumnail image should be #{THUMB}x#{THUMB}")
       end
+    end
+  end
+
+  def check_image
+    if image
+      Rails.logger.info "IMAGE path: #{image.path}"
+      Rails.logger.info "IMAGE size: #{image.size}"
+      identity = %x|identify #{image.path} 2>&1|
+      Rails.logger.info "IMAGE identity: #{identity}"
+      temp_path = Rails.root + "public" + "img" + "test.jpg"
+      cmd = "convert #{image.path} -resize 100x100 #{temp_path}"
+      Rails.logger.info "IMAGE cmd: #{cmd}"
+      convert = %x|#{cmd} 2>&1|
+      Rails.logger.info "IMAGE convert: #{convert}"
+      # unless identity =~ /(?:JPEG|PNG|GIF) ([1-9]\d*)x([1-9]\d*)/
+    #   Rails.logger.error "bad image identity: #{identity}"
+    #   errors.add(:image, "unrecognised format")
+    # else
+    #   w, d = convert_image(image.path, w, h)
+    #   if w == 0 || h == 0
+    #     errors.add(:image, "could not convert image")
+    #   else
+    #     self.image_width = w
+    #     self.image_height = h
+    #   end
+    # end
+    # else
+    #   errors.add(:image, "no file") if new_record?
     end
   end
 end
