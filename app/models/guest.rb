@@ -1,13 +1,4 @@
 class Guest
-  def guest?
-    true
-  end
-
-  def admin?
-    false
-  end
-
-  def name
-    "Guest"
-  end
+  def guest?() true  end
+  def admin?() false end
 end
