@@ -19,7 +19,7 @@ class PaintingsController < ApplicationController
     if @painting.save
       redirect_to @painting
     else
-      @painting.cleanup_images
+      @painting.cleanup
       failure @painting
       render :new
     end
@@ -29,7 +29,7 @@ class PaintingsController < ApplicationController
     if @painting.update(resource_params)
       redirect_to @painting
     else
-      @painting.cleanup_images
+      @painting.cleanup
       failure @painting
       render :edit
     end

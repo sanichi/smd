@@ -15,7 +15,7 @@ class Painting < ApplicationRecord
   STARS = 0..5
   TITLE = 50
 
-  attr_accessor :image
+  attr_accessor :image, :tmp1, :tmp2
 
   before_validation :normalize_attributes
 
@@ -107,16 +107,9 @@ class Painting < ApplicationRecord
     where(archived: false).where("stars > 0").sample
   end
 
-  def cleanup_images
-    begin
-      [true, false].each do |full|
-        tmp = temp_path(full)
-        tmp.delete if tmp.file?
-        Rails.logger.info("IMAGE cleanup #{tmp}|#{tmp.file?}")
-      end
-    rescue => e
-      Rails.loggger.error(e.message)
-    end
+  def cleanup
+    tmp1.unlink if tmp1
+    tmp2.unlink if tmp2
   end
 
   private
@@ -130,7 +123,7 @@ class Painting < ApplicationRecord
   end
 
   def check_image
-    if image
+    if image && !errors.any?
       type, w, h = identify(image.path)
       if type.nil?
         errors.add(:image, I18n.t("painting.errors.format"))
@@ -165,6 +158,7 @@ class Painting < ApplicationRecord
   end
 
   def convert(w, h)
+    self.tmp1 = Tempfile.new
     resize = ""
     if w > IMAGE_MAX || h > IMAGE_MAX
       if w > h
@@ -177,37 +171,36 @@ class Painting < ApplicationRecord
       resize = "-resize '#{w}x#{h}!'"
     end
     quality = "-quality #{IMAGE_QUALITY}"
-    tmp = temp_path
-    run("convert #{image.path} #{resize} #{quality} #{tmp}", true)
-    type, p, q = identify(tmp)
+    run("convert #{image.path} #{resize} #{quality} jpg:#{tmp1.path}", true)
+    type, p, q = identify(tmp1.path)
     type == "JPEG" && w == p && h == q ? [w, h] : [0, 0]
   end
 
   def thumbnail
-    tmp1 = temp_path(true)
-    tmp2 = temp_path(false)
+    self.tmp2 = Tempfile.new
     wxh = "#{IMAGE_THUMB}x#{IMAGE_THUMB}"
-    run("convert #{tmp1} -thumbnail '#{wxh}^' -gravity center -extent #{wxh} #{tmp2}", true)
-    type, w, h = identify(tmp2)
+    run("convert #{tmp1.path} -thumbnail '#{wxh}^' -gravity center -extent #{wxh} jpg:#{tmp2.path}", true)
+    type, w, h = identify(tmp2.path)
     type == "JPEG" && w == IMAGE_THUMB && h = IMAGE_THUMB
   end
 
   def move_images
     begin
-      [true, false].each do |full|
-        tmp = temp_path(full)
-        pmt = image_path(web: false, full: full)
-        tmp.rename(pmt) if tmp.file?
-        Rails.logger.info("IMAGE move #{tmp}|#{tmp.file?}||#{pmt}|#{pmt.file?}")
+      if tmp1 && tmp2
+        [true, false].each do |full|
+          tmp = full ? tmp1 : tmp2
+          pmt = image_path(web: false, full: full)
+          FileUtils.cp(tmp.path, pmt)
+          Rails.logger.info("IMAGE move #{pmt}|#{pmt.file?}")
+        end
+      else
+        Rails.logger.error("IMAGE absent tmp1|#{tmp1 ? 1 : 0}||tmp2#{tmp2 ? 1 : 0}")
       end
     rescue => e
       Rails.loggger.error(e.message)
+    ensure
+      cleanup
     end
-  end
-
-  def temp_path(full=true)
-    nam = ["temp", full ? "f" : "t", title.gsub(/\W/, ""), width.to_i, height.to_i].join("_")
-    Rails.root + "public" + "img" + "#{nam}.jpg"
   end
 
   def run(cmd, log=false)
