@@ -93,7 +93,7 @@ class Painting < ApplicationRecord
   def image_path(web: true, full: true)
     path = "#{Rails.env.test? ? 'test' : 'img'}/#{full ? 'F' : 'T'}#{id}.jpg"
     if web
-      "/" + path
+      "/" + path + "?v=#{version}"
     else
       Rails.root + "public" + path
     end
@@ -193,6 +193,7 @@ class Painting < ApplicationRecord
           FileUtils.cp(tmp.path, pmt)
           Rails.logger.info("IMAGE move #{pmt}|#{pmt.file?}")
         end
+        update_column(:version, version + 1)
       else
         Rails.logger.error("IMAGE absent tmp1|#{tmp1 ? 1 : 0}||tmp2#{tmp2 ? 1 : 0}")
       end
