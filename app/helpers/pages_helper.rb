@@ -38,6 +38,7 @@ module PagesHelper
     }
     text.gsub!("red_dot", dot(true))
     text.gsub!("green_dot", dot(false))
+    text.gsub!("blue_dot", dot(nil))
     markdown = Redcarpet::Markdown.new(renderer, options)
     markdown.render(text).html_safe
   end

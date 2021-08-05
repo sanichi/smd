@@ -11,6 +11,7 @@ class Painting < ApplicationRecord
   MEDIA = %w/mm wc chcr pstl oil/
   PIXELS = 100..1000
   PRICE = 10..10000
+  PRINT = 5..1000
   SIZE = 5..200
   STARS = 0..5
   TITLE = 50
@@ -24,6 +25,7 @@ class Painting < ApplicationRecord
   validates :media,    inclusion: { in: MEDIA }
   validates :stars,    inclusion: { in: STARS }
   validates :price,    inclusion: { in: PRICE, message: "%{value} is not valid" }, allow_nil: true
+  validates :print,    inclusion: { in: PRINT, message: "%{value} is not valid" }, allow_nil: true
   validates :width,    inclusion: { in: SIZE,  message: "%{value} is not valid" }, allow_nil: true
   validates :height,   inclusion: { in: SIZE,  message: "%{value} is not valid" }, allow_nil: true
 
@@ -32,7 +34,8 @@ class Painting < ApplicationRecord
   after_save :move_images
 
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
-  scope :by_price,   -> { order(Arel.sql("COALESCE(price,0) DESC")) }
+  scope :by_price,   -> { order(Arel.sql("COALESCE(price,0) DESC, COALESCE(print,0) DESC")) }
+  scope :by_print,   -> { order(Arel.sql("COALESCE(print,0) DESC, COALESCE(price,0) DESC")) }
   scope :by_updated, -> { order(updated_at: :desc) }
   scope :by_stars,   -> { order(stars: :desc) }
   scope :by_title,   -> { order(:title) }
@@ -63,6 +66,7 @@ class Painting < ApplicationRecord
     end
     case params[:order]
     when "price"   then matches = matches.by_price
+    when "print"   then matches = matches.by_print
     when "size"    then matches = matches.by_size
     when "stars"   then matches = matches.by_stars
     when "updated" then matches = matches.by_updated
@@ -79,6 +83,10 @@ class Painting < ApplicationRecord
 
   def pounds
     price.present? ? "£#{price}" : ""
+  end
+
+  def print_pounds
+    print.present? ? "£#{print}" : ""
   end
 
   def dimensions(short=false)

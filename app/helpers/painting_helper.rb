@@ -15,7 +15,7 @@ module PaintingHelper
   end
 
   def painting_order_menu(selected)
-    opts = %w/title stars size price updated/.map { |o| [t("painting.order.#{o}"), o] }
+    opts = %w/title stars size price print updated/.map { |o| [t("painting.order.#{o}"), o] }
     options_for_select(opts, selected)
   end
 
@@ -35,7 +35,13 @@ module PaintingHelper
   end
 
   def dot(sold)
-    content_tag(:span, class: "badge rounded-pill dot bg-#{sold ? "danger" : "success"}") do
+    color =
+      case sold
+      when true  then "danger"
+      when false then "success"
+      else            "primary"
+      end
+    content_tag(:span, class: "badge rounded-pill dot bg-#{color}") do
       160.chr(Encoding::UTF_8)
     end
   end

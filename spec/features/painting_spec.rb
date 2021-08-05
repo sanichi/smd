@@ -13,6 +13,7 @@ describe Painting do
     select t("pages.gallery#{data.gallery}.title"), from: t("painting.gallery")
     select data.stars.to_s, from: t("painting.stars")
     fill_in t("painting.price"), with: data.price
+    fill_in t("painting.print"), with: data.print
     data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
     data.archived ? check(t("painting.archived")) : uncheck(t("painting.archived"))
   end
@@ -27,6 +28,7 @@ describe Painting do
     expect(p.media).to eq data.media
     expect(p.gallery).to eq data.gallery
     expect(p.price).to eq data.price
+    expect(p.print).to eq data.print
     expect(p.sold).to eq data.sold
     expect(p.archived).to eq data.archived
     expect(p.stars).to eq data.stars

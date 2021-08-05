@@ -12,6 +12,7 @@ en:
     new: New Painting
     paintings: Paintings
     price: Price
+    print: Print Price
     size: Size
     sold: Sold
     stars: Stars
@@ -32,6 +33,7 @@ en:
       wc: watercolour
     order:
       price: by Price
+      print: by Print Price
       title: by Title
       updated: by Last Updated
       size: by Size
@@ -41,6 +43,7 @@ en:
       media: 🎨
       painting: 🖼
       price: £
+      print: 🖨
       size: cm⨯cm
       sold: 🏷
       star: ⭐️

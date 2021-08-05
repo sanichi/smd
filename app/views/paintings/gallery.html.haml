@@ -11,4 +11,8 @@
         %strong= link_to_if can?(:read, p), p.title, p
         = p.size
         = dot(p.sold)
-        = p.pounds
+        - unless p.sold
+          = p.pounds
+        - if p.print.present?
+          = dot(nil)
+          = p.print_pounds
