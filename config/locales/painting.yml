@@ -6,7 +6,7 @@ en:
     dimensions: Image Dimensions
     edit: Edit Painting
     gallery: Gallery
-    height: Height
+    height: Height (cm)
     image: Image
     media: Media
     new: New Painting
@@ -16,7 +16,7 @@ en:
     sold: Sold
     stars: Stars
     title: Title
-    width: Width
+    width: Width (cm)
     errors:
       blank: no file
       convert: couldn‘t convert
