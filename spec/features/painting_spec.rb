@@ -30,6 +30,7 @@ describe Painting do
     expect(p.sold).to eq data.sold
     expect(p.archived).to eq data.archived
     expect(p.stars).to eq data.stars
+    expect(p.version).to eq 1
     p
   end
 
@@ -135,6 +136,7 @@ describe Painting do
       expect(page).to have_title painting.title
       expect(Painting.count).to eq 1
       p = Painting.by_updated.first
+      expect(p.version).to eq 2
 
       w, h = test_image_dimensions("square")
       expect(p.image_width).to eq w
