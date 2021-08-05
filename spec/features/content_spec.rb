@@ -74,13 +74,13 @@ describe Content do
       expect(t.markdown).to eq data.markdown
     end
 
-    it "can't create" do
+    it "can‘t create" do
       expect(page).to_not have_css "a", text: t("content.new")
       visit new_content_path
       expect_forbidden page
     end
 
-    it "can't delete" do
+    it "can‘t delete" do
       click_link content.name
       click_link t("edit")
       expect(page).to_not have_css "a", text: t("delete")
@@ -92,18 +92,18 @@ describe Content do
       visit root_path
     end
 
-    it "can't index" do
+    it "can‘t index" do
       expect(page).to_not have_css "a", text: t("content.contents")
       visit contents_path
       expect_forbidden page
     end
 
-    it "can't view" do
+    it "can‘t view" do
       visit content_path content
       expect_forbidden page
     end
 
-    it "can't create" do
+    it "can‘t create" do
       visit new_content_path
       expect_forbidden page
     end

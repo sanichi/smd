@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :painting do
     title    { Faker::Lorem.paragraph.truncate(Painting::TITLE) }
-    filename { Faker::Lorem.words(number: 3).join("_").truncate(Painting::TITLE) }
     width    { [rand(Painting::SIZE), nil].sample }
     height   { [rand(Painting::SIZE), nil].sample }
     gallery  { rand(Painting::GALLERY) }
@@ -10,5 +9,6 @@ FactoryBot.define do
     sold     { [true, false].sample }
     archived { [true, false].sample }
     stars    { rand(Painting::STARS) }
+    image    { test_image(%w/jpg png gif/.sample, upload: true) }
   end
 end

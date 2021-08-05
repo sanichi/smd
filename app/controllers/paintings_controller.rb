@@ -19,6 +19,7 @@ class PaintingsController < ApplicationController
     if @painting.save
       redirect_to @painting
     else
+      @painting.cleanup_images
       failure @painting
       render :new
     end
@@ -28,6 +29,7 @@ class PaintingsController < ApplicationController
     if @painting.update(resource_params)
       redirect_to @painting
     else
+      @painting.cleanup_images
       failure @painting
       render :edit
     end
@@ -41,6 +43,6 @@ class PaintingsController < ApplicationController
   private
 
   def resource_params
-    params.require(:painting).permit(:archived, :filename, :gallery, :height, :image, :media, :price, :sold, :stars, :title, :width)
+    params.require(:painting).permit(:archived, :gallery, :height, :image, :media, :price, :sold, :stars, :title, :width)
   end
 end

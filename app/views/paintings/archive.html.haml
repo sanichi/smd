@@ -12,3 +12,6 @@
           %tbody
             - @paintings.each do |p|
               = render "table_row", p: p
+  - if can?(:create, Painting)
+    .footer
+      = link_to t("painting.new"), new_painting_path, class: "btn btn-primary btn-sm"

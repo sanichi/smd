@@ -3,29 +3,33 @@ class Painting < ApplicationRecord
   include Pageable
 
   GALLERY = 1..4
+  IMAGE_MAX = 900
+  IMAGE_MIN = 200
+  IMAGE_QUALITY = 80
+  IMAGE_RESIZE = 600
+  IMAGE_THUMB = 100
   MEDIA = %w/mm wc chcr pstl oil/
   PIXELS = 100..1000
   PRICE = 10..10000
   SIZE = 5..200
   STARS = 0..5
-  THUMB = 100
   TITLE = 50
 
   attr_accessor :image
 
   before_validation :normalize_attributes
 
-  validates :filename, length: { maximum: TITLE }, uniqueness: false, format: { with: /\A[a-z0-9]+(_[a-z0-9]+)*\z/ }
-  validates :title,    length: { maximum: TITLE }, uniqueness: true, presence: true
+  validates :title,    length: { maximum: TITLE }, uniqueness: { message: "is already used for another painting" }, presence: true
   validates :gallery,  inclusion: { in: GALLERY }
   validates :media,    inclusion: { in: MEDIA }
   validates :stars,    inclusion: { in: STARS }
-  validates :price,    inclusion: { in: PRICE }, allow_nil: true
-  validates :width,    inclusion: { in: SIZE }, allow_nil: true
-  validates :height,   inclusion: { in: SIZE }, allow_nil: true
+  validates :price,    inclusion: { in: PRICE, message: "%{value} is not valid" }, allow_nil: true
+  validates :width,    inclusion: { in: SIZE,  message: "%{value} is not valid" }, allow_nil: true
+  validates :height,   inclusion: { in: SIZE,  message: "%{value} is not valid" }, allow_nil: true
 
-  validate :check_images
   validate :check_image
+
+  after_save :move_images
 
   scope :by_size,    -> { order(Arel.sql("COALESCE(width,0) * COALESCE(height,0) DESC")) }
   scope :by_price,   -> { order(Arel.sql("COALESCE(price,0) DESC")) }
@@ -34,7 +38,7 @@ class Painting < ApplicationRecord
   scope :by_title,   -> { order(:title) }
 
   def self.search(matches, params, path, opt={})
-    if sql = cross_constraint(params[:query], %w{title filename})
+    if sql = cross_constraint(params[:query], %w{title})
       matches = matches.where(sql)
     end
     if MEDIA.include?(params[:media])
@@ -86,8 +90,8 @@ class Painting < ApplicationRecord
     "p-#{id}"
   end
 
-  def image_path(web: true, tn: false)
-    path = "#{tn ? 'thumbnails' : 'images'}/#{Rails.env.test? ? 'test' : filename}.jpg"
+  def image_path(web: true, full: true)
+    path = "#{Rails.env.test? ? 'test' : 'img'}/#{full ? 'F' : 'T'}#{id}.jpg"
     if web
       "/" + path
     else
@@ -103,10 +107,21 @@ class Painting < ApplicationRecord
     where(archived: false).where("stars > 0").sample
   end
 
+  def cleanup_images
+    begin
+      [true, false].each do |full|
+        tmp = temp_path(full)
+        tmp.delete if tmp.file?
+        Rails.logger.info("IMAGE cleanup #{tmp}|#{tmp.file?}")
+      end
+    rescue => e
+      Rails.loggger.error(e.message)
+    end
+  end
+
   private
 
   def normalize_attributes
-    filename&.squish!
     title&.squish!
     self.width = width.to_i
     self.width = nil if width == 0
@@ -114,59 +129,90 @@ class Painting < ApplicationRecord
     self.height = nil if height == 0
   end
 
-  def get_dimensions(tn: false)
-    return [0, 0] unless %x|file #{image_path(web: false, tn: tn)}|.match(/JPEG.*, ([1-9]\d{2,3})x([1-9]\d{2,3}),/)
-    [$1.to_i, $2.to_i]
-  end
-
-  def check_images
-    if filename.present?
-      w, h = get_dimensions
-      if w == 0 || h == 0
-        errors.add(:filename, "main image doesn't exist yet or is the wrong type")
-      elsif w <= PIXELS.first || w > PIXELS.last
-        errors.add(:filename, "main image width (#{w}) should be > #{PIXELS.first} and ≤ #{PIXELS.last}")
-      elsif h <= PIXELS.first || h > PIXELS.last
-        errors.add(:filename, "main image height (#{w}) should be > #{PIXELS.first} and ≤ #{PIXELS.last}")
-      else
-        self.image_width = w
-        self.image_height = h
-      end
-      w, h = get_dimensions(tn: true)
-      if w == 0 || h == 0
-        errors.add(:filename, "thumnail image doesn't exist yet or is the wrong type")
-      elsif w != THUMB || h != THUMB
-        errors.add(:filename, "thumnail image should be #{THUMB}x#{THUMB}")
-      end
-    end
-  end
-
   def check_image
     if image
-      Rails.logger.info "IMAGE path: #{image.path}"
-      Rails.logger.info "IMAGE size: #{image.size}"
-      identity = %x|identify #{image.path} 2>&1|
-      Rails.logger.info "IMAGE identity: #{identity}"
-      temp_path = Rails.root + "public" + "img" + "test.jpg"
-      cmd = "convert #{image.path} -resize '100x100!' #{temp_path}"
-      Rails.logger.info "IMAGE cmd: #{cmd}"
-      convert = %x|#{cmd} 2>&1|
-      Rails.logger.info "IMAGE convert: #{convert}"
-      ##### convert moor.jpg -thumbnail '100x100^' -gravity center -extent 100x100 test.jpg
-      # unless identity =~ /(?:JPEG|PNG|GIF) ([1-9]\d*)x([1-9]\d*)/
-    #   Rails.logger.error "bad image identity: #{identity}"
-    #   errors.add(:image, "unrecognised format")
-    # else
-    #   w, d = convert_image(image.path, w, h)
-    #   if w == 0 || h == 0
-    #     errors.add(:image, "could not convert image")
-    #   else
-    #     self.image_width = w
-    #     self.image_height = h
-    #   end
-    # end
-    # else
-    #   errors.add(:image, "no file") if new_record?
+      type, w, h = identify(image.path)
+      if type.nil?
+        errors.add(:image, I18n.t("painting.errors.format"))
+      elsif type == "HEIC"
+        errors.add(:image, I18n.t("painting.errors.heic"))
+      elsif w < IMAGE_MIN || h < IMAGE_MIN
+        errors.add(:image, I18n.t("painting.errors.small"))
+      else
+        w, h = convert(w, h)
+        if w == 0 || h == 0
+          errors.add(:image, I18n.t("painting.errors.convert"))
+        else
+          unless thumbnail
+            errors.add(:image, I18n.t("painting.errors.thumbnail"))
+          else
+            self.image_width = w
+            self.image_height = h
+          end
+        end
+      end
+    else
+      errors.add(:image, I18n.t("painting.errors.blank")) if new_record?
     end
+  end
+
+  def identify(file)
+    if run("identify #{file}", true).match(/(HEIC|JPEG|PNG|GIF) ([1-9]\d*)x([1-9]\d*)/)
+      [$1, $2.to_i, $3.to_i]
+    else
+      [nil, 0, 0]
+    end
+  end
+
+  def convert(w, h)
+    resize = ""
+    if w > IMAGE_MAX || h > IMAGE_MAX
+      if w > h
+        h = (IMAGE_RESIZE * h.to_f / w.to_f).round
+        w = IMAGE_RESIZE
+      else
+        w = (IMAGE_RESIZE * w.to_f / h.to_f).round
+        h = IMAGE_RESIZE
+      end
+      resize = "-resize '#{w}x#{h}!'"
+    end
+    quality = "-quality #{IMAGE_QUALITY}"
+    tmp = temp_path
+    run("convert #{image.path} #{resize} #{quality} #{tmp}", true)
+    type, p, q = identify(tmp)
+    type == "JPEG" && w == p && h == q ? [w, h] : [0, 0]
+  end
+
+  def thumbnail
+    tmp1 = temp_path(true)
+    tmp2 = temp_path(false)
+    wxh = "#{IMAGE_THUMB}x#{IMAGE_THUMB}"
+    run("convert #{tmp1} -thumbnail '#{wxh}^' -gravity center -extent #{wxh} #{tmp2}", true)
+    type, w, h = identify(tmp2)
+    type == "JPEG" && w == IMAGE_THUMB && h = IMAGE_THUMB
+  end
+
+  def move_images
+    begin
+      [true, false].each do |full|
+        tmp = temp_path(full)
+        pmt = image_path(web: false, full: full)
+        tmp.rename(pmt) if tmp.file?
+        Rails.logger.info("IMAGE move #{tmp}|#{tmp.file?}||#{pmt}|#{pmt.file?}")
+      end
+    rescue => e
+      Rails.loggger.error(e.message)
+    end
+  end
+
+  def temp_path(full=true)
+    nam = ["temp", full ? "f" : "t", title.gsub(/\W/, ""), width.to_i, height.to_i].join("_")
+    Rails.root + "public" + "img" + "#{nam}.jpg"
+  end
+
+  def run(cmd, log=false)
+    out = %x|#{cmd} 2>&1|
+    Rails.logger.info "IMAGE #{cmd} -> #{out}" if log
+    out
   end
 end

@@ -86,3 +86,37 @@ def expect_forbidden(page)
   expect_error(page, "not authorized")
   expect(page).to have_title t("session.sign_in")
 end
+
+def test_image(type, upload: false)
+  mime =
+    case type
+    when "png"    then "image/png"
+    when "gif"    then "image/gif"
+    when "heic"   then "image/heic"
+    when "small"  then "image/jpeg"
+    when "square" then "image/jpeg"
+    else               "image/jpeg"
+    end
+  file =
+    case type
+    when "png"    then "test.png"
+    when "gif"    then "test.gif"
+    when "heic"   then "test.heic"
+    when "tiff"   then "test.tiff"
+    when "small"  then "small.jpg"
+    when "square" then "square.jpg"
+    else               "test.jpg"
+    end
+  path = Rails.root + "spec/files/#{file}"
+  return path unless upload
+  Rack::Test::UploadedFile.new(path, mime)
+end
+
+def test_image_dimensions(type)
+  case type
+  when "png"    then [700, 500]
+  when "gif"    then [600, 360]
+  when "square" then [600, 600]
+  else               [487, 600]
+  end
+end

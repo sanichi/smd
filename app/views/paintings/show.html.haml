@@ -31,17 +31,15 @@
           .col-6.end-td= @painting.size
           .col-6.mid-th= t("painting.media")
           .col-6.end-td= t("painting.medias.#{@painting.media}")
-          .col-6.mid-th= t("painting.filename")
-          .col-6.end-td= @painting.filename
-          .col-6.mid-th= t("painting.dimensions")
-          .col-6.end-td= @painting.dimensions
           .col-6.mid-th= t("painting.stars")
           .col-6.end-td= t("painting.symbol.star") * @painting.stars
+          .col-6.mid-th= t("painting.dimensions")
+          .col-6.end-td= @painting.dimensions
           .col-6.mid-th= t("updated")
           .col-6.end-td= @painting.last_updated
           .col-12.end-td.text-center
             = link_to list_path do
-              %img.img-thumbnail{src: @painting.image_path(tn: true), alt: @painting.title, width: Painting::THUMB}
+              %img.img-thumbnail{src: @painting.image_path(full: false), alt: @painting.title, width: Painting::IMAGE_THUMB}
       .footer
         - if can?(:edit, @painting)
           = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"

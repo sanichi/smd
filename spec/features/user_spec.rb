@@ -72,18 +72,18 @@ describe User do
       expect(page).to have_css "a", text: t("session.sign_in")
     end
 
-    it "can't index" do
+    it "can‘t index" do
       expect(page).to_not have_css "a", text: t("user.users")
       visit users_path
       expect_forbidden page
     end
 
-    it "can't view" do
+    it "can‘t view" do
       visit user_path admin
       expect_forbidden page
     end
 
-    it "can't create" do
+    it "can‘t create" do
       expect(page).to_not have_css "a", text: t("user.new")
       visit new_user_path
       expect_forbidden page
@@ -95,18 +95,18 @@ describe User do
       visit root_path
     end
 
-    it "can't index" do
+    it "can‘t index" do
       expect(page).to_not have_css "a", text: t("user.users")
       visit users_path
       expect_forbidden page
     end
 
-    it "can't view" do
+    it "can‘t view" do
       visit user_path admin
       expect_forbidden page
     end
 
-    it "can't create" do
+    it "can‘t create" do
       expect(page).to_not have_css "a", text: t("user.new")
       visit new_user_path
       expect_forbidden page
