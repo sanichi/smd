@@ -16,6 +16,7 @@ en:
     size: Size
     sold: Sold
     stars: Stars
+    thumbnail: Thumbnail
     title: Title
     width: Width (cm)
     errors:

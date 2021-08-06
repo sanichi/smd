@@ -1,7 +1,11 @@
 %tr
   %td= link_to p.title, p
   %td.text-center
-    %img{src: p.image_path(full: false), alt: p.title, width: "20", height: "20"}
+    - if p.archived?
+      = render "thumbnail", p: p
+    - else
+      = link_to gallery_path(p.gallery, anchor: p.anchor) do
+        = render "thumbnail", p: p
   %td.text-center= p.gallery
   %td.text-center= p.price
   %td.text-center= p.print
