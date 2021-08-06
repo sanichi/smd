@@ -17,7 +17,10 @@
             %em
               = surround("(", ")") do
                 = t("painting.archived")
-        .float-end= dot(@painting.sold)
+        .float-end
+          = dot(@painting.sold)
+          - if @painting.print.present?
+            = dot(nil)
       .body
         .row.border.ms-1.me-1
           .col-12.ted-td.text-center
@@ -39,9 +42,6 @@
           .col-6.end-td= @painting.dimensions
           .col-6.mid-th= t("updated")
           .col-6.end-td= @painting.last_updated
-          .col-12.end-td.text-center
-            = link_to list_path do
-              %img.img-thumbnail{src: @painting.image_path(full: false), alt: @painting.title, width: Painting::IMAGE_THUMB}
       .footer
         - if can?(:edit, @painting)
           = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"

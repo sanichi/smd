@@ -65,7 +65,7 @@ describe Painting do
       expect(page).to have_title t("painting.archive")
     end
 
-    it "create jpg" do
+    it "create with JPG image" do
       click_link t("painting.new")
       data = build(:painting, image: nil)
       enter(data)
@@ -80,7 +80,7 @@ describe Painting do
       expect(%x|identify #{p.image_path(web: false, full: false)}|).to match("JPEG 100x100")
     end
 
-    it "create png" do
+    it "create with PNG image" do
       click_link t("painting.new")
       data = build(:painting, image: nil)
       enter(data)
@@ -95,7 +95,7 @@ describe Painting do
       expect(%x|identify #{p.image_path(web: false, full: false)}|).to match("JPEG 100x100")
     end
 
-    it "create gif" do
+    it "create with GIF image" do
       click_link t("painting.new")
       data = build(:painting, image: nil)
       enter(data)
@@ -147,7 +147,18 @@ describe Painting do
       expect(%x|identify #{p.image_path(web: false, full: false)}|).to match("JPEG 100x100")
     end
 
-    it "can‘t create heic" do
+    it "can‘t create without image" do
+      click_link t("painting.new")
+      data = build(:painting, image: nil)
+      enter(data)
+      click_button t("save")
+
+      expect(page).to have_title t("painting.new")
+      expect(Painting.count).to eq 1
+      expect_error(page, t("painting.errors.blank"))
+    end
+
+    it "can‘t create with HEIC image" do
       click_link t("painting.new")
       data = build(:painting, image: nil)
       enter(data)
@@ -159,7 +170,7 @@ describe Painting do
       expect_error(page, t("painting.errors.heic"))
     end
 
-    it "can‘t create tiff" do
+    it "can‘t create with TIFF image" do
       click_link t("painting.new")
       data = build(:painting, image: nil)
       enter(data)
@@ -171,7 +182,7 @@ describe Painting do
       expect_error(page, t("painting.errors.format"))
     end
 
-    it "can‘t create small" do
+    it "can‘t create with small image" do
       click_link t("painting.new")
       data = build(:painting, image: nil)
       enter(data)
@@ -181,17 +192,6 @@ describe Painting do
       expect(page).to have_title t("painting.new")
       expect(Painting.count).to eq 1
       expect_error(page, t("painting.errors.small"))
-    end
-
-    it "can‘t create blank" do
-      click_link t("painting.new")
-      data = build(:painting, image: nil)
-      enter(data)
-      click_button t("save")
-
-      expect(page).to have_title t("painting.new")
-      expect(Painting.count).to eq 1
-      expect_error(page, t("painting.errors.blank"))
     end
 
     it "can‘t delete" do
