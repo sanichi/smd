@@ -199,6 +199,7 @@ class Painting < ApplicationRecord
           tmp = full ? tmp1 : tmp2
           pmt = image_path(web: false, full: full)
           FileUtils.cp(tmp.path, pmt)
+          FileUtils.chmod(0664, pmt)
           Rails.logger.info("IMAGE move #{pmt}|#{pmt.file?}")
         end
         update_column(:version, version + 1)
