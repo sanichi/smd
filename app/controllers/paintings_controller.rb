@@ -2,7 +2,7 @@ class PaintingsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @paintings = Painting.search(@paintings.where(archived: false), params, paintings_path, per_page: 10)
+    @paintings = Painting.search(@paintings.where(archived: false), params, paintings_path)
   end
 
   def gallery

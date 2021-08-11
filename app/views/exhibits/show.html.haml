@@ -1,0 +1,20 @@
+- set_meta_tags title: @exhibit.name
+
+.row
+  %div{class: center(xl: 4, lg: 6, md: 8, sm: 10)}
+    %section
+      .header
+        %h3.d-inline= @exhibit.name
+      .body
+        %table{class: "table table-bordered"}
+          %tbody
+            %tr
+              %th= t("exhibit.location")
+              %td= @exhibit.location
+            %tr
+              %th= t("exhibit.link")
+              %td= @exhibit.link
+      .footer
+        = link_to t("exhibit.exhibits"), exhibits_path, class: "btn btn-success btn-sm"
+        - if can?(:update, Exhibit)
+          = link_to t("edit"), edit_exhibit_path(@exhibit), class: "btn btn-primary btn-sm"

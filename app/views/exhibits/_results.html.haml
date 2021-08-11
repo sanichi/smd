@@ -1,0 +1,5 @@
+- exhibits.matches.each do |x|
+  %tr
+    %td= link_to x.name, x
+    %td= x.location
+= render "utils/pagination/links", pager: exhibits, columns: 2

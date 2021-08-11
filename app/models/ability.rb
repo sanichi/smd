@@ -8,6 +8,7 @@ class Ability
 
     can [:read, :update, :create, :archive], Painting
     can [:read, :update], Content
+    can :manage, Exhibit
 
     return unless user.admin?
 
