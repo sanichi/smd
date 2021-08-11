@@ -13,7 +13,9 @@
               %td= @exhibit.location
             %tr
               %th= t("exhibit.link")
-              %td= link_to @exhibit.link, @exhibit.link, target: "external"
+              %td
+                - if @exhibit.link.present?
+                  = link_to @exhibit.link, @exhibit.link, target: "external"
             - @exhibit.paintings.by_title.each do |p|
               %tr
                 %th= t("painting.painting")
