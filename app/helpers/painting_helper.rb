@@ -34,6 +34,19 @@ module PaintingHelper
     options_for_select(opts, selected)
   end
 
+  def painting_exhibit_menu(selected, search=true)
+    if search
+      ids = Painting.where.not(exhibit_id: nil).uniq
+      opts = Exhibit.where(id: ids).pluck(:name, :id)
+      opts.unshift [t("none"), ""]
+      opts.unshift [t("all"), ""]
+    else
+      opts = Exhibit.all.pluck(:name, :id)
+      opts.unshift [t("none"), ""]
+    end
+    options_for_select(opts, selected)
+  end
+
   def dot(sold)
     color =
       case sold

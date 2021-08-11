@@ -28,6 +28,10 @@
               %img.img-thumbnail.img-fluid{src: @painting.image_path, alt: @painting.title}
           .col-6.mid-th= t("painting.gallery")
           .col-6.end-td= t("pages.gallery#{@painting.gallery}.title")
+          .col-6.mid-th= t("exhibit.exhibit")
+          .col-6.end-td
+            - unless @painting.exhibit.nil?
+              = link_to @painting.exhibit.name, @painting.exhibit
           .col-6.mid-th= t("painting.price")
           .col-6.end-td= @painting.pounds
           .col-6.mid-th= t("painting.print")

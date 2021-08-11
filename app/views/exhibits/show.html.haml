@@ -14,6 +14,10 @@
             %tr
               %th= t("exhibit.link")
               %td= link_to @exhibit.link, @exhibit.link, target: "external"
+            - @exhibit.paintings.by_title.each do |p|
+              %tr
+                %th= t("painting.painting")
+                %td= link_to p.title, p
       .footer
         = link_to t("exhibit.exhibits"), exhibits_path, class: "btn btn-success btn-sm"
         - if can?(:update, Exhibit)

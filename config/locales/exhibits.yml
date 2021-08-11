@@ -2,6 +2,7 @@ en:
   exhibit:
     domain: Domain
     edit: Edit Exhibit
+    exhibit: Exhibit
     exhibits: Exhibits
     link: Link
     location: Location

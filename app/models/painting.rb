@@ -18,6 +18,8 @@ class Painting < ApplicationRecord
 
   attr_accessor :image, :tmp1, :tmp2
 
+  belongs_to :exhibit, optional: true, inverse_of: :paintings
+
   before_validation :normalize_attributes
 
   validates :title,    length: { maximum: TITLE }, uniqueness: { message: "is already used for another painting" }, presence: true
