@@ -2,16 +2,26 @@ class Exhibit < ApplicationRecord
   include Constrainable
   include Pageable
 
-  MAX_NAME = 25
-  MAX_LOCATION = 20
+  MAX_NAME = 30
+  MAX_LOCATION = 25
+  URL_PREFIX = /\Ahttps?:\/\//
 
   before_validation :normalize_attributes
 
-  validates :link, format: { with: /https?:\/\// }, allow_nil: true
+  validates :link, format: { with: URL_PREFIX }, allow_nil: true
   validates :location, length: { maximum: MAX_LOCATION }, presence: true
   validates :name, length: { maximum: MAX_NAME }, presence: true, uniqueness: true
 
   default_scope { order(:name) }
+
+  def domain
+    domain = link
+    if domain.present?
+      domain.sub!(URL_PREFIX, "")
+      domain.sub!(/\/.*/, "")
+    end
+    domain
+  end
 
   def self.search(matches, params, path, opt={})
     if sql = cross_constraint(params[:query], %w{name location})

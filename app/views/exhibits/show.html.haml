@@ -13,7 +13,7 @@
               %td= @exhibit.location
             %tr
               %th= t("exhibit.link")
-              %td= @exhibit.link
+              %td= link_to @exhibit.link, @exhibit.link, target: "external"
       .footer
         = link_to t("exhibit.exhibits"), exhibits_path, class: "btn btn-success btn-sm"
         - if can?(:update, Exhibit)

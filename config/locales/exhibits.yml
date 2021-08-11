@@ -1,5 +1,6 @@
 en:
   exhibit:
+    domain: Domain
     edit: Edit Exhibit
     exhibits: Exhibits
     link: Link

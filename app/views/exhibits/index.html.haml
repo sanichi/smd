@@ -2,7 +2,7 @@
   set_meta_tags title: t("exhibit.exhibits")
   inputs = [[:query, t("search"), :text, "offset-3 col-6", placeholder: t("search"), autofocus: true]]
 .row
-  %div{class: center(lg: 6, md: 8, sm: 10)}
+  %div{class: center(xl: 8, md: 10)}
     %section
       .header
         %h3.d-inline= t("exhibit.exhibits")
@@ -14,6 +14,7 @@
               %thead
                 %th= t("exhibit.name")
                 %th= t("exhibit.location")
+                %th= t("exhibit.domain")
               %tbody{id: "results"}
                 = render "results", exhibits: @exhibits
       - if can?(:create, Exhibit)
