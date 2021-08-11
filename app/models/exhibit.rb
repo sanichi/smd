@@ -20,6 +20,7 @@ class Exhibit < ApplicationRecord
     domain = link
     if domain.present?
       domain.sub!(URL_PREFIX, "")
+      domain.sub!(/\Awww\./, "")
       domain.sub!(/\/.*/, "")
     end
     domain
