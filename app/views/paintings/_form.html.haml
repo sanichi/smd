@@ -2,11 +2,11 @@
   inputs = [
     [:title,      t("painting.title"),    :text, maxlength: Painting::TITLE],
     [:gallery,    t("painting.gallery"),  :select, menu: painting_gallery_menu(painting.gallery, false)],
+    [:exhibit_id, t("exhibit.exhibit"),   :select, menu: painting_exhibit_menu(painting.exhibit_id, false)],
     [:width,      t("painting.width"),    :text],
     [:height,     t("painting.height"),   :text],
     [:media,      t("painting.media"),    :select, menu: painting_media_menu(painting.media, false)],
     [:stars,      t("painting.stars"),    :select, menu: painting_stars_menu(painting.stars, false)],
-    [:exhibit_id, t("exhibit.exhibit"),   :select, menu: painting_exhibit_menu(painting.exhibit_id, false)],
     [:price,      t("painting.price"),    :text],
     [:print,      t("painting.print"),    :text],
     [:sold,       t("painting.sold"),     :check],
