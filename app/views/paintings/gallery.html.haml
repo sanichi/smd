@@ -11,3 +11,8 @@
         %strong= link_to_if can?(:read, p), p.title, p
         = p.size
         = render "dots", p: p
+      - unless p.exhibit.nil?
+        %p
+          = t("painting.exhibiting")
+          = succeed(".") do
+            = link_to_if p.exhibit.link.present?, p.exhibit.name, p.exhibit.link, target: "external"
