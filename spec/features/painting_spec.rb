@@ -145,6 +145,26 @@ describe Painting do
       expect(%x|identify #{p.image_path(web: false, full: false)}|).to match("JPEG 100x100")
     end
 
+    it "edit (add to exhibit)" do
+      click_link painting.title
+      click_link t("edit")
+      expect(page).to have_title t("painting.edit")
+      expect(exhibit.paintings.size).to eq 0
+
+      uncheck(t("painting.archived"))
+      select exhibit.name, from: t("exhibit.exhibit")
+      click_button t("save")
+
+      expect(page).to have_title painting.title
+      expect(Painting.count).to eq 1
+      p = Painting.first
+      expect(p.archived).to be false
+      expect(p.exhibit).to eq exhibit
+
+      exhibit.reload
+      expect(exhibit.paintings.size).to eq 1
+    end
+
     it "can‘t create without image" do
       click_link t("painting.new")
       enter(data)

@@ -18,7 +18,7 @@ class Painting < ApplicationRecord
 
   attr_accessor :image, :tmp1, :tmp2
 
-  belongs_to :exhibit, optional: true, inverse_of: :paintings
+  belongs_to :exhibit, optional: true, inverse_of: :paintings, counter_cache: true
 
   before_validation :normalize_attributes
 

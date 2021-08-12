@@ -21,5 +21,6 @@ en:
     of: of
     sep: ' ∙ '
   symbol:
+    count: '#'
     cross: ✘
     tick: ✔︎

@@ -14,7 +14,7 @@ class Exhibit < ApplicationRecord
   validates :location, length: { maximum: MAX_LOCATION }, presence: true
   validates :name, length: { maximum: MAX_NAME }, presence: true, uniqueness: true
 
-  default_scope { order(:name) }
+  default_scope { order(paintings_count: :desc, name: :asc) }
 
   def domain
     domain = link

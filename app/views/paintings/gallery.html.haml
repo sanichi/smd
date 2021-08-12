@@ -10,9 +10,4 @@
       %p.mt-2
         %strong= link_to_if can?(:read, p), p.title, p
         = p.size
-        = dot(p.sold)
-        - unless p.sold
-          = p.pounds
-        - if p.print.present?
-          = dot(nil)
-          = p.print_pounds
+        = render "dots", p: p

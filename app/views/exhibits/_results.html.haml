@@ -1,6 +1,7 @@
 - exhibits.matches.each do |e|
   %tr
     %td= link_to e.name, e
+    %td.text-center= e.paintings.size
     %td= e.location
     %td= e.domain
-= render "utils/pagination/links", pager: exhibits, columns: 3
+= render "utils/pagination/links", pager: exhibits, columns: 4
