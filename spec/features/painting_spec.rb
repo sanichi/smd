@@ -4,6 +4,8 @@ describe Painting do
   let!(:admin)    { create(:user, admin: true) }
   let!(:user)     { create(:user, admin: false) }
   let!(:painting) { create(:painting, archived: false) }
+  let!(:exhibit)  { create(:exhibit) }
+  let(:data)      { build(:painting, image: nil) }
 
   def enter(data)
     fill_in t("painting.title"), with: data.title
@@ -67,7 +69,6 @@ describe Painting do
 
     it "create with JPG image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       attach_file(t("painting.image"), test_image("jpg"))
       click_button t("save")
@@ -82,7 +83,6 @@ describe Painting do
 
     it "create with PNG image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       attach_file(t("painting.image"), test_image("png"))
       click_button t("save")
@@ -97,7 +97,6 @@ describe Painting do
 
     it "create with GIF image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       attach_file(t("painting.image"), test_image("gif"))
       click_button t("save")
@@ -118,7 +117,6 @@ describe Painting do
       click_link t("edit")
       expect(page).to have_title t("painting.edit")
 
-      data = build(:painting, image: nil)
       enter(data)
       click_button t("save")
 
@@ -149,7 +147,6 @@ describe Painting do
 
     it "can‘t create without image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       click_button t("save")
 
@@ -160,7 +157,6 @@ describe Painting do
 
     it "can‘t create with HEIC image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       attach_file(t("painting.image"), test_image("heic"))
       click_button t("save")
@@ -172,7 +168,6 @@ describe Painting do
 
     it "can‘t create with TIFF image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       attach_file(t("painting.image"), test_image("tiff"))
       click_button t("save")
@@ -184,7 +179,6 @@ describe Painting do
 
     it "can‘t create with small image" do
       click_link t("painting.new")
-      data = build(:painting, image: nil)
       enter(data)
       attach_file(t("painting.image"), test_image("small"))
       click_button t("save")
@@ -192,6 +186,17 @@ describe Painting do
       expect(page).to have_title t("painting.new")
       expect(Painting.count).to eq 1
       expect_error(page, t("painting.errors.small"))
+    end
+
+    it "can‘t retire exhibited" do
+      click_link painting.title
+      click_link t("edit")
+      check(t("painting.archived"))
+      select exhibit.name, from: t("exhibit.exhibit")
+      click_button t("save")
+
+      expect(page).to have_title t("painting.edit")
+      expect_error(page, t("painting.errors.archived"))
     end
 
     it "can‘t delete" do

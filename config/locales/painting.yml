@@ -21,6 +21,7 @@ en:
     title: Title
     width: Width (cm)
     errors:
+      archived: can‘t retire painting in exhibition
       blank: no file
       convert: couldn‘t convert
       format: unrecognised image format

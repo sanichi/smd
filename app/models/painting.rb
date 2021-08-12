@@ -32,6 +32,7 @@ class Painting < ApplicationRecord
   validates :height,   inclusion: { in: SIZE,  message: "%{value} is not valid" }, allow_nil: true
 
   validate :check_image
+  validate :check_archived
 
   after_save :move_images
 
@@ -156,6 +157,12 @@ class Painting < ApplicationRecord
       end
     else
       errors.add(:image, I18n.t("painting.errors.blank")) if new_record?
+    end
+  end
+
+  def check_archived
+    if archived? && !exhibit.nil?
+      errors.add(:archived, I18n.t("painting.errors.archived"))
     end
   end
 
