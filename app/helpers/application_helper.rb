@@ -52,4 +52,10 @@ module ApplicationHelper
       end
     end
   end
+
+  def public_page?
+    return true if params[:controller] == "pages"
+    return true if params[:controller] == "paintings" && params[:action] == "gallery"
+    false
+  end
 end

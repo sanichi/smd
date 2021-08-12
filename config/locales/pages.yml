@@ -1,5 +1,6 @@
 en:
   pages:
+    copyright: 'Copyright © Sandra Dickie %{year}'
     exhibitions:
       description: Sandra Dickie‘s exhibitions
       keywords: exhibition, paintings, show
