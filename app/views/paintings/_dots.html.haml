@@ -1,7 +1,12 @@
 - defined?(show_sold) || show_sold = false
 
-= dot(p.sold)
-- if !p.sold || show_sold
+- if p.sold?
+  - if p.print.blank?
+    = dot(true)
+    - if show_sold
+      = p.pounds
+- else
+  = dot(false)
   = p.pounds
 - if p.print.present?
   = dot(nil)

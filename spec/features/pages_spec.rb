@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe PagesController do
-  let!(:painting) { create(:painting, archived: false, stars: 3) }
-
   before(:each) do
     visit index_path
   end
@@ -41,6 +39,12 @@ describe PagesController do
     end
 
     expect(page).to have_title t("pages.gallery4.title")
+  end
+
+  it "available" do
+    click_link t("pages.available.title")
+
+    expect(page).to have_title t("pages.available.title")
   end
 
   it "exhibitions" do

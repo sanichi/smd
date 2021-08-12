@@ -9,6 +9,10 @@ class PagesController < ApplicationController
     @sample = Painting.sample
   end
 
+  def available
+    @paintings = Painting.where("sold = 'f' OR print IS NOT NULL").where(archived: false).by_title
+  end
+
   private
 
   def markdown(name)

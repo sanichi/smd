@@ -1,18 +1,23 @@
 en:
   pages:
     copyright: 'Copyright © Sandra Dickie %{year}'
+    available:
+      description: All Sandra Dickie‘s paintings still for sale
+      keywords: sandra, dickie, orr, paintings, prints, available, sale, price
+      title: Available
+      long_title: Available Paintings and Prints
     exhibitions:
       description: Sandra Dickie‘s exhibitions
-      keywords: exhibition, paintings, show
+      keywords: exhibition, paintings, prints, show
       title: Exhibitions
     index:
       description: Sandra Dickie artist, home page
-      keywords: sandra, dickie, orr, artist, paintings, pictures, images
+      keywords: sandra, dickie, orr, artist, paintings, prints, pictures
       title: Home
       search: Search by Title
     gallery1:
       description: Selected paintings of Mediterranean scenes
-      keywords: gallery, mixed, media, watercolour, mediterranean
+      keywords: paintings, gallery, mixed, media, watercolour, mediterranean
       title: Mediterranean Images
     gallery2:
       description: Selected paintings of Scottish and English scenes

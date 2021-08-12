@@ -1,0 +1,12 @@
+- paintings.each do |p|
+  %a{name: p.anchor}
+    %img.img-fluid.img-thumbnail.mt-4{src: p.image_path, alt: p.title}
+  %p.mt-2
+    %strong= link_to_if can?(:read, p), p.title, p
+    = p.size
+    = render "paintings/dots", p: p
+  - unless p.exhibit.nil?
+    %p
+      = t("painting.exhibiting")
+      = succeed(".") do
+        = link_to_if p.exhibit.link.present?, p.exhibit.name, p.exhibit.link, target: "external"

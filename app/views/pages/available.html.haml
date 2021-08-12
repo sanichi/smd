@@ -1,0 +1,7 @@
+- d = t("pages.available")
+= render "meta_tags", d: d
+
+.row
+  %div.text-center{class: center(xx: 6, lg: 8, xs: 10)}
+    %h2= d[:long_title]
+    = render "paintings/gallery_items", paintings: @paintings
