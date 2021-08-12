@@ -12,7 +12,7 @@
               %li= link_to t("pages.gallery#{g}.title"), gallery_path(g)
         %li= link_to t("pages.exhibitions.title"), exhibitions_path
         - if !current_user.guest?
-          %li.dropdown
+          %li.dropdown#admin
             = link_to t("user.admin"), "#", class: "dropdown-toggle", "data-bs-toggle" => "dropdown", role: "button"
             %ul.dropdown-menu
               - if can?(:read, Painting)

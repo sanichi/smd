@@ -8,7 +8,9 @@ describe Exhibit do
   context "users" do
     before(:each) do
       login user
-      click_link t("exhibit.exhibits")
+      within "#admin" do
+        click_link t("exhibit.exhibits")
+      end
     end
 
     it "create" do
@@ -62,7 +64,7 @@ describe Exhibit do
     end
 
     it "can‘t index" do
-      expect(page).to_not have_css "a", text: t("exhibit.exhibits")
+      expect(page).to_not have_css "#admin a", text: t("exhibit.exhibits")
       visit exhibits_path
       expect_forbidden page
     end

@@ -1,11 +1,11 @@
 en:
   exhibit:
     domain: Domain
-    edit: Edit Exhibit
-    exhibit: Exhibit
-    exhibits: Exhibits
+    edit: Edit Exhibition
+    exhibit: Exhibition
+    exhibits: Exhibitions
     link: Link
     location: Location
     name: Name
-    new: New Exhibit
+    new: New Exhibition
     previous: Previous
