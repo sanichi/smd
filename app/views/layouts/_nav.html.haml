@@ -17,12 +17,12 @@
             %ul.dropdown-menu
               - if can?(:read, Painting)
                 %li= link_to t("painting.paintings"), paintings_path
-              - if can?(:archive, Painting)
-                %li= link_to t("painting.archive"), archive_paintings_path
-              - if can?(:read, Content)
-                %li= link_to t("content.contents"), contents_path
               - if can?(:read, Exhibit)
                 %li= link_to t("exhibit.exhibits"), exhibits_path
+              - if can?(:read, Content)
+                %li= link_to t("content.contents"), contents_path
+              - if can?(:archive, Painting)
+                %li= link_to t("painting.archive"), archive_paintings_path
               - if can?(:read, User)
                 %li= link_to t("user.users"), users_path
       %ul.ms-auto
