@@ -1,0 +1,11 @@
+- defined?(show_sold) || show_sold = true
+
+%p.small.text-center
+  = surround("(", ")") do
+    = dot(false)
+    = "= painting price,"
+    - if show_sold
+      = dot(true)
+      = "= painting sold,"
+    = dot(nil)
+    = "= print price"
