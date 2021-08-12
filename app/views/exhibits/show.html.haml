@@ -18,7 +18,7 @@
                   = link_to @exhibit.link, @exhibit.link, target: "external"
             - @exhibit.paintings.by_title.each do |p|
               %tr
-                %td= render "paintings/dots", p: p
+                %td= render "paintings/dots", p: p, show_sold: true
                 %td= link_to p.title, p
 
       .footer
