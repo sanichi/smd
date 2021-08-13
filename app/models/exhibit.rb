@@ -12,7 +12,7 @@ class Exhibit < ApplicationRecord
 
   validates :link, format: { with: URL_PREFIX }, allow_nil: true
   validates :location, length: { maximum: MAX_LOCATION }, presence: true
-  validates :name, length: { maximum: MAX_NAME }, presence: true, uniqueness: true
+  validates :name, length: { maximum: MAX_NAME }, presence: true, uniqueness: { scope: :location }
 
   scope :by_count, -> { order(paintings_count: :desc, name: :asc) }
   scope :by_name,  -> { order(:name) }
