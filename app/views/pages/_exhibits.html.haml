@@ -1,0 +1,8 @@
+- if exhibits.size > 0
+  %h5= t("exhibit.#{current ? 'current' : 'previous'}")
+  %ul
+    - exhibits.each do |e|
+      %li
+        = succeed(",") do
+          = link_to_if current && e.link.present?, e.name, e.link, target: t("external")
+        = e.location

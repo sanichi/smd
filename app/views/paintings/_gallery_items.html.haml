@@ -9,4 +9,4 @@
     %p
       = t("painting.exhibiting")
       = succeed(".") do
-        = link_to_if p.exhibit.link.present?, p.exhibit.name, p.exhibit.link, target: "external"
+        = link_to_if p.exhibit.link.present?, p.exhibit.name, p.exhibit.link, target: t("external")

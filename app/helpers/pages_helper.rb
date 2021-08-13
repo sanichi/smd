@@ -2,7 +2,7 @@ module PagesHelper
   class CustomRenderer < Redcarpet::Render::HTML
     def link(link, title, alt_text)
       if external?(link)
-        '<a href="%s" target="%s">%s</a>' % [link, "external", alt_text]
+        '<a href="%s" target="%s">%s</a>' % [link, I18n.t("external"), alt_text]
       else
         '<a href="%s">%s</a>' % [link, alt_text]
       end
@@ -10,7 +10,7 @@ module PagesHelper
 
     def autolink(link, link_type)
       if external?(link)
-        '<a href="%s" target="%s">%s</a>' % [link, "external", link]
+        '<a href="%s" target="%s">%s</a>' % [link, I18n.t("external"), link]
       else
         '<a href="%s">%s</a>' % [link, link]
       end

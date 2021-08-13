@@ -7,6 +7,8 @@ class PagesController < ApplicationController
   def exhibitions
     @markdown = markdown "Exhibitions"
     @sample = Painting.sample
+    @current = Exhibit.current.to_a
+    @previous = Exhibit.previous.to_a
   end
 
   def available

@@ -15,7 +15,7 @@
               %th= t("exhibit.link")
               %td
                 - if @exhibit.link.present?
-                  = link_to @exhibit.link, @exhibit.link, target: "external"
+                  = link_to @exhibit.link, @exhibit.link, target: t("external")
             - @exhibit.paintings.by_title.each do |p|
               %tr
                 %td= render "paintings/dots", p: p, show_sold: true

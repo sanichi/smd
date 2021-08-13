@@ -16,6 +16,8 @@ class Exhibit < ApplicationRecord
 
   scope :by_count, -> { order(paintings_count: :desc, name: :asc) }
   scope :by_name,  -> { order(:name) }
+  scope :current,  -> { where("paintings_count > 0").by_name }
+  scope :previous, -> { where("paintings_count = 0 OR previous = 't'").by_name }
 
   def self.search(matches, params, path, opt={})
     matches = matches.by_count

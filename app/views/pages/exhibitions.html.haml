@@ -3,5 +3,8 @@
 
 %main
   .row
-    .col-sm-5.ps-5.pe-5= to_html(@markdown)
+    .col-sm-5.ps-5.pe-5
+      = to_html(@markdown)
+      = render "exhibits", exhibits: @current, current: true
+      = render "exhibits", exhibits: @previous, current: false
     .col-sm-7.ps-5.pe-5.text-center= render "sample", p: @sample if @sample
