@@ -6,7 +6,7 @@ class Exhibit < ApplicationRecord
   MAX_LOCATION = 25
   URL_PREFIX = /\Ahttps?:\/\//
 
-  has_many :paintings, inverse_of: :exhibit
+  has_many :paintings, inverse_of: :exhibit, dependent: :nullify
 
   before_validation :normalize_attributes
 

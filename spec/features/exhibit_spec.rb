@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 describe Exhibit do
-  let(:user)     { create(:user, admin: false) }
-  let(:data)     { build(:exhibit) }
-  let!(:exhibit) { create(:exhibit) }
+  let(:user)      { create(:user, admin: false) }
+  let(:data)      { build(:exhibit) }
+  let!(:exhibit)  { create(:exhibit) }
+  let!(:painting) { create(:painting, archived: false) }
 
   context "users" do
     before(:each) do
@@ -55,6 +56,34 @@ describe Exhibit do
 
       expect(page).to have_title t("exhibit.exhibits")
       expect(Exhibit.count).to eq 0
+    end
+
+    it "delete with painting" do
+      expect(exhibit.paintings).to eq []
+      expect(exhibit.paintings_count).to eq 0
+      expect(painting.exhibit).to eq nil
+
+      click_link t("painting.paintings")
+      click_link painting.title
+      click_link t("edit")
+      select exhibit.name, from: t("exhibit.exhibit")
+      click_button t("save")
+
+      exhibit.reload
+      painting.reload
+      expect(exhibit.paintings).to eq [painting]
+      expect(exhibit.paintings_count).to eq 1
+      expect(painting.exhibit).to eq exhibit
+
+      click_link exhibit.name
+      click_link t("edit")
+      click_link t("delete")
+
+      expect(Exhibit.count).to eq 0
+      expect(Painting.count).to eq 1
+
+      painting.reload
+      expect(painting.exhibit).to eq nil
     end
   end
 
