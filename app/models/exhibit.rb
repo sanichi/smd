@@ -14,7 +14,16 @@ class Exhibit < ApplicationRecord
   validates :location, length: { maximum: MAX_LOCATION }, presence: true
   validates :name, length: { maximum: MAX_NAME }, presence: true, uniqueness: true
 
-  default_scope { order(paintings_count: :desc, name: :asc) }
+  scope :by_count, -> { order(paintings_count: :desc, name: :asc) }
+  scope :by_name,  -> { order(:name) }
+
+  def self.search(matches, params, path, opt={})
+    matches = matches.by_count
+    if sql = cross_constraint(params[:query], %w{name location})
+      matches = matches.where(sql)
+    end
+    paginate(matches, params, path, opt)
+  end
 
   def domain
     domain = link
@@ -24,13 +33,6 @@ class Exhibit < ApplicationRecord
       domain.sub!(/\/.*/, "")
     end
     domain
-  end
-
-  def self.search(matches, params, path, opt={})
-    if sql = cross_constraint(params[:query], %w{name location})
-      matches = matches.where(sql)
-    end
-    paginate(matches, params, path, opt)
   end
 
   private
