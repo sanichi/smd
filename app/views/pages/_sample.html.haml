@@ -1,6 +1,6 @@
 .text-center
   = link_to gallery_path(p.gallery, anchor: p.anchor) do
-    %img.img-fluid.mb-2{src: p.image_path, alt: t("sample")}
+    %img.img-fluid.img-thumbnail.mb-2{src: p.image_path, alt: t("sample")}
   %p.mt-2
     %strong= p.title
     = surround("(", ")") do
