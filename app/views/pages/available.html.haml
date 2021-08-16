@@ -4,5 +4,5 @@
 .row
   %div.text-center{class: center(xx: 6, lg: 8, xs: 10)}
     %h2= d[:long_title]
-    = render "paintings/legend", show_sold: false
+    = render "paintings/legend", paintings: @paintings
     = render "paintings/gallery_items", paintings: @paintings
