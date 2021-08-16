@@ -44,6 +44,7 @@ class Painting < ApplicationRecord
   scope :by_title,   -> { order(:title) }
 
   def self.search(matches, params, path, opt={})
+    matches = matches.includes([:exhibit])
     if sql = cross_constraint(params[:query], %w{title})
       matches = matches.where(sql)
     end

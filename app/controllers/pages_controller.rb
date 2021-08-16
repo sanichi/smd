@@ -12,7 +12,7 @@ class PagesController < ApplicationController
   end
 
   def available
-    @paintings = Painting.where("sold = 'f' OR print IS NOT NULL").where(archived: false).by_title
+    @paintings = Painting.where("sold = 'f' OR print IS NOT NULL").where(archived: false).includes([:exhibit]).by_title
   end
 
   private

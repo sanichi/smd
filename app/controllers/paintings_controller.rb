@@ -8,11 +8,11 @@ class PaintingsController < ApplicationController
   def gallery
     @g = params[:g].to_i
     @g = Painting::GALLERY.first unless Painting::GALLERY.include?(@g)
-    @paintings = Painting.where(gallery: @g).where(archived: false).by_stars
+    @paintings = Painting.where(gallery: @g).where(archived: false).includes([:exhibit]).by_stars
   end
 
   def archive
-    @paintings = @paintings.where(archived: true).by_title
+    @paintings = @paintings.where(archived: true).includes([:exhibit]).by_title
   end
 
   def create
