@@ -5,10 +5,10 @@
 %p.small.text-center
   - if sale
     = dot(false)
-    = "= painting price#{sold || prnt ? ',' : ''}"
+    = "= price#{sold || prnt ? ',' : ''}"
   - if sold
     = dot(true)
-    = "= painting sold#{prnt ? ',' : ''}"
+    = "= sold#{prnt ? ',' : ''}"
   - if prnt
     = dot(nil)
     = "= print price"
