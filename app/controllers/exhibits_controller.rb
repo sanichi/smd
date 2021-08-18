@@ -28,6 +28,12 @@ class ExhibitsController < ApplicationController
     redirect_to exhibits_path
   end
 
+  def remove
+    @exhibit.paintings.delete_all
+    @exhibit.update_column(:previous, true)
+    redirect_to @exhibit
+  end
+
   private
 
   def resource_params

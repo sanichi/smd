@@ -25,3 +25,5 @@
         = link_to t("exhibit.exhibits"), exhibits_path, class: "btn btn-success btn-sm"
         - if can?(:update, Exhibit)
           = link_to t("edit"), edit_exhibit_path(@exhibit), class: "btn btn-primary btn-sm"
+          - if @exhibit.paintings.size > 0
+            = link_to t("exhibit.remove"), remove_exhibit_path(@exhibit), class: "btn btn-primary btn-sm", method: :patch

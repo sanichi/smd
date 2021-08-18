@@ -85,6 +85,33 @@ describe Exhibit do
       painting.reload
       expect(painting.exhibit).to eq nil
     end
+
+    it "remove all paintings" do
+      click_link t("painting.paintings")
+      click_link painting.title
+      click_link t("edit")
+      select exhibit.name, from: t("exhibit.exhibit")
+      click_button t("save")
+
+      exhibit.reload
+      painting.reload
+      expect(exhibit.paintings).to eq [painting]
+      expect(exhibit.paintings_count).to eq 1
+      expect(painting.exhibit).to eq exhibit
+
+      click_link exhibit.name
+      click_link t("exhibit.remove")
+
+      expect(Exhibit.count).to eq 1
+      expect(Painting.count).to eq 1
+
+      exhibit.reload
+      painting.reload
+      expect(exhibit.paintings).to eq []
+      expect(exhibit.paintings_count).to eq 0
+      expect(exhibit.previous).to eq true
+      expect(painting.exhibit).to eq nil
+    end
   end
 
   context "guests" do
