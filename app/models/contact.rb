@@ -31,6 +31,14 @@ class Contact < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def full
+    "#{name} <#{email}>"
+  end
+
+  def self.list
+    self.by_email.all.map(&:full).join(", ")
+  end
+
   private
 
   def normalize_attributes

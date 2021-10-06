@@ -8,6 +8,10 @@
     [:query, t("search"), :text,   lo[0], placeholder: t("search"), autofocus: true],
     [:order, t("order"),  :select, lo[1], menu: contact_order_menu(params[:order])],
   ]
+
+- content_for :javascript do
+  = render partial: "copy", formats: :js
+
 .row
   %div{class: center(xx: 8, lg: 10)}
     %section
@@ -26,4 +30,5 @@
                 = render "results", contacts: @contacts
       - if can?(:create, Contact)
         .footer
+          %button.btn.btn-success.btn-sm#copy{"data-clipboard-text" => Contact.list}= t("contact.copy")
           = link_to t("contact.new"), new_contact_path, class: "btn btn-primary btn-sm"

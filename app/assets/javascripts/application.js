@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
+//= require clipboard
 
 // click controls
 function select_work(num) {
@@ -25,7 +26,7 @@ function select_work(num) {
 }
 
 // keyboard controls
-$(window).keydown(function(e) {
+$(window).keydown(function (e) {
   switch (e.keyCode) {
     case 39: // right arrow
       select_next(1);
@@ -51,9 +52,9 @@ function select_next(delta) {
   }
 }
 
-$(function() {
+$(function () {
   // Auto-submit on change.
-  $('form .auto-submit').change(function() {
+  $('form .auto-submit').change(function () {
     $(this).parents('form').submit();
   });
 });
