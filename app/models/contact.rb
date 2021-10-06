@@ -10,9 +10,10 @@ class Contact < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: MAX_EMAIL }, uniqueness: true
   validates :first_name, :last_name, length: { maximum: MAX_NAME }, presence: true
 
-  scope :by_email, -> { order(:email) }
-  scope :by_first, -> { order(:first_name, :last_name) }
-  scope :by_last,  -> { order(:last_name, :first_name) }
+  scope :by_email,      -> { order(:email) }
+  scope :by_first_name, -> { order(:first_name, :last_name) }
+  scope :by_last_name,  -> { order(:last_name, :first_name) }
+  scope :by_latest,     -> { order(created_at: :desc) }
 
   def self.search(matches, params, path, opt={})
     if sql = cross_constraint(params[:query], %w{email first_name last_name})
@@ -20,9 +21,9 @@ class Contact < ApplicationRecord
     end
     case params[:order]
     when "email"      then matches = matches.by_email
-    when "first_name" then matches = matches.by_first
-    when "last_name"  then matches = matches.by_last
-    else                   matches = matches.by_email
+    when "first_name" then matches = matches.by_first_name
+    when "last_name"  then matches = matches.by_last_name
+    else                   matches = matches.by_latest
     end
     paginate(matches, params, path, opt)
   end
