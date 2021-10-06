@@ -1,0 +1,17 @@
+- set_meta_tags title: @contact.name
+
+.row
+  %div{class: center(lg: 6, md: 8, sm: 10)}
+    %section
+      .header.text-center
+        %h3.d-inline= @contact.name
+      .body
+        %table{class: "table table-bordered"}
+          %tbody
+            %tr
+              %th= t("contact.email")
+              %td= @contact.email
+      .footer
+        = link_to t("contact.contacts"), contacts_path, class: "btn btn-success btn-sm"
+        - if can?(:update, Contact)
+          = link_to t("edit"), edit_contact_path(@contact), class: "btn btn-primary btn-sm"

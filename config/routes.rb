@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :paintings do
     get :archive, on: :collection
   end
+  resources :contacts
   resources :contents
   resources :exhibits do
     patch :remove, on: :member

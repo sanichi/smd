@@ -1,0 +1,29 @@
+:ruby
+  set_meta_tags title: t("contact.contacts")
+  lo = Layout.new(
+    xl: [[4,4]],
+    xs: [[5,5]],
+  ).to_a
+  inputs = [
+    [:query, t("search"), :text,   lo[0], placeholder: t("search"), autofocus: true],
+    [:order, t("order"),  :select, lo[1], menu: contact_order_menu(params[:order])],
+  ]
+.row
+  %div{class: center(xx: 8, lg: 10)}
+    %section
+      .header
+        %h3.d-inline= t("contact.contacts")
+      .body
+        = render "utils/search/form", index: contacts_path, inputs: inputs
+        .row
+          %div
+            %table.mt-4{class: "table table-bordered table-sm"}
+              %thead
+                %th= t("contact.email")
+                %th= t("contact.first_name")
+                %th= t("contact.last_name")
+              %tbody{id: "results"}
+                = render "results", contacts: @contacts
+      - if can?(:create, Contact)
+        .footer
+          = link_to t("contact.new"), new_contact_path, class: "btn btn-primary btn-sm"

@@ -1,0 +1,6 @@
+- contacts.matches.each do |c|
+  %tr
+    %td= link_to c.email, c
+    %td= c.first_name
+    %td= c.last_name
+= render "utils/pagination/links", pager: contacts, columns: 3

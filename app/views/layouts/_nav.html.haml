@@ -22,10 +22,12 @@
                 %li= link_to t("exhibit.exhibits"), exhibits_path
               - if can?(:read, Content)
                 %li= link_to t("content.contents"), contents_path
-              - if can?(:archive, Painting)
-                %li= link_to t("painting.archive"), archive_paintings_path
+              - if can?(:read, Contact)
+                %li= link_to t("contact.contacts"), contacts_path
               - if can?(:read, User)
                 %li= link_to t("user.users"), users_path
+              - if can?(:archive, Painting)
+                %li= link_to t("painting.archive"), archive_paintings_path
       %ul.ms-auto
         - unless controller_name == "sessions"
           - if current_user.guest?

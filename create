@@ -1,0 +1,50 @@
+[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m
+
+Failures:
+
+  1) Contact users create
+     [31mFailure/Error: click_link t("contact.contacts")[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find link "Contacts"[0m
+     [36m# ./spec/features/contact_spec.rb:11:in `block (3 levels) in <top (required)>'[0m
+
+  2) Contact users edit
+     [31mFailure/Error: click_link t("contact.contacts")[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find link "Contacts"[0m
+     [36m# ./spec/features/contact_spec.rb:11:in `block (3 levels) in <top (required)>'[0m
+
+  3) Contact users delete
+     [31mFailure/Error: click_link t("contact.contacts")[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find link "Contacts"[0m
+     [36m# ./spec/features/contact_spec.rb:11:in `block (3 levels) in <top (required)>'[0m
+
+  4) Contact users delete with painting
+     [31mFailure/Error: click_link t("contact.contacts")[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find link "Contacts"[0m
+     [36m# ./spec/features/contact_spec.rb:11:in `block (3 levels) in <top (required)>'[0m
+
+  5) Contact users remove all paintings
+     [31mFailure/Error: click_link t("contact.contacts")[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find link "Contacts"[0m
+     [36m# ./spec/features/contact_spec.rb:11:in `block (3 levels) in <top (required)>'[0m
+
+Finished in 3.92 seconds (files took 3.02 seconds to load)
+[31m8 examples, 5 failures[0m
+
+Failed examples:
+
+[31mrspec ./spec/features/contact_spec.rb:14[0m [36m# Contact users create[0m
+[31mrspec ./spec/features/contact_spec.rb:29[0m [36m# Contact users edit[0m
+[31mrspec ./spec/features/contact_spec.rb:47[0m [36m# Contact users delete[0m
+[31mrspec ./spec/features/contact_spec.rb:56[0m [36m# Contact users delete with painting[0m
+[31mrspec ./spec/features/contact_spec.rb:84[0m [36m# Contact users remove all paintings[0m
+
