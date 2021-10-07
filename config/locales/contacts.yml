@@ -8,3 +8,7 @@ en:
     last_name: Last Name
     latest: Latest
     new: New Contact
+    subscribe: Subscribe
+    messages:
+      duplicate: "%{value} is already subscribed"
+      subscribed: "%{value} is now subscribed"

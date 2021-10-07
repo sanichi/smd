@@ -82,6 +82,10 @@ def expect_error(page, text)
   expect(page).to have_css("div.rails-alert", text: text)
 end
 
+def expect_notice(page, text)
+  expect(page).to have_css("div.notice", text: text)
+end
+
 def expect_forbidden(page)
   expect_error(page, "not authorized")
   expect(page).to have_title t("session.sign_in")

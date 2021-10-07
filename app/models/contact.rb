@@ -7,7 +7,10 @@ class Contact < ApplicationRecord
 
   before_validation :normalize_attributes
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: MAX_EMAIL }, uniqueness: true
+  validates :email,
+    format:     { with: URI::MailTo::EMAIL_REGEXP },
+    length:     { maximum: MAX_EMAIL },
+    uniqueness: { message: ->(o, d) { I18n.t("contact.messages.duplicate", value: d[:value]) } }
   validates :first_name, :last_name, length: { maximum: MAX_NAME }, presence: true
 
   scope :by_email,      -> { order(:email) }

@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     can :gallery, Painting
+    can [:create, :subscribe], Contact
 
     return if user.guest?
 

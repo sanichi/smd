@@ -6,11 +6,21 @@ class ContactsController < ApplicationController
   end
 
   def create
+    subscription = params[:commit] == t("contact.subscribe")
     if @contact.save
-      redirect_to @contact
+      if subscription
+        flash[:info] = t("contact.messages.subscribed", value: @contact.full)
+        redirect_to root_path
+      else
+        redirect_to @contact
+      end
     else
       failure @contact
-      render :new
+      if subscription
+        render :subscribe
+      else
+        render :new
+      end
     end
   end
 
@@ -26,6 +36,10 @@ class ContactsController < ApplicationController
   def destroy
     @contact.destroy
     redirect_to contacts_path
+  end
+
+  def subscribe
+    @contact = Contact.new
   end
 
   private

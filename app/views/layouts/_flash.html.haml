@@ -1,4 +1,5 @@
-- flash.each do |type, message|
-  .flash.alert.alert-dismissable{class: type == "alert" ? "rails-alert" : type}
-    %button.close{"type" => "button", "data-bs-dismiss" => "alert"}= t("symbol.cross")
-    = message
+- flash.each do |type, msg|
+  - if msg
+    .flash.alert.alert-dismissable{class: type == "alert" ? "rails-alert" : "notice"}
+      %button.close{"type" => "button", "data-bs-dismiss" => "alert"}= t("symbol.cross")
+      = msg
