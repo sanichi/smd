@@ -79,39 +79,6 @@ describe Contact do
       expect_forbidden page
     end
 
-    it "subscribe" do
-      visit subscribe_contacts_path
-
-      expect(page).to have_title t("contact.subscribe")
-
-      fill_in t("contact.email"), with: data.email
-      fill_in t("contact.first_name"), with: data.first_name
-      fill_in t("contact.last_name"), with: data.last_name
-      click_button t("contact.subscribe")
-
-      expect(Contact.count).to eq 2
-      c = Contact.find_by(email: data.email)
-      expect(c.first_name).to eq data.first_name
-      expect(c.last_name).to eq data.last_name
-
-      expect(page).to have_title t("pages.index.title")
-      expect_notice(page, t("contact.messages.subscribed", value: c.full))
-    end
-
-    it "unsubscribe" do
-      visit unsubscribe_contacts_path
-
-      expect(page).to have_title t("contact.unsubscribe")
-
-      fill_in t("contact.email"), with: contact.email
-      click_button t("contact.unsubscribe")
-
-      expect(Contact.count).to eq 0
-
-      expect(page).to have_title t("pages.index.title")
-      expect_notice(page, t("contact.messages.unsubscribed", value: contact.email))
-    end
-
     it "subscribe and unsubscribe" do
       visit subscribe_contacts_path
 
@@ -126,7 +93,6 @@ describe Contact do
       c = Contact.find_by(email: data.email)
       expect(c.first_name).to eq data.first_name
       expect(c.last_name).to eq data.last_name
-
       expect(page).to have_title t("pages.index.title")
       expect_notice(page, t("contact.messages.subscribed", value: c.full))
 
@@ -138,23 +104,26 @@ describe Contact do
       click_button t("contact.unsubscribe")
 
       expect(Contact.count).to eq 1
-
       expect(page).to have_title t("pages.index.title")
       expect_notice(page, t("contact.messages.unsubscribed", value: data.email))
+
+      visit unsubscribe_contacts_path
+      fill_in t("contact.email"), with: contact.email
+      click_button t("contact.unsubscribe")
+
+      expect(Contact.count).to eq 0
+      expect(page).to have_title t("pages.index.title")
+      expect_notice(page, t("contact.messages.unsubscribed", value: contact.email))
     end
 
     it "duplicate" do
       visit subscribe_contacts_path
-
-      expect(page).to have_title t("contact.subscribe")
-
       fill_in t("contact.email"), with: contact.email
       fill_in t("contact.first_name"), with: data.first_name
       fill_in t("contact.last_name"), with: data.last_name
       click_button t("contact.subscribe")
 
       expect(Contact.count).to eq 1
-
       expect(page).to have_title t("contact.subscribe")
       expect_error(page, t("contact.messages.duplicate", value: contact.email))
     end
