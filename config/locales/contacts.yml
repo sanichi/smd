@@ -9,6 +9,10 @@ en:
     latest: Latest
     new: New Contact
     subscribe: Subscribe
+    unsubscribe: Unsubscribe
     messages:
       duplicate: "%{value} is already subscribed"
+      invalid: "Please enter a valid email address"
       subscribed: "%{value} is now subscribed"
+      unrecognized: "%{value} is not subscribed"
+      unsubscribed: "%{value} has been unsubscribed"

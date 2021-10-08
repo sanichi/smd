@@ -1,2 +1,7 @@
 - set_meta_tags title: t("contact.subscribe")
 = render "form", contact: @contact, title: t("contact.subscribe"), save: t("contact.subscribe"), index: root_path
+
+%p.small.text-center
+  = "To unsubscribe please go "
+  = succeed(".") do
+    = link_to t("here"), unsubscribe_contacts_path

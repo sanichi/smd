@@ -1,0 +1,19 @@
+- set_meta_tags title: t("contact.unsubscribe")
+
+= form_tag unsubscribe_contacts_path, method: :get, remote: false, class: "mt-3" do
+  .row
+    %div{class: center(xl: 4, lg: 6, md: 8, sm: 10)}
+      %section
+        .header.text-center
+          %h4.d-inline= t("contact.unsubscribe")
+        .body
+          = label_tag :email, t("contact.email"), class: "form-label"
+          = text_field_tag :email, params[:email], class: "form-control", autofocus: true
+        .footer
+          = button_tag t("contact.unsubscribe"), type: "submit", class: "btn btn-primary btn-sm"
+          = link_to t("cancel"), root_path, class: "btn btn-secondary btn-sm"
+
+%p.small.text-center
+  = "To subscribe please go "
+  = succeed(".") do
+    = link_to t("here"), subscribe_contacts_path

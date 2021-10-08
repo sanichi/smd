@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource only: [:subscribe, :unsubscribe]
 
   def index
     @contacts = Contact.search(@contacts, params, contacts_path)
@@ -40,6 +41,26 @@ class ContactsController < ApplicationController
 
   def subscribe
     @contact = Contact.new
+  end
+
+  def unsubscribe
+    email = params[:email].to_s.gsub(/\s+/, "").downcase
+    if email.present?
+      if email.match?(URI::MailTo::EMAIL_REGEXP)
+        contact = Contact.find_by(email: email)
+        if contact
+          contact.destroy
+          flash[:info] = t("contact.messages.unsubscribed", value: email)
+          redirect_to root_path
+        else
+          flash.now[:alert] = t("contact.messages.unrecognized", value: email)
+          render :unsubscribe
+        end
+      else
+        flash.now[:alert] = t("contact.messages.invalid")
+        render :unsubscribe
+      end
+    end
   end
 
   private

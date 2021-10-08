@@ -2,7 +2,7 @@
   defined?(save)  || save  = t("save")
   defined?(index) || index = contacts_path
   inputs = [
-    [:email, t("contact.email"), :text, maxlength: Contact::MAX_EMAIL],
+    [:email, t("contact.email"), :text, maxlength: Contact::MAX_EMAIL, autofocus: true],
     [:first_name, t("contact.first_name"), :text, maxlength: Contact::MAX_NAME],
     [:last_name,  t("contact.last_name"),  :text, maxlength: Contact::MAX_NAME],
   ]
