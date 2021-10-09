@@ -108,7 +108,7 @@ describe Contact do
       expect_notice(page, t("contact.messages.unsubscribed", value: data.email))
 
       visit unsubscribe_contacts_path
-      fill_in t("contact.email"), with: contact.email
+      fill_in t("contact.email"), with: contact.email.upcase
       click_button t("contact.unsubscribe")
 
       expect(Contact.count).to eq 0

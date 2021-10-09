@@ -43,11 +43,38 @@ class Contact < ApplicationRecord
     self.by_email.all.map(&:full).join(", ")
   end
 
+  def self.sanitize(name)
+    name.to_s.squish.split(" ").map do |name|
+      name.gsub!(/[^[A-Za-z]'‘-]/, "")
+      name.gsub!(/'/, "‘")
+      name.gsub!(/‘/, "") if name.match?(/‘/) && !name.match?(/\A\w‘\w+\z/)
+      name.gsub!(/-/, "") if name.match?(/-/) && !name.match?(/\A\w\w+-\w\w+/)
+      original = name.dup
+      name.downcase!
+      name =
+        case name
+        when /\A([a-z])\z/
+          $1.upcase + "."
+        when /\A([a-z])([a-z]+)\z/
+          $1.upcase + $2
+        when /\A([a-z])‘([a-z])([a-z]*)\z/
+          $1.upcase + "‘" + $2.upcase + $3.to_s
+        when /\A([a-z])([a-z]+)-([a-z])([a-z]+)\z/
+          $1.upcase + $2 + "-" + $3.upcase + $4
+        else
+          name.titleize
+        end
+      name[2] = original[2] if name.match?(/\AMc[a-z]/)
+      name[3] = original[3] if name.match?(/\AMac[a-z]/)
+      name
+    end.join(" ")
+  end
+
   private
 
   def normalize_attributes
     email&.gsub!(/\s+/, "")&.downcase!
-    first_name&.squish!
-    last_name&.squish!
+    self.first_name = self.class.sanitize(first_name)
+    self.last_name = self.class.sanitize(last_name)
   end
 end
