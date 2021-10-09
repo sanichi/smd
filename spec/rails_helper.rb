@@ -82,6 +82,10 @@ def expect_error(page, text)
   expect(page).to have_css("div.rails-alert", text: text)
 end
 
+def expect_no_error(page)
+  expect(page).to_not have_css("div.rails-alert")
+end
+
 def expect_notice(page, text)
   expect(page).to have_css("div.notice", text: text)
 end

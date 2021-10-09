@@ -110,6 +110,11 @@ describe Contact do
 
     it "unsubscribe" do
       visit unsubscribe_contacts_path
+
+      expect(Contact.count).to eq 1
+      expect(page).to have_title t("contact.unsubscribe")
+      expect_no_error(page)
+
       click_button t("contact.unsubscribe")
 
       expect(Contact.count).to eq 1

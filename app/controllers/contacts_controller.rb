@@ -44,25 +44,27 @@ class ContactsController < ApplicationController
   end
 
   def unsubscribe
-    email = params[:email].to_s.gsub(/\s+/, "").downcase
-    if email.present?
-      if email.match?(URI::MailTo::EMAIL_REGEXP)
-        contact = Contact.find_by(email: email)
-        if contact
-          contact.destroy
-          flash[:info] = t("contact.messages.unsubscribed", value: email)
-          redirect_to root_path
+    unless params[:email].nil?
+      email = params[:email].gsub(/\s+/, "").downcase
+      if email.present?
+        if email.match?(URI::MailTo::EMAIL_REGEXP)
+          contact = Contact.find_by(email: email)
+          if contact
+            contact.destroy
+            flash[:info] = t("contact.messages.unsubscribed", value: email)
+            redirect_to root_path
+          else
+            flash.now[:alert] = t("contact.messages.unrecognized", value: email)
+            render :unsubscribe
+          end
         else
-          flash.now[:alert] = t("contact.messages.unrecognized", value: email)
+          flash.now[:alert] = t("contact.messages.invalid")
           render :unsubscribe
         end
       else
-        flash.now[:alert] = t("contact.messages.invalid")
+        flash.now[:alert] = t("contact.messages.blank")
         render :unsubscribe
       end
-    else
-      flash.now[:alert] = t("contact.messages.blank")
-      render :unsubscribe
     end
   end
 
