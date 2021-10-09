@@ -106,8 +106,23 @@ describe Contact do
       expect(Contact.count).to eq 1
       expect(page).to have_title t("pages.index.title")
       expect_notice(page, t("contact.messages.unsubscribed", value: data.email))
+    end
 
+    it "unsubscribe" do
       visit unsubscribe_contacts_path
+      click_button t("contact.unsubscribe")
+
+      expect(Contact.count).to eq 1
+      expect(page).to have_title t("contact.unsubscribe")
+      expect_error(page, t("contact.messages.blank"))
+
+      fill_in t("contact.email"), with: contact.first_name
+      click_button t("contact.unsubscribe")
+
+      expect(Contact.count).to eq 1
+      expect(page).to have_title t("contact.unsubscribe")
+      expect_error(page, t("contact.messages.invalid"))
+
       fill_in t("contact.email"), with: contact.email.upcase
       click_button t("contact.unsubscribe")
 

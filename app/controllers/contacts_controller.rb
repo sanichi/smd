@@ -60,6 +60,9 @@ class ContactsController < ApplicationController
         flash.now[:alert] = t("contact.messages.invalid")
         render :unsubscribe
       end
+    else
+      flash.now[:alert] = t("contact.messages.blank")
+      render :unsubscribe
     end
   end
 

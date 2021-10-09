@@ -12,6 +12,7 @@ en:
     subscribe: Subscribe
     unsubscribe: Unsubscribe
     messages:
+      blank: "Please enter the email address you subscribed with"
       duplicate: "%{value} is already subscribed"
       invalid: "Please enter a valid email address"
       subscribed: "%{value} is now subscribed"
