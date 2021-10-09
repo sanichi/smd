@@ -5,13 +5,18 @@
       %span
     #navbar.collapse.navbar-collapse
       %ul.me-auto
-        %li.dropdown
+        %li.dropdown#gallery-dropdown
           = link_to t("galleries"), "#", class: "dropdown-toggle", "data-bs-toggle" => "dropdown", role: "button"
           %ul.dropdown-menu
             - Painting::GALLERY.each do |g|
               %li= link_to t("pages.gallery#{g}.title"), gallery_path(g)
         %li= link_to t("pages.available.title"), available_path
         %li= link_to t("pages.exhibitions.title"), exhibitions_path
+        %li.dropdown
+          = link_to t("contact.list"), "#", class: "dropdown-toggle", "data-bs-toggle" => "dropdown", role: "button"
+          %ul.dropdown-menu
+            %li= link_to t("contact.subscribe"), subscribe_contacts_path
+            %li= link_to t("contact.unsubscribe"), unsubscribe_contacts_path
         - if !current_user.guest?
           %li.dropdown#admin
             = link_to t("user.admin"), "#", class: "dropdown-toggle", "data-bs-toggle" => "dropdown", role: "button"

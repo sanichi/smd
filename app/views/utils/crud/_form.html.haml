@@ -1,11 +1,12 @@
-- defined?(save) || save = t("save")
+- defined?(save)  || save = t("save")
 
 .row
   %div{class: center}
     = form_with model: object, html: { class: "crud" } do |form|
       %section
-        .header.text-center
-          %h4.d-inline= title
+        - if title
+          .header.text-center
+            %h4.d-inline= title
         .body
           - inputs.each do | param, label, type, options |
             .mb-3

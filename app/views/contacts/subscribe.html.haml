@@ -1,7 +1,10 @@
 - set_meta_tags title: t("contact.subscribe")
-= render "form", contact: @contact, title: t("contact.subscribe"), save: t("contact.subscribe"), index: root_path
+= render "form", contact: @contact, title: nil, save: t("contact.subscribe"), index: root_path
 
-%p.small.text-center
-  = "To unsubscribe please go "
-  = succeed(".") do
-    = link_to t("here"), unsubscribe_contacts_path
+.small.text-center
+  %p Subscribe for occasional emails about new work and exhibitions.
+  %p Your details will not be shared with any 3rd parties.
+  %p
+    To unsubscribe please go
+    = succeed(".") do
+      = link_to t("here"), unsubscribe_contacts_path

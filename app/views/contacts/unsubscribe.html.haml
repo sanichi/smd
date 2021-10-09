@@ -4,8 +4,6 @@
   .row
     %div{class: center(xl: 4, lg: 6, md: 8, sm: 10)}
       %section
-        .header.text-center
-          %h4.d-inline= t("contact.unsubscribe")
         .body
           = label_tag :email, t("contact.email"), class: "form-label"
           = text_field_tag :email, params[:email], class: "form-control", autofocus: true
@@ -13,7 +11,9 @@
           = button_tag t("contact.unsubscribe"), type: "submit", class: "btn btn-primary btn-sm"
           = link_to t("cancel"), root_path, class: "btn btn-secondary btn-sm"
 
-%p.small.text-center
-  = "To subscribe please go "
-  = succeed(".") do
-    = link_to t("here"), subscribe_contacts_path
+.small.text-center
+  %p Unsubscribe from occasional emails about new work and exhibitions.
+  %p
+    To subscribe please go
+    = succeed(".") do
+      = link_to t("here"), subscribe_contacts_path

@@ -10,7 +10,7 @@ describe PagesController do
   end
 
   it "gallery 1" do
-    within ".dropdown" do
+    within "#gallery-dropdown" do
       click_link t("pages.gallery1.title")
     end
 
@@ -18,7 +18,7 @@ describe PagesController do
   end
 
   it "gallery 2" do
-    within ".dropdown" do
+    within "#gallery-dropdown" do
       click_link t("pages.gallery2.title")
     end
 
@@ -26,7 +26,7 @@ describe PagesController do
   end
 
   it "gallery 3" do
-    within ".dropdown" do
+    within "#gallery-dropdown" do
       click_link t("pages.gallery3.title")
     end
 
@@ -34,7 +34,7 @@ describe PagesController do
   end
 
   it "gallery 4" do
-    within ".dropdown" do
+    within "#gallery-dropdown" do
       click_link t("pages.gallery4.title")
     end
 
