@@ -26,9 +26,10 @@
                 %th= t("contact.email")
                 %th= t("contact.first_name")
                 %th= t("contact.last_name")
+                %th
               %tbody{id: "results"}
                 = render "results", contacts: @contacts
       - if can?(:create, Contact)
         .footer
-          %button.btn.btn-success.btn-sm#copy{"data-clipboard-text" => Contact.list}= t("contact.copy.all")
+          %button.btn.btn-success.btn-sm.copy{"data-clipboard-text" => Contact.list}= t("contact.copy.all")
           = link_to t("contact.new"), new_contact_path, class: "btn btn-primary btn-sm"

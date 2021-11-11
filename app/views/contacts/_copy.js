@@ -1,1 +1,3 @@
-new ClipboardJS('#copy');
+$(function () {
+  new ClipboardJS('.copy');
+});
