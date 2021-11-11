@@ -1,5 +1,8 @@
 - set_meta_tags title: @contact.name
 
+- content_for :javascript do
+  = render partial: "copy", formats: :js
+
 .row
   %div{class: center(lg: 6, md: 8, sm: 10)}
     %section
@@ -12,6 +15,7 @@
               %th= t("contact.email")
               %td= @contact.email
       .footer
+        %button.btn.btn-success.btn-sm#copy{"data-clipboard-text" => @contact.full}= t("contact.copy.one")
         = link_to t("contact.contacts"), contacts_path, class: "btn btn-success btn-sm"
         - if can?(:update, Contact)
           = link_to t("edit"), edit_contact_path(@contact), class: "btn btn-primary btn-sm"
