@@ -9,8 +9,8 @@ describe Contact do
         "Seamus O‘Mally",
         "Sean McDonagh",
         "Ian MacNab",
-        "Jim & Jean O‘Mally",
         "T. Willy",
+        "Jim & Peggy Orr",
       ].each { |name| expect(Contact.sanitize(name)).to eq name }
     end
 
