@@ -33,6 +33,9 @@
                 %li= link_to t("user.users"), users_path
               - if can?(:archive, Painting)
                 %li= link_to t("painting.archive"), archive_paintings_path
+              - if can?(:env, :page)
+                %li= link_to t("pages.env.title"), env_path
+
       %ul.ms-auto
         - unless controller_name == "sessions"
           - if current_user.guest?

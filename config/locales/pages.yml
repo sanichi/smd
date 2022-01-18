@@ -6,6 +6,10 @@ en:
       keywords: sandra, dickie, orr, paintings, prints, available, sale, price
       title: Available
       long_title: Available Paintings and Prints
+    env:
+      description: Web app information
+      keywords: versions, whatnot
+      title: Env
     exhibitions:
       description: Sandra Dickie‘s exhibitions
       keywords: exhibition, paintings, prints, show
