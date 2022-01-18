@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.1.4.1'
+gem 'rails', '7.0.1'
 gem 'haml-rails', '~> 2.0'
 gem 'jquery-rails', '~> 4.3'
 gem 'sassc-rails', '~> 2.1'
@@ -11,6 +11,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan', '~> 3.0'
 gem 'redcarpet', '~> 3.5'
 gem 'meta-tags', '~> 2.12'
+gem 'sprockets-rails', '~> 3.4'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0'
@@ -30,5 +31,5 @@ group :development do
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-passenger', '~> 0.2', require: false
   gem 'listen', '~> 3.2'
-  gem 'bullet', '~> 6.1'
+  gem 'bullet', '~> 7.0'
 end
