@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   resources :users
 
   resource :session, only: [:new, :create, :destroy]
+  resource :otp_secret, only: [:new, :create]
 end

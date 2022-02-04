@@ -3,8 +3,13 @@ class SessionsController < ApplicationController
     user = User.find_by(name: params[:name])
     user = user&.authenticate(params[:password]) unless current_user.admin?
     if user
-      session[:user_id] = user.id
-      redirect_to root_path
+      if user.otp_required? && !current_user.admin?
+        session[:otp_user_id] = user.id
+        redirect_to new_otp_secret_path
+      else
+        session[:user_id] = user.id
+        redirect_to root_path
+      end
     else
       flash.now[:alert] = t("session.invalid")
       render :new

@@ -11,6 +11,11 @@
             %tr
               %th= t("user.admin")
               %td.text-center= admin(@user)
+            %tr
+              %th= t("otp.otp")
+              %td.text-center
+                = otp_required(@user)
+                = otp_active(@user)
       .footer
         - if can?(:edit, @user)
           = link_to t("edit"), edit_user_path(@user), class: "btn btn-primary btn-sm"

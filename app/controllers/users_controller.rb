@@ -27,6 +27,6 @@ class UsersController < ApplicationController
   private
 
   def resource_params
-    params.require(:user).permit(:name, :password)
+    params.require(:user).permit(:name, :password, :otp_required)
   end
 end

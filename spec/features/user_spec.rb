@@ -3,6 +3,7 @@ require 'rails_helper'
 describe User do
   let!(:admin) { create(:user, admin: true) }
   let!(:user)  { create(:user, admin: false) }
+  let!(:otpu)  { create(:user, admin: false, otp_required: true) }
   let(:data)   { build(:user, admin: false) }
 
   context "admin" do
@@ -13,7 +14,7 @@ describe User do
 
     it "counts" do
       expect(page).to have_title t("user.users")
-      expect(User.where(admin: false).count).to eq 1
+      expect(User.where(admin: false).count).to eq 2
       expect(User.where(admin: true).count).to eq 1
     end
 
@@ -22,14 +23,18 @@ describe User do
 
       fill_in t("user.name"), with: data.name
       fill_in t("user.password"), with: data.password
+      uncheck t("otp.required")
       click_button t("save")
 
       expect(page).to have_title data.name
-      expect(User.where(admin: false).count).to eq 2
+      expect(User.where(admin: false).count).to eq 3
       u = User.find_by(name: data.name)
       expect(u.password).to be_nil
       expect(u.password_digest).to be_present
       expect(u.admin).to eq false
+      expect(u.otp_required).to eq false
+      expect(u.otp_secret).to be_nil
+      expect(u.last_otp_at).to be_nil
 
       click_link t("session.sign_out", name: admin.name)
 
@@ -37,6 +42,39 @@ describe User do
       fill_in t("user.name"), with: u.name
       fill_in t("user.password"), with: data.password
       click_button t("session.sign_in")
+
+      click_link t("session.sign_out", name: u.name)
+    end
+
+    it "create, otp, login" do
+      click_link t("user.new")
+
+      fill_in t("user.name"), with: data.name
+      fill_in t("user.password"), with: data.password
+      check t("otp.required")
+      click_button t("save")
+
+      expect(page).to have_title data.name
+      expect(User.where(admin: false).count).to eq 3
+      u = User.find_by(name: data.name)
+      expect(u.password).to be_nil
+      expect(u.password_digest).to be_present
+      expect(u.admin).to eq false
+      expect(u.otp_required).to eq true
+      expect(u.otp_secret).to be_nil
+      expect(u.last_otp_at).to be_nil
+
+      click_link t("session.sign_out", name: admin.name)
+
+      click_link t("session.sign_in")
+      fill_in t("user.name"), with: u.name
+      fill_in t("user.password"), with: data.password
+      click_button t("session.sign_in")
+
+      expect(page).to have_title t("otp.new")
+
+      fill_in t("otp.otp"), with: otp_attempt
+      click_button t("otp.submit")
 
       click_link t("session.sign_out", name: u.name)
     end
@@ -56,7 +94,7 @@ describe User do
       click_link t("delete")
 
       expect(page).to have_title t("user.users")
-      expect(User.where(admin: false).count).to eq 0
+      expect(User.where(admin: false).count).to eq 1
       expect(User.where(admin: true).count).to eq 1
     end
   end
@@ -87,6 +125,36 @@ describe User do
       expect(page).to_not have_css "a", text: t("user.new")
       visit new_user_path
       expect_forbidden page
+    end
+  end
+
+  context "otp user" do
+    before(:each) do
+      login otpu
+    end
+
+    it "can log in" do
+      expect(page).to have_title t("otp.challenge")
+
+      fill_in t("otp.otp"), with: otp_attempt
+      click_button t("otp.submit")
+
+      click_link t("session.sign_out", name: otpu.name)
+    end
+
+    it "can‘t use bad otp" do
+      expect(page).to have_title t("otp.challenge")
+
+      fill_in t("otp.otp"), with: "123456"
+      click_button t("otp.submit")
+
+      expect(page).to have_title t("otp.challenge")
+      expect_error(page, t("otp.invalid"))
+
+      fill_in t("otp.otp"), with: otp_attempt
+      click_button t("otp.submit")
+
+      click_link t("session.sign_out", name: otpu.name)
     end
   end
 

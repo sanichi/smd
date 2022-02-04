@@ -12,6 +12,8 @@ gem 'cancancan', '~> 3.0'
 gem 'redcarpet', '~> 3.5'
 gem 'meta-tags', '~> 2.12'
 gem 'sprockets-rails', '~> 3.4'
+gem 'rotp', '~> 6.2'
+gem 'rqrcode', '~> 2.1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0'
@@ -32,4 +34,5 @@ group :development do
   gem 'capistrano-passenger', '~> 0.2', require: false
   gem 'listen', '~> 3.2'
   gem 'bullet', '~> 7.0'
+  gem 'awesome_print', '~> 1.9'
 end
