@@ -1,7 +1,7 @@
 - set_meta_tags title: @contact.name
 
 - content_for :javascript do
-  = render partial: "copy", formats: :js
+  = javascript_include_tag "copy"
 
 .row
   %div{class: center(lg: 6, md: 8, sm: 10)}

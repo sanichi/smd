@@ -10,7 +10,7 @@
   ]
 
 - content_for :javascript do
-  = render partial: "copy", formats: :js
+  = javascript_include_tag "copy"
 
 .row
   %div{class: center(xx: 8, lg: 10)}
