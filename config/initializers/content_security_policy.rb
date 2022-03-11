@@ -9,7 +9,7 @@ Rails.application.configure do
     policy.default_src     :none
     policy.connect_src     :self
     policy.img_src         :self, :data
-    policy.script_src      :self
+    policy.script_src      :self, :inline_unsafe
     policy.style_src       :self
     policy.base_uri        :self
     policy.frame_ancestors :none
