@@ -9,7 +9,7 @@ Rails.application.configure do
     policy.default_src     :none
     policy.connect_src     :self
     policy.img_src         :self, :data
-    policy.script_src      :self, :unsafe_inline
+    policy.script_src      :self
     policy.style_src       :self
     policy.base_uri        :self
     policy.frame_ancestors :none
@@ -17,4 +17,5 @@ Rails.application.configure do
   end
   config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
   config.content_security_policy_nonce_directives = %w(script-src)
+  config.content_security_policy_report_only = true
 end
