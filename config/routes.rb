@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :paintings do
     get :archive, on: :collection
+    get :compare, on: :collection
+    post :compare, on: :collection
   end
   resources :contacts do
     get :subscribe, :unsubscribe, on: :collection

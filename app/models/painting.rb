@@ -124,6 +124,20 @@ class Painting < ApplicationRecord
     tmp2.unlink if tmp2
   end
 
+  def self.compare(file)
+    results = OpenStruct.new
+    begin
+      raise "No CSV file supplied" if file.nil?
+      raise "App error: file parameter is wrong type (#{file.class})" unless file.is_a?(ActionDispatch::Http::UploadedFile)
+      raise "Please export your numbers file to CSV and then upload that" if file.original_filename =~ /\.numbers\z/i
+      raise "Filename (#{file.original_filename}) doesn‘t look like its CSV" unless file.original_filename =~ /\.csv\z/i
+      raise "File content type (#{file.content_type}) doesn‘t look like its CSV" unless file.content_type == "text/csv"
+    rescue => e
+      results.error = e.message
+    end
+    results
+  end
+
   private
 
   def normalize_attributes

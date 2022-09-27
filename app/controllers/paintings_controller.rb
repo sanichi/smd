@@ -1,5 +1,6 @@
 class PaintingsController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
+  load_resource except: :compare
 
   def index
     @paintings = Painting.search(@paintings.where(archived: false), params, paintings_path)
@@ -38,6 +39,10 @@ class PaintingsController < ApplicationController
   def destroy
     @painting.destroy
     redirect_to paintings_path
+  end
+
+  def compare
+    @results = Painting.compare(params[:csv]) if request.method_symbol == :post
   end
 
   private

@@ -1,0 +1,6 @@
+- if results.error
+  %p.text-danger.fw-bold
+    = succeed(".") do
+      = results.error
+- else
+  %p= "OK"
