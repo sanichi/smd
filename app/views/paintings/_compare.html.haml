@@ -2,5 +2,41 @@
   %p.text-danger.fw-bold
     = succeed(".") do
       = results.error
-- else
-  %p= "OK"
+
+- unless results.dups.nil? || results.dups&.empty?
+  %h5 Duplicates
+  %ul
+  - results.dups.each_pair do |name, rows|
+    %li
+      = succeed(":") do
+        = name
+      = "rows #{rows.map{|r| r + 1}.join(', ')}"
+
+- if results.items.is_a?(Array)
+
+  %h5 Counts
+  %ul
+    %li= "From web app: #{results.paintings.count}"
+    %li= "From spread sheet: #{results.items.count}"
+    %ul
+      %li= "Exact matches: #{results.items.select{|i| i.painting}.count}"
+
+  %h5 Exact Matches
+  %ul
+    - results.items.each do |item|
+      - if item.painting
+        %li= link_to item.title, item.painting
+
+- if current_user.admin?
+
+  - if results.items.is_a?(Array)
+    %h5 Filtered Rows
+    %ul
+      - results.items.each do |item|
+        %li= item.title
+
+  - if results.rows.is_a?(Array)
+    %h5 Raw Rows
+    %ul
+      - results.rows.each do |row|
+        %li= row.to_s
