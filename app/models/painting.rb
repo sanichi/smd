@@ -24,7 +24,7 @@ class Painting < ApplicationRecord
 
   before_validation :normalize_attributes
 
-  validates :title,    length: { maximum: TITLE }, uniqueness: { message: "is already used for another painting" }, presence: true
+  validates :title,    length: { maximum: TITLE }, uniqueness: { case_sensitive: false, message: "is already used for another painting" }, presence: true
   validates :gallery,  inclusion: { in: GALLERY }
   validates :media,    inclusion: { in: MEDIA }
   validates :stars,    inclusion: { in: STARS }
@@ -141,6 +141,7 @@ class Painting < ApplicationRecord
       raise "Duplicate titles detected: please correct and try again" unless results.dups.empty?
       results.paintings = Painting.where(archived: false).to_a
       match(results)
+      unmatched(results)
     rescue => e
       results.error = e.message
     end
@@ -268,6 +269,13 @@ class Painting < ApplicationRecord
       p = OpenStruct.new
       p.title = row[1].squish
       p.row = row[11]
+      p.price = row[5].to_i
+      p.price = nil if p.price == 0
+      if row[2] =~ /(\d+)cm\s*x\s*(\d+)cm/
+        p.width = $1.to_i
+        p.height = $2.to_i
+      end
+      p.sold = (row[3].present? && row[3].match?(/\bsold\b/i)) || row[6].present? || row[7].present?
       p
     end
   end
@@ -275,7 +283,7 @@ class Painting < ApplicationRecord
   def self.duplicates(items)
     hash = Hash.new { |h,k| h[k] = [] }
     items.each do |item|
-      hash[item.title].push(item.row)
+      hash[item.title.downcase].push(item.row)
     end
     hash.delete_if {|k,v| v.length == 1}
     hash
@@ -283,8 +291,12 @@ class Painting < ApplicationRecord
 
   def self.match(results)
     results.items.each do |item|
-      i = results.paintings.index { |p| p.title == item.title }
+      i = results.paintings.index { |p| p.title.downcase == item.title.downcase }
       item.painting = results.paintings[i] if i
     end
+  end
+
+  def self.unmatched(results)
+    results.unmatched = (results.paintings - results.items.map{|i| i.painting}.compact).sort_by{|p| p.title}
   end
 end

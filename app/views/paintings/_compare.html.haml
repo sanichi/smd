@@ -16,16 +16,45 @@
 
   %h5 Counts
   %ul
-    %li= "From web app: #{results.paintings.count}"
-    %li= "From spread sheet: #{results.items.count}"
+    %li= "From web app (excluding archived): #{results.paintings.count}"
     %ul
-      %li= "Exact matches: #{results.items.select{|i| i.painting}.count}"
+      %li= "Matched: #{results.paintings.length - results.unmatched.length}"
+      %li= "Unmatched: #{results.unmatched.length}"
+    %li= "From spread sheet (excluding prints): #{results.items.count}"
+    %ul
+      %li= "Matched: #{results.items.select{|i| i.painting}.count}"
+      %li= "Unmatched: #{results.items.select{|i| !i.painting}.count}"
 
-  %h5 Exact Matches
+  %h5 Matched
   %ul
     - results.items.each do |item|
       - if item.painting
-        %li= link_to item.title, item.painting
+        %li
+          = item.row
+          = link_to item.painting.title, item.painting
+          - unless item.title == item.painting.title
+            = precede("→ ") do
+              = item.title
+          - unless item.width == item.painting.width && item.height == item.painting.height
+            = precede("| ") do
+              = "#{item.painting.width || '?'}cm x #{item.painting.height || '?'}cm → #{item.width || '?'}cm x #{item.height || '?'}cm"
+          - unless item.price == item.painting.price
+            = precede("| ") do
+              = "£#{item.painting.price || '?'} → £#{item.price || '?'}"
+          - unless item.sold == item.painting.sold
+            = precede("| ") do
+              = "#{item.painting.sold ? 'sold' : 'for sale'} → #{item.sold ? 'sold' : 'for sale'}"
+
+  %h5 Unmatched from Spread Sheet
+  %ul
+    - results.items.each do |item|
+      - unless item.painting
+        %li= "#{item.row} #{item.title}"
+
+  %h5 Unmatched from Web App
+  %ul
+    - results.unmatched.each do |painting|
+      %li= link_to painting.title, painting
 
 - if current_user.admin?
 
@@ -33,7 +62,7 @@
     %h5 Filtered Rows
     %ul
       - results.items.each do |item|
-        %li= item.title
+        %li= "#{item.title}, #{item.price}, (#{item.width} x #{item.height})"
 
   - if results.rows.is_a?(Array)
     %h5 Raw Rows
