@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: "pages#index"
 
-  %w{index exhibitions available env}.each { |p| get p => "pages##{p}" }
+  %w{index exhibitions available sale env}.each { |p| get p => "pages##{p}" }
   get "sign_in" => "sessions#new"
   get "gallery(/:g)", to: "paintings#gallery", as: "gallery"
   (1..4).each { |g| get "/gallery#{g}", to: redirect("/gallery/#{g}") }

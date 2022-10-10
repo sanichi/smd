@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_104319) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_144136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,15 +18,15 @@ ActiveRecord::Schema.define(version: 2022_02_04_104319) do
     t.string "first_name", limit: 50
     t.string "last_name", limit: 50
     t.string "email", limit: 100
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "contents", force: :cascade do |t|
     t.string "name", limit: 20
     t.text "markdown"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "exhibits", force: :cascade do |t|
@@ -35,15 +34,15 @@ ActiveRecord::Schema.define(version: 2022_02_04_104319) do
     t.string "link"
     t.string "location", limit: 40
     t.boolean "previous", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "paintings_count", limit: 2, default: 0
   end
 
   create_table "paintings", force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "width", limit: 2
     t.integer "height", limit: 2
     t.string "media", limit: 5
@@ -57,6 +56,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_104319) do
     t.integer "version", limit: 2, default: 0
     t.integer "print", limit: 2
     t.bigint "exhibit_id"
+    t.boolean "sale", default: false
     t.index ["exhibit_id"], name: "index_paintings_on_exhibit_id"
   end
 
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 2022_02_04_104319) do
     t.string "name"
     t.string "password_digest"
     t.boolean "admin", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "otp_required", default: false
     t.string "otp_secret", limit: 32
     t.integer "last_otp_at"

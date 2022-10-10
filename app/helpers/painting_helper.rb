@@ -20,7 +20,7 @@ module PaintingHelper
   end
 
   def painting_sold_menu(selected)
-    opts = %w/available sold/.map { |s| [t("painting.#{s}"), s] }
+    opts = %w/available sale sold/.map { |s| [t("painting.#{s}"), s] }
     opts.unshift [t("all"), ""]
     options_for_select(opts, selected)
   end

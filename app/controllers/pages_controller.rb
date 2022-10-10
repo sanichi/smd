@@ -15,6 +15,10 @@ class PagesController < ApplicationController
     @paintings = Painting.where("sold = 'f' OR print IS NOT NULL").where(archived: false).includes([:exhibit]).by_title
   end
 
+  def sale
+    @paintings = Painting.where(archived: false, sale: true, sold: false).includes([:exhibit]).by_title
+  end
+
   private
 
   def markdown(name)

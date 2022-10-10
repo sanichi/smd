@@ -47,6 +47,12 @@ describe PagesController do
     expect(page).to have_title t("pages.available.title")
   end
 
+  it "sale" do
+    click_link t("pages.sale.title")
+
+    expect(page).to have_title t("pages.sale.title")
+  end
+
   it "exhibitions" do
     click_link t("pages.exhibitions.title")
 

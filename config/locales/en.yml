@@ -25,4 +25,5 @@ en:
   symbol:
     count: '#'
     cross: ✘
+    sale: '!'
     tick: ✔︎

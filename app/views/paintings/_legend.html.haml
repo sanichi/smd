@@ -1,14 +1,18 @@
-- sale = paintings.any?{ |p| !p.sold }
+- defined?(sale) || sale = false
+
+- avbl = paintings.any?{ |p| !p.sold }
 - sold = paintings.any?{ |p| p.sold && p.print.blank? }
 - prnt = paintings.any?{ |p| p.print.present? }
 
 %p.small.text-center
-  - if sale
+  - if avbl
     = dot(false)
-    = "= price#{sold || prnt ? ',' : ''}"
+    = "= #{sale ? 'sale ' : ''}price#{sold || prnt ? ',' : ''}"
   - if sold
     = dot(true)
     = "= sold#{prnt ? ',' : ''}"
   - if prnt
     = dot(nil)
     = "= print price"
+  - unless avbl || sold || prnt
+    %p.text-center Sorry, none available right now.

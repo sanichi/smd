@@ -8,7 +8,7 @@
         = render "thumbnail", p: p
   %td.text-center= p.gallery
   %td.text-center= t("symbol.tick") unless p.exhibit.nil?
-  %td.text-center= p.price
+  %td.text-center= p.pounds(show_sale: true)
   %td.text-center= p.print
   %td.text-center= p.size(true)
   %td.text-center= p.media

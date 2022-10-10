@@ -69,6 +69,8 @@ class Painting < ApplicationRecord
         matches = matches.where(sold: true)
       when "available"
         matches = matches.where(sold: false)
+      when "sale"
+        matches = matches.where(sale: true)
     end
     case params[:order]
     when "price"   then matches = matches.by_price
@@ -87,8 +89,9 @@ class Painting < ApplicationRecord
     format % [width, height]
   end
 
-  def pounds
-    price.present? ? "£#{price}" : ""
+  def pounds(show_sale: false)
+    mark = sale && show_sale ? I18n.t("symbol.sale") : ""
+    price.present? ? "£#{price}#{mark}" : ""
   end
 
   def print_pounds

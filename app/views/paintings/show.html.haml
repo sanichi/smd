@@ -33,7 +33,7 @@
             - unless @painting.exhibit.nil?
               = link_to @painting.exhibit.name, @painting.exhibit
           .col-6.mid-th= t("painting.price")
-          .col-6.end-td= @painting.pounds
+          .col-6.end-td= @painting.pounds(show_sale: true)
           .col-6.mid-th= t("painting.print")
           .col-6.end-td= @painting.print_pounds
           .col-6.mid-th= t("painting.size")
