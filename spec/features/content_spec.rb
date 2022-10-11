@@ -41,6 +41,20 @@ describe Content do
       expect(t.markdown).to eq data.markdown
     end
 
+    it "blank" do
+      click_link content.name
+      click_link t("edit")
+      expect(page).to have_css "label", text: t("content.name")
+      fill_in t("content.markdown"), with: " \t\n"
+      click_button t("save")
+
+      expect(page).to have_title content.name
+      expect(Content.count).to eq 1
+      t = Content.first
+      expect(t.name).to eq content.name
+      expect(t.markdown).to eq ""
+    end
+
     it "delete" do
       click_link content.name
       click_link t("edit")
