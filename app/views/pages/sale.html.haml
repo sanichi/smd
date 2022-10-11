@@ -3,6 +3,7 @@
 
 .row
   %div.text-center{class: center(xx: 6, lg: 8, xs: 10)}
-    %h2= d[:long_title]
+    %h2= d[:title]
     = render "paintings/legend", paintings: @paintings, sale: true
+    = to_html(@markdown)
     = render "paintings/gallery_items", paintings: @paintings

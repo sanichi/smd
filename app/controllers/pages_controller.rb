@@ -17,6 +17,7 @@ class PagesController < ApplicationController
 
   def sale
     @paintings = Painting.where(archived: false, sale: true, sold: false).includes([:exhibit]).by_title
+    @markdown = markdown "Sale"
   end
 
   private
