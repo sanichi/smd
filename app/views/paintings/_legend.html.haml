@@ -1,18 +1,20 @@
-- defined?(sale) || sale = false
-
-- avbl = paintings.any?{ |p| !p.sold }
+- avbl = paintings.any?{ |p| !p.sold && !p.sale? }
+- sale = paintings.any?{ |p| !p.sold && p.sale? }
 - sold = paintings.any?{ |p| p.sold && p.print.blank? }
 - prnt = paintings.any?{ |p| p.print.present? }
 
 %p.small.text-center
   - if avbl
-    = dot(false)
-    = "= #{sale ? 'sale ' : ''}price#{sold || prnt ? ',' : ''}"
+    = dot(:avail)
+    = "= price#{sale || sold || prnt ? ',' : ''}"
+  - if sale
+    = dot(:sale)
+    = "= sale price#{sold || prnt ? ',' : ''}"
   - if sold
-    = dot(true)
+    = dot(:sold)
     = "= sold#{prnt ? ',' : ''}"
   - if prnt
-    = dot(nil)
+    = dot(:print)
     = "= print price"
-  - unless avbl || sold || prnt
+  - unless avbl || sale || sold || prnt
     %p.text-center Sorry, none available right now.

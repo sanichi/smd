@@ -47,16 +47,26 @@ module PaintingHelper
     options_for_select(opts, selected)
   end
 
-  def dot(sold)
+  def dot(type)
     color =
-      case sold
-      when true  then "danger"
-      when false then "success"
-      else            "primary"
+      case type
+      when :avail then "success"
+      when :sold  then "danger"
+      when :print then "primary"
+      when :sale  then "warning"
+      else             "success"
       end
     content_tag(:span, class: "badge rounded-pill dot bg-#{color}") do
       160.chr(Encoding::UTF_8)
     end
+  end
+
+  def list_dot(painting)
+    dot(painting.sold ? :sold : (painting.sale ? :sale : :avail))
+  end
+
+  def pounds(price)
+    price.present? ? "£#{price}" : ""
   end
 
   def painting_table_center

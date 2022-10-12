@@ -2,12 +2,12 @@
 
 - if p.sold?
   - if p.print.blank?
-    = dot(true)
+    = dot(:sold)
     - if show_sold
-      = p.pounds
+      = pounds(p.price)
 - else
-  = dot(false)
-  = p.pounds
+  = dot(p.sale ? :sale : :avail)
+  = pounds(p.price)
 - if p.print.present?
-  = dot(nil)
-  = p.print_pounds
+  = dot(:print)
+  = pounds(p.print)

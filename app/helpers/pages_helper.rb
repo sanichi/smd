@@ -36,9 +36,10 @@ module PagesHelper
       tables: true,
       underline: true,
     }
-    text.gsub!("red_dot", dot(true))
-    text.gsub!("green_dot", dot(false))
-    text.gsub!("blue_dot", dot(nil))
+    text.gsub!("red_dot", dot(:sold))
+    text.gsub!("green_dot", dot(:avail))
+    text.gsub!("blue_dot", dot(:print))
+    text.gsub!("yellow_dot", dot(:sale))
     markdown = Redcarpet::Markdown.new(renderer, options)
     markdown.render(text).html_safe
   end

@@ -89,15 +89,6 @@ class Painting < ApplicationRecord
     format % [width, height]
   end
 
-  def pounds(show_sale: false)
-    mark = sale && show_sale ? I18n.t("symbol.sale") : ""
-    price.present? ? "£#{price}#{mark}" : ""
-  end
-
-  def print_pounds
-    print.present? ? "£#{print}" : ""
-  end
-
   def dimensions(short=false)
     format = short ? "%d⨯%d" : "%d⨯%dpx"
     format % [image_width, image_height]

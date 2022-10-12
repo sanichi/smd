@@ -18,9 +18,9 @@
               = surround("(", ")") do
                 = t("painting.archived")
         .float-end
-          = dot(@painting.sold)
+          = list_dot(@painting)
           - if @painting.print.present?
-            = dot(nil)
+            = dot(:print)
       .body
         .row.border.ms-1.me-1
           .col-12.ted-td.text-center
@@ -33,9 +33,9 @@
             - unless @painting.exhibit.nil?
               = link_to @painting.exhibit.name, @painting.exhibit
           .col-6.mid-th= t("painting.price")
-          .col-6.end-td= @painting.pounds(show_sale: true)
+          .col-6.end-td= pounds(@painting.price)
           .col-6.mid-th= t("painting.print")
-          .col-6.end-td= @painting.print_pounds
+          .col-6.end-td= pounds(@painting.print)
           .col-6.mid-th= t("painting.size")
           .col-6.end-td= @painting.size
           .col-6.mid-th= t("painting.media")
