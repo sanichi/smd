@@ -6,3 +6,5 @@
     = surround("(", ")") do
       = link_to t("pages.gallery#{p.gallery}.title"), gallery_path(p.gallery, anchor: p.anchor)
     = render "paintings/dots", p: p
+    - if p.note.present?
+      %div= to_html(p.note)
