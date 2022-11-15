@@ -146,6 +146,10 @@ class Painting < ApplicationRecord
 
   def normalize_attributes
     title&.squish!
+    note&.lstrip!
+    note&.rstrip!
+    note&.gsub!(/([^\S\n]*\n){2,}[^\S\n]*/, "\n\n")
+    self.note = nil unless note.present?
     self.width = width.to_i
     self.width = nil if width == 0
     self.height = height.to_i

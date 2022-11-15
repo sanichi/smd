@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_10_144136) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_15_155146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_144136) do
     t.integer "print", limit: 2
     t.bigint "exhibit_id"
     t.boolean "sale", default: false
+    t.text "note"
     t.index ["exhibit_id"], name: "index_paintings_on_exhibit_id"
   end
 

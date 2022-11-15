@@ -46,6 +46,9 @@
           .col-6.end-td= @painting.dimensions
           .col-6.mid-th= t("updated")
           .col-6.end-td= @painting.last_updated
+          - if @painting.note.present?
+            .col-12.mid-th.text-center= t("painting.note")
+            .col-12.end-td= to_html(@painting.note)
       .footer
         - if can?(:edit, @painting)
           = link_to t("edit"), edit_painting_path(@painting), class: "btn btn-primary btn-sm"

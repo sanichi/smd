@@ -19,6 +19,7 @@ describe Painting do
     data.sale ? check(t("painting.sale")) : uncheck(t("painting.sale"))
     data.sold ? check(t("painting.sold")) : uncheck(t("painting.sold"))
     data.archived ? check(t("painting.archived")) : uncheck(t("painting.archived"))
+    fill_in t("painting.note"), with: data.note
   end
 
   def presume(page, data, count: 2)
@@ -37,6 +38,7 @@ describe Painting do
     expect(p.archived).to eq data.archived
     expect(p.stars).to eq data.stars
     expect(p.version).to eq 1
+    expect(p.note).to eq data.note
     p
   end
 

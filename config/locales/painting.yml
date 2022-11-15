@@ -13,6 +13,7 @@ en:
     image: Image
     media: Media
     new: New Painting
+    note: Note
     painting: Painting
     paintings: Paintings
     price: Price

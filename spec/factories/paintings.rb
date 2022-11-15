@@ -12,5 +12,6 @@ FactoryBot.define do
     archived { [true, false].sample }
     stars    { rand(Painting::STARS) }
     image    { test_image(%w/jpg png gif/.sample, upload: true) }
+    note     { [Faker::Lorem.paragraphs(number: 3), nil].sample }
   end
 end

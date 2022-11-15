@@ -5,6 +5,8 @@
     %strong= link_to_if can?(:read, p), p.title, p
     = p.size
     = render "paintings/dots", p: p
+  - if p.note.present?
+    %div= to_html(p.note)
   - unless p.exhibit.nil?
     %p
       = t("painting.exhibiting")
