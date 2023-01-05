@@ -223,10 +223,15 @@ describe Painting do
       expect_error(page, t("painting.errors.archived"))
     end
 
-    it "can‘t delete" do
+    it "can delete" do
       click_link painting.title
       click_link t("edit")
-      expect(page).to_not have_css "a", text: t("delete")
+      expect(page).to have_css "a", text: t("delete")
+
+      click_link t("delete")
+
+      expect(page).to have_title t("painting.paintings")
+      expect(Painting.count).to eq 0
     end
   end
 

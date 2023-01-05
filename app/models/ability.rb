@@ -7,7 +7,7 @@ class Ability
 
     return if user.guest?
 
-    can [:read, :update, :create, :archive, :compare], Painting
+    can [:read, :update, :create, :destroy, :archive, :compare], Painting
     can [:read, :update], Content
     can :manage, [Contact, Exhibit]
 
