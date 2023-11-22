@@ -1,7 +1,15 @@
 class PagesController < ApplicationController
-  def index
-    @markdown = markdown "Welcome"
-    @sample = Painting.sample
+  def available
+    @paintings = Painting.where("sold = 'f' OR print IS NOT NULL").where(archived: false).includes([:exhibit]).by_title
+  end
+
+  def env
+    dirs = `ls /home/sanichi/.passenger/native_support`
+    vers = dirs.scan(/\d*\.\d*\.\d*/)
+    @passenger_version = vers.any? ? vers.last : "not found"
+    vers = ActiveRecord::Base.connection.execute('select version();').values[0][0] rescue "oops"
+    @postgres_version = vers.match(/(1[4-6]\.\d+)/)? $1 : "not found"
+    @host = ENV["HOSTNAME"] || `hostname`.chop.sub(".local", "")
   end
 
   def exhibitions
@@ -11,8 +19,9 @@ class PagesController < ApplicationController
     @previous = Exhibit.previous.to_a
   end
 
-  def available
-    @paintings = Painting.where("sold = 'f' OR print IS NOT NULL").where(archived: false).includes([:exhibit]).by_title
+  def index
+    @markdown = markdown "Welcome"
+    @sample = Painting.sample
   end
 
   def sale
