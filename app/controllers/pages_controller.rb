@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   end
 
   def env
-    dirs = `ls /home/sanichi/.passenger/native_support`
+    dirs = `ls /home/sanichi/.passenger/native_support 2>&1`
     vers = dirs.scan(/\d*\.\d*\.\d*/)
     @passenger_version = vers.any? ? vers.last : "not found"
     vers = ActiveRecord::Base.connection.execute('select version();').values[0][0] rescue "oops"
