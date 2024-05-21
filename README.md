@@ -1,19 +1,33 @@
 # README
 
-Templete of minimal Rails app with
+This rails app is [Sandra Dickie‘s](https://sandradickie.co.uk/) website.
 
-* bootstrap
-* cancancan
-* capistrano
-* capybara
-* factory-bot
-* faker
-* haml
-* jquery
-* meta-tags
-* rbenv
-* rspec
-* passenger
-* postgressql
+To run/test locally:
 
-and other Mark Orr preferences.
+* Install the version of ruby in `.ruby-version`.
+* Run `bin/bundle install`.
+* Make sure you have `postgres` running locally.
+* Overwrite `config/credentials.yml.enc` (it only has a secret_key_base) with a new `config/master.key`.
+* Create the unversioned file `config/database.yml` something like this:
+```
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: blah
+  password: blah
+development:
+  <<: *default
+  database: smd_development
+test:
+  <<: *default
+  database: smd_test
+```
+* Run `bin/rails db:create`.
+* Sync the development database with the production database if you can.
+* If you can't sync then at least create one admin user with `bin/rails c`:
+```
+User.create!(name: "Blah", password: "blah", admin: true);
+```
+* Run the app locally on port 3000 with `bin/rails s`.
+* Test by running `bin/rake`.
