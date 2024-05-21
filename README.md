@@ -1,6 +1,6 @@
 # README
 
-This rails app is [Sandra Dickie‘s](https://sandradickie.co.uk/) website.
+This rails app is the [website](https://sandradickie.co.uk/) of the artist Sandra Mary Dickie.
 
 To run/test locally:
 
