@@ -6,8 +6,8 @@ To run/test locally:
 
 * Install the version of ruby in `.ruby-version`.
 * Run `bin/bundle install`.
-* Make sure you have `postgres` running locally.
 * Overwrite `config/credentials.yml.enc` (it only has a secret_key_base) with a new `config/master.key`.
+* Make sure you have `postgres` running locally.
 * Create the unversioned file `config/database.yml` something like this:
 ```
 default: &default
