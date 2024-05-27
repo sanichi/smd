@@ -13,6 +13,7 @@ gem 'meta-tags', '~> 2.12'
 gem 'sprockets-rails', '~> 3.4'
 gem 'rotp', '~> 6.2'
 gem 'rqrcode', '~> 2.1'
+gem 'csv', '< 4'
 
 group :development, :test do
   gem 'rspec-rails', '< 7'
