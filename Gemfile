@@ -34,7 +34,7 @@ group :development do
   gem 'capistrano-passenger', '~> 0.2', require: false
   gem 'listen', '~> 3.2'
   gem 'bullet', '~> 7.0'
-  gem 'awesome_print', '~> 1.9'
+  gem 'awesome_print', '~> 1.9', require: false
 end
 
 group :production do
