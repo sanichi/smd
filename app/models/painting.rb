@@ -120,28 +120,6 @@ class Painting < ApplicationRecord
     tmp2.unlink if tmp2
   end
 
-  def self.compare(file)
-    results = OpenStruct.new
-    begin
-      raise "No CSV file supplied" if file.nil?
-      raise "App error: file parameter is wrong type (#{file.class})" unless file.is_a?(ActionDispatch::Http::UploadedFile)
-      raise "Please export your numbers file to CSV and then upload that" if file.original_filename =~ /\.numbers\z/i
-      raise "Filename (#{file.original_filename}) doesn‘t look like its CSV" unless file.original_filename =~ /\.csv\z/i
-      raise "File content type (#{file.content_type}) doesn‘t look like its CSV" unless file.content_type == "text/csv"
-      results.rows = CSV.parse(file.read, encoding: "UTF-8")
-      results.items = filter(results.rows)
-      raise "No paintings detected, something is wrong" if results.items.empty?
-      results.dups = duplicates(results.items)
-      raise "Duplicate titles detected: please correct and try again" unless results.dups.empty?
-      results.paintings = Painting.where(archived: false).to_a
-      match(results)
-      unmatched(results)
-    rescue => e
-      results.error = e.message
-    end
-    results
-  end
-
   private
 
   def normalize_attributes
@@ -249,52 +227,5 @@ class Painting < ApplicationRecord
     out = %x|#{cmd} 2>&1|
     Rails.logger.info "IMAGE #{cmd} -> #{out}" if log
     out
-  end
-
-  def self.filter(rows)
-    rows.select do |row|
-      row.length == 11
-    end.each_with_index.map do |row, i|
-      row.push(i+1)
-      row
-    end.select do |row|
-      row[1].is_a?(String) &&
-      row[1].present? &&
-      row[1].match?(/[a-z]/i) &&
-      row[1] != "Title" &&
-      !row[1].match?(/\bprint\b/i)
-    end.map do |row|
-      p = OpenStruct.new
-      p.title = row[1].squish
-      p.row = row[11]
-      p.price = row[5].to_i
-      p.price = nil if p.price == 0
-      if row[2] =~ /(\d+)cm\s*x\s*(\d+)cm/
-        p.width = $1.to_i
-        p.height = $2.to_i
-      end
-      p.sold = (row[3].present? && row[3].match?(/\bsold\b/i)) || row[6].present? || row[7].present?
-      p
-    end
-  end
-
-  def self.duplicates(items)
-    hash = Hash.new { |h,k| h[k] = [] }
-    items.each do |item|
-      hash[item.title.downcase].push(item.row)
-    end
-    hash.delete_if {|k,v| v.length == 1}
-    hash
-  end
-
-  def self.match(results)
-    results.items.each do |item|
-      i = results.paintings.index { |p| p.title.downcase == item.title.downcase }
-      item.painting = results.paintings[i] if i
-    end
-  end
-
-  def self.unmatched(results)
-    results.unmatched = (results.paintings - results.items.map{|i| i.painting}.compact).sort_by{|p| p.title}
   end
 end
