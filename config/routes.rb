@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     get :archive, on: :collection
   end
   resources :contacts do
-    get :subscribe, :unsubscribe, on: :collection
+    get :subscribe, on: :collection
+    get :unsubscribe, on: :collection
   end
   resources :contents
   resources :exhibits do
