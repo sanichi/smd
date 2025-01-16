@@ -1,6 +1,6 @@
 - contacts.matches.each do |c|
   %tr
-    %td= link_to c.email, c
+    %td= link_to c.email, c, "data-turbo-frame" => "_top"
     %td= c.first_name
     %td= c.last_name
     %td.text-center

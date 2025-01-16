@@ -10,14 +10,15 @@
         = render "utils/search/form", index: exhibits_path, inputs: inputs
         .row
           %div
-            %table.mt-4{class: "table table-bordered table-sm"}
-              %thead
-                %th= t("exhibit.name")
-                %th.text-center= t("painting.symbol.painting")
-                %th= t("exhibit.location")
-                %th= t("exhibit.domain")
-              %tbody{id: "results"}
-                = render "results", exhibits: @exhibits
+            = turbo_frame_tag :results, "data-turbo-action" => :advance do
+              %table.mt-4{class: "table table-bordered table-sm"}
+                %thead
+                  %th= t("exhibit.name")
+                  %th.text-center= t("painting.symbol.painting")
+                  %th= t("exhibit.location")
+                  %th= t("exhibit.domain")
+                %tbody
+                  = render "results", exhibits: @exhibits
       - if can?(:create, Exhibit)
         .footer
           = link_to t("exhibit.new"), new_exhibit_path, class: "btn btn-primary btn-sm"

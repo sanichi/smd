@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
       if subscription
         render :subscribe
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
   end
@@ -30,7 +30,7 @@ class ContactsController < ApplicationController
       redirect_to @contact
     else
       failure @contact
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

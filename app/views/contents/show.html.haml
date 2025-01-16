@@ -11,4 +11,4 @@
         - if can?(:update, Content)
           = link_to t("edit"), edit_content_path(@content), class: "btn btn-primary btn-sm"
         - if can?(:create, Content)
-          = link_to t("delete"), @content, class: "btn btn-danger btn-sm", method: :delete, data: { confirm: t("sure") }
+          = link_to t("delete"), @content, class: "btn btn-danger btn-sm", data: { turbo_method: :delete, turbo_confirm: t("sure") }

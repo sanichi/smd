@@ -23,11 +23,12 @@
     = render "utils/search/form", index: paintings_path, inputs: inputs
     .row
       %div{class: painting_table_center}
-        %table.mt-4{class: "table table-bordered table-sm"}
-          %thead
-            = render "table_hdr"
-          %tbody{id: "results"}
-            = render "results", paintings: @paintings
+        = turbo_frame_tag :results, "data-turbo-action" => :advance do
+          %table.mt-4{class: "table table-bordered table-sm"}
+            %thead
+              = render "table_hdr"
+            %tbody
+              = render "results", paintings: @paintings
   - if can?(:create, Painting)
     .footer
       = link_to t("painting.new"), new_painting_path, class: "btn btn-primary btn-sm"

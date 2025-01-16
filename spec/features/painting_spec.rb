@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Painting do
+describe Painting, js: true do
   let!(:admin)    { create(:user, admin: true) }
   let!(:user)     { create(:user, admin: false) }
   let!(:painting) { create(:painting, archived: false) }
@@ -45,6 +45,7 @@ describe Painting do
   context "admin" do
     before(:each) do
       login(admin)
+      click_link t("user.admin")
       click_link t("painting.paintings")
     end
 
@@ -52,7 +53,9 @@ describe Painting do
       click_link painting.title
       click_link t("edit")
       expect(page).to have_css "a", text: t("delete")
-      click_link t("delete")
+      accept_confirm do
+        click_link t("delete")
+      end
 
       expect(page).to have_title t("painting.paintings")
       expect(Painting.count).to eq 0
@@ -63,10 +66,12 @@ describe Painting do
     before(:each) do
       Dir.glob("public/test/*").each { |f| FileUtils.rm(f) }
       login(user)
+      click_link t("user.admin")
       click_link t("painting.paintings")
     end
 
     it "archive" do
+      click_link t("user.admin")
       click_link t("painting.archive")
       expect(page).to have_title t("painting.archive")
     end
@@ -228,7 +233,9 @@ describe Painting do
       click_link t("edit")
       expect(page).to have_css "a", text: t("delete")
 
-      click_link t("delete")
+      accept_confirm do
+        click_link t("delete")
+      end
 
       expect(page).to have_title t("painting.paintings")
       expect(Painting.count).to eq 0

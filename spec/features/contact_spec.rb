@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Contact do
+describe Contact, js: true do
   let(:user)      { create(:user, admin: false) }
   let(:data)      { build(:contact) }
   let!(:contact)  { create(:contact) }
@@ -8,6 +8,7 @@ describe Contact do
   context "users" do
     before(:each) do
       login user
+      click_link t("user.admin")
       click_link t("contact.contacts")
     end
 
@@ -56,7 +57,9 @@ describe Contact do
     it "delete" do
       click_link contact.email
       click_link t("edit")
-      click_link t("delete")
+      accept_confirm do
+        click_link t("delete")
+      end
 
       expect(page).to have_title t("contact.contacts")
       expect(Contact.count).to eq 0

@@ -21,7 +21,7 @@ class PaintingsController < ApplicationController
     else
       @painting.cleanup
       failure @painting
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class PaintingsController < ApplicationController
     else
       @painting.cleanup
       failure @painting
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

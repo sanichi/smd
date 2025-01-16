@@ -12,9 +12,9 @@ gem 'meta-tags', '~> 2.12'
 gem 'rotp', '~> 6.2'
 gem 'rqrcode', '~> 2.1'
 gem 'csv', '< 4'
-gem "jquery-rails", "~> 4.6"
 gem 'sprockets-rails', '~> 3.4'
 gem "importmap-rails", "~> 2.1"
+gem "turbo-rails", "~> 2.0"
 
 # Temporary fix
 gem "nokogiri", force_ruby_platform: true
@@ -26,6 +26,7 @@ group :development, :test do
   gem 'launchy', '< 4'
   gem 'factory_bot_rails', '~> 6.0'
   gem 'faker', '< 4'
+  gem "selenium-webdriver", "~> 4.27"
 end
 
 group :test do

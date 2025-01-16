@@ -1,10 +1,10 @@
 %tr
-  %td= link_to p.title, p
+  %td= link_to p.title, p, "data-turbo-frame" => "_top"
   %td.text-center
     - if p.archived?
       = render "thumbnail", p: p
     - else
-      = link_to gallery_path(p.gallery, anchor: p.anchor) do
+      = link_to gallery_path(p.gallery, anchor: p.anchor), "data-turbo-frame" => "_top" do
         = render "thumbnail", p: p
   %td.text-center= p.gallery
   %td.text-center= t("symbol.tick") unless p.exhibit.nil?

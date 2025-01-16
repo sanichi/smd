@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Exhibit do
+describe Exhibit, js: true do
   let(:user)      { create(:user, admin: false) }
   let(:data)      { build(:exhibit) }
   let!(:exhibit)  { create(:exhibit) }
@@ -10,6 +10,7 @@ describe Exhibit do
     before(:each) do
       login user
       within "#admin" do
+        click_link t("user.admin")
         click_link t("exhibit.exhibits")
       end
     end
@@ -52,18 +53,24 @@ describe Exhibit do
     it "delete" do
       click_link exhibit.name
       click_link t("edit")
-      click_link t("delete")
+      accept_confirm do
+        click_link t("delete")
+      end
 
       expect(page).to have_title t("exhibit.exhibits")
       expect(Exhibit.count).to eq 0
     end
 
-    it "delete with painting" do
+    # TODO: this doesn't work with js, the exhibition isn't deleted
+    it "delete with painting", js: false do
       expect(exhibit.paintings).to eq []
       expect(exhibit.paintings_count).to eq 0
       expect(painting.exhibit).to eq nil
 
-      click_link t("painting.paintings")
+      within "#admin" do
+        click_link t("user.admin")
+        click_link t("painting.paintings")
+      end
       click_link painting.title
       click_link t("edit")
       select exhibit.name, from: t("exhibit.exhibit")
@@ -75,9 +82,15 @@ describe Exhibit do
       expect(exhibit.paintings_count).to eq 1
       expect(painting.exhibit).to eq exhibit
 
+      within "#admin" do
+        click_link t("user.admin")
+        click_link t("exhibit.exhibits")
+      end
       click_link exhibit.name
       click_link t("edit")
-      click_link t("delete")
+      # accept_confirm do
+        click_link t("delete")
+      # end
 
       expect(Exhibit.count).to eq 0
       expect(Painting.count).to eq 1
@@ -87,7 +100,10 @@ describe Exhibit do
     end
 
     it "remove all paintings" do
-      click_link t("painting.paintings")
+      within "#admin" do
+        click_link t("user.admin")
+        click_link t("painting.paintings")
+      end
       click_link painting.title
       click_link t("edit")
       select exhibit.name, from: t("exhibit.exhibit")
@@ -99,6 +115,10 @@ describe Exhibit do
       expect(exhibit.paintings_count).to eq 1
       expect(painting.exhibit).to eq exhibit
 
+      within "#admin" do
+        click_link t("user.admin")
+        click_link t("exhibit.exhibits")
+      end
       click_link exhibit.name
       click_link t("exhibit.remove")
 

@@ -42,4 +42,4 @@
           - if current_user.guest?
             %li= link_to t("session.sign_in"), new_session_path
           - else
-            %li= link_to t("session.sign_out", name: current_user.name), session_path, method: "delete"
+            %li= link_to t("session.sign_out", name: current_user.name), session_path, "data-turbo-method" => :delete

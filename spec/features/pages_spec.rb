@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# TODO - this doesn't work with js, can't find Galleries button/link
 describe PagesController do
   before(:each) do
     visit index_path

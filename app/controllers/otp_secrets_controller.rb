@@ -27,7 +27,7 @@ class OtpSecretsController < ApplicationController
       else
         flash.now[:alert] = t("otp.invalid")
         @qr_code = qr_code(totp, user.name) if user.otp_secret.nil?
-        render :new
+        render :new, status: :unprocessable_entity
       end
     else
       redirect_to new_session_path

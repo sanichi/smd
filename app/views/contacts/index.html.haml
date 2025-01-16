@@ -18,14 +18,15 @@
         = render "utils/search/form", index: contacts_path, inputs: inputs
         .row
           %div
-            %table.mt-4{class: "table table-bordered table-sm"}
-              %thead
-                %th= t("contact.email")
-                %th= t("contact.first_name")
-                %th= t("contact.last_name")
-                %th
-              %tbody{id: "results"}
-                = render "results", contacts: @contacts
+            = turbo_frame_tag :results, "data-turbo-action" => :advance do
+              %table.mt-4{class: "table table-bordered table-sm"}
+                %thead
+                  %th= t("contact.email")
+                  %th= t("contact.first_name")
+                  %th= t("contact.last_name")
+                  %th
+                %tbody
+                  = render "results", contacts: @contacts
       - if can?(:create, Contact)
         .footer
           %button.btn.btn-success.btn-sm.copy{"data-clipboard-text" => Contact.list}= t("contact.copy.all")

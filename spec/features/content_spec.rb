@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Content do
+describe Content, js: true do
   let(:admin)    { create(:user, admin: true) }
   let(:user)     { create(:user, admin: false) }
   let(:data)     { build(:content) }
@@ -9,6 +9,7 @@ describe Content do
   context "admin" do
     before(:each) do
       login admin
+      click_link t("user.admin")
       click_link t("content.contents")
     end
 
@@ -59,8 +60,9 @@ describe Content do
       click_link content.name
       click_link t("edit")
       expect(page).to have_css "a", text: t("delete")
-      click_link t("delete")
-
+      accept_confirm do
+        click_link t("delete")
+      end
       expect(page).to have_title t("content.contents")
       expect(Content.count).to eq 0
     end
@@ -69,6 +71,7 @@ describe Content do
   context "users" do
     before(:each) do
       login user
+      click_link t("user.admin")
       click_link t("content.contents")
     end
 
