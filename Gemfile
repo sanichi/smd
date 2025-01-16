@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '8.0.0'
+gem 'rails', '8.0.1'
 gem 'haml-rails', '~> 2.0'
 gem 'jquery-rails', '~> 4.3'
 gem 'sassc-rails', '~> 2.1'
@@ -14,6 +14,9 @@ gem 'sprockets-rails', '~> 3.4'
 gem 'rotp', '~> 6.2'
 gem 'rqrcode', '~> 2.1'
 gem 'csv', '< 4'
+
+# Temporary fix
+gem "nokogiri", force_ruby_platform: true
 
 group :development, :test do
   gem 'rspec-rails', '< 8'
