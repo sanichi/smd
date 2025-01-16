@@ -1,8 +1,3 @@
 - if public_page?
   .bg-dark.small.text-white.text-center.rounded.p-2.mb-3
     = t("pages.copyright", year: Date.today.year)
-
-= javascript_include_tag "application"
-- if content_for? :javascript
-  = javascript_tag nonce: true do
-    = yield :javascript

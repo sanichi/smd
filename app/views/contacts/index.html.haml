@@ -9,9 +9,6 @@
     [:order, t("order"),  :select, lo[1], menu: contact_order_menu(params[:order])],
   ]
 
-- content_for :javascript do
-  = render partial: "copy", formats: :js
-
 .row
   %div{class: center(xx: 8, lg: 10)}
     %section
