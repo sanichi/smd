@@ -4,5 +4,7 @@
     %td= c.first_name
     %td= c.last_name
     %td.text-center
-      %button.btn.btn-success.btn-sm.copy{"data-clipboard-text" => c.full}= t("contact.copy.one")
+      %span{"data-controller" => "clipboard"}
+        %input.d-none{"data-clipboard-target" => "email", type: "text", value: c.full, readonly: true}
+        %button.btn.btn-success.btn-sm{"data-action" => "clipboard#copy"}= t("contact.copy.one")
 = render "utils/pagination/links", pager: contacts, columns: 4

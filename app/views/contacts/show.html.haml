@@ -12,7 +12,9 @@
               %th= t("contact.email")
               %td= @contact.email
       .footer
-        %button.btn.btn-success.btn-sm.copy{"data-clipboard-text" => @contact.full}= t("contact.copy.one")
+        %span{"data-controller" => "clipboard"}
+          %input.d-none{"data-clipboard-target" => "email", type: "text", value: @contact.full, readonly: true}
+          %button.btn.btn-success.btn-sm{"data-action" => "clipboard#copy"}= t("contact.copy.one")
         = link_to t("contact.contacts"), contacts_path, class: "btn btn-success btn-sm"
         - if can?(:update, Contact)
           = link_to t("edit"), edit_contact_path(@contact), class: "btn btn-primary btn-sm"
