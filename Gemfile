@@ -15,6 +15,7 @@ gem 'csv', '< 4'
 gem 'sprockets-rails', '~> 3.4'
 gem "importmap-rails", "~> 2.1"
 gem "turbo-rails", "~> 2.0"
+gem "stimulus-rails", "~> 1.3"
 
 # Temporary fix
 gem "nokogiri", force_ruby_platform: true
