@@ -61,8 +61,7 @@ describe Exhibit, js: true do
       expect(Exhibit.count).to eq 0
     end
 
-    # TODO: this doesn't work with js, the exhibition isn't deleted
-    it "delete with painting", js: false do
+    it "delete with painting" do
       expect(exhibit.paintings).to eq []
       expect(exhibit.paintings_count).to eq 0
       expect(painting.exhibit).to eq nil
@@ -88,9 +87,12 @@ describe Exhibit, js: true do
       end
       click_link exhibit.name
       click_link t("edit")
-      # accept_confirm do
+      accept_confirm do
         click_link t("delete")
-      # end
+      end
+
+      # HACK: for some reason a little delay is needed here to ensure a pass
+      sleep 1
 
       expect(Exhibit.count).to eq 0
       expect(Painting.count).to eq 1
