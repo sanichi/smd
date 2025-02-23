@@ -10,3 +10,4 @@
       - if can?(:destroy, c)
         = link_to t("symbol.cross"), remove_contact_path(id: c.id), class: "btn btn-danger btn-sm",
           data: { turbo_method: :delete, turbo_confirm: t("sure") }
+= render "utils/pagination/links", pager: contacts, columns: 4
