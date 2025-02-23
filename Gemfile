@@ -17,6 +17,9 @@ gem "importmap-rails", "~> 2.1"
 gem "turbo-rails", "~> 2.0"
 gem "stimulus-rails", "~> 1.3"
 
+# Temporary fix to silence warnings about gem no longer being standard library
+gem "ostruct", "~> 0.6.1"
+
 # Temporary fix
 gem "nokogiri", force_ruby_platform: true
 
