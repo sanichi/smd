@@ -39,6 +39,10 @@ class ContactsController < ApplicationController
     redirect_to contacts_path
   end
 
+  def remove
+    @contact.destroy
+  end
+
   def subscribe
     @contact = Contact.new
   end

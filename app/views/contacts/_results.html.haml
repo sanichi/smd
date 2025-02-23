@@ -1,5 +1,5 @@
 - contacts.matches.each do |c|
-  %tr
+  %tr{id: dom_id(c)}
     %td= link_to c.email, c, "data-turbo-frame" => "_top"
     %td= c.first_name
     %td= c.last_name
@@ -7,4 +7,6 @@
       %span{"data-controller" => "clipboard"}
         %input.d-none{"data-clipboard-target" => "email", type: "text", value: c.full, readonly: true}
         %button.btn.btn-success.btn-sm{"data-action" => "clipboard#copy"}= t("contact.copy.one")
-= render "utils/pagination/links", pager: contacts, columns: 4
+      - if can?(:destroy, c)
+        = link_to t("symbol.cross"), remove_contact_path(id: c.id), class: "btn btn-danger btn-sm",
+          data: { turbo_method: :delete, turbo_confirm: t("sure") }

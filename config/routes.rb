@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :contacts do
     get :subscribe, on: :collection
     get :unsubscribe, on: :collection
+    delete :remove, on: :member
   end
   resources :contents
   resources :exhibits do
