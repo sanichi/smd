@@ -10,7 +10,7 @@ gem 'cancancan', '~> 3.0'
 gem 'redcarpet', '~> 3.5'
 gem 'meta-tags', '~> 2.12'
 gem 'rotp', '~> 6.2'
-gem 'rqrcode', '~> 2.1'
+gem 'rqrcode', '~> 3.1'
 gem 'csv', '< 4'
 gem 'sprockets-rails', '~> 3.4'
 gem "importmap-rails", "~> 2.1"
