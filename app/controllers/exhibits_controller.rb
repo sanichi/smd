@@ -10,7 +10,7 @@ class ExhibitsController < ApplicationController
       redirect_to @exhibit
     else
       failure @exhibit
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -19,7 +19,7 @@ class ExhibitsController < ApplicationController
       redirect_to @exhibit
     else
       failure @exhibit
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

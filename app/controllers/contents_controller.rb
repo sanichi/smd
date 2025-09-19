@@ -6,7 +6,7 @@ class ContentsController < ApplicationController
       redirect_to @content
     else
       failure @content
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -15,7 +15,7 @@ class ContentsController < ApplicationController
       redirect_to @content
     else
       failure @content
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
