@@ -1,11 +1,11 @@
 :ruby
   set_meta_tags title: t("painting.paintings")
-  lo = Layout.new(
+  lo = Sni::Layout.call(
     xl: [[2,2,2],[2,2,2,2]],
     lg: [[3,2,3],[2,2],[3,3]],
     sm: [[4,2,4],[3,3],[3,3]],
     xs: [[4,3,5],[4,4],[4,4]],
-  ).to_a
+  )
   inputs = [
     [:query,   t("search"),           :text,   lo[0], placeholder: t("painting.title"), autofocus: true],
     [:price,   t("painting.price"),   :text,   lo[1], placeholder: t("painting.price")],

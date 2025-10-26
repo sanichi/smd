@@ -1,9 +1,6 @@
 :ruby
   set_meta_tags title: t("contact.contacts")
-  lo = Layout.new(
-    xl: [[4,4]],
-    xs: [[5,5]],
-  ).to_a
+  lo = Sni::Layout.call(xl: [[4,4]], xs: [[5,5]])
   inputs = [
     [:query, t("search"), :text,   lo[0], placeholder: t("search"), autofocus: true],
     [:order, t("order"),  :select, lo[1], menu: contact_order_menu(params[:order])],
