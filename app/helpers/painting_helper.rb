@@ -70,6 +70,6 @@ module PaintingHelper
   end
 
   def painting_table_center
-    center(xl: 6, lg: 8, md: 10, sm: 12)
+    Sni::Center.call(xl: 6, lg: 8, md: 10, sm: 12)
   end
 end
