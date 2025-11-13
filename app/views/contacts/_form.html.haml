@@ -6,4 +6,4 @@
     [:first_name, t("contact.first_name"), :text, maxlength: Contact::MAX_NAME],
     [:last_name,  t("contact.last_name"),  :text, maxlength: Contact::MAX_NAME],
   ]
-= render "utils/crud/form", object: contact, index: index, inputs: inputs, title: title, center: center(xl: 4, lg: 6, md: 8, sm: 10), save: save
+= render "utils/crud/form", object: contact, index: index, inputs: inputs, title: title, center: Sni::Center.call(xl: 4, lg: 6, md: 8, sm: 10), save: save

@@ -2,7 +2,7 @@
 = render "pages/meta_tags", d: d
 
 .row
-  %div.text-center{class: center(xx: 6, lg: 8, xs: 10)}
+  %div.text-center{class: Sni::Center.call(xx: 6, lg: 8, xs: 10)}
     %h2= d[:title]
     = render "legend", paintings: @paintings
     = render "gallery_items", paintings: @paintings

@@ -2,7 +2,7 @@
   set_meta_tags title: t("exhibit.exhibits")
   inputs = [[:query, t("search"), :text, "offset-3 col-6", placeholder: t("search"), autofocus: true]]
 .row
-  %div{class: center(xl: 6, lg: 8, md: 10)}
+  %div{class: Sni::Center.call(xl: 6, lg: 8, md: 10)}
     %section
       .header
         %h3.d-inline= t("exhibit.exhibits")

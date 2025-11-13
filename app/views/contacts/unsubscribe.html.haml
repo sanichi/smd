@@ -2,7 +2,7 @@
 
 = form_tag unsubscribe_contacts_path, method: :get, class: "mt-3" do
   .row
-    %div{class: center(xl: 4, lg: 6, md: 8, sm: 10)}
+    %div{class: Sni::Center.call(xl: 4, lg: 6, md: 8, sm: 10)}
       %section
         .body
           = label_tag :email, t("contact.email"), class: "form-label"
