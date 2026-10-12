@@ -18,7 +18,7 @@ class ContactsController < ApplicationController
     else
       failure @contact
       if subscription
-        render :subscribe
+        render :subscribe, status: :unprocessable_content
       else
         render :new, status: :unprocessable_content
       end
