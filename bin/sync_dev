@@ -38,6 +38,10 @@ exit unless $ans =~ /^Y(es)?/i;
 # Update local database.
 &run("psql -q $loc_db < $tmp_sql", "couldn't import SQL to development DB");
 
+# The dump brings over Rails' environment marker as "production".
+my $env_sql = "UPDATE ar_internal_metadata SET value = 'development' WHERE key = 'environment'";
+&run("psql -q $loc_db -c \"$env_sql\"", "couldn't reset environment in development DB");
+
 # Update local images.
 &run("tar -xzf $tmp_tar -C $loc_path", "couldn't untar local images");
 
